@@ -13,4 +13,6 @@ npm install
 ```
 
 ### 3. Start the application
-``` npm start ```
+``` 
+npm start 
+```
