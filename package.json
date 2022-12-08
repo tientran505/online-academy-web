@@ -1,0 +1,30 @@
+{
+  "type": "module",
+  "name": "online-academy-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tientran505/online-academy-web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tientran505/online-academy-web/issues"
+  },
+  "homepage": "https://github.com/tientran505/online-academy-web#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "colog": "^1.0.4",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.6",
+    "mongoose": "^6.8.0",
+    "morgan": "^1.10.0"
+  }
+}
