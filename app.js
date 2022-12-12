@@ -35,3 +35,4 @@ app.listen(port, () => {
   console.log(
     `Online Academy Application listening at http://localhost:${port}`
   );
+});
