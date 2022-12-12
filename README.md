@@ -12,7 +12,14 @@ Go to [https://nodejs.org/en/](https://nodejs.org/en/) and download the install
 npm install
 ```
 
-### 3. Start the application
-``` 
-npm start 
+### 3. Setup .env
+
+```
+cp env.txt .env
+```
+
+### 4. Start the application
+
+```
+npm start
 ```

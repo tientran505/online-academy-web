@@ -1,27 +1,33 @@
 import mongoose from 'mongoose';
 
-export default new mongoose.Schema({
-  name: {
+const studentSchema = new mongoose.Schema({
+  username: {
     type: String,
-    require: [true, 'Please add a name'],
-  },
-
-  email: {
-    type: String,
-    require: [true, 'Please add an email'],
-    unique: true,
-  },
-
-  phone: {
-    type: String,
-  },
-
-  birthday: {
-    type: Date,
+    require: true,
   },
 
   password: {
     type: String,
-    require: [true, 'Please add a password'],
+    require: true,
+  },
+
+  email: {
+    type: String,
+    require: true,
+  },
+
+  birthday: {
+    type: Date,
+    require: true,
+  },
+
+  image: {
+    type: String,
+  },
+
+  displayName: {
+    type: String,
   },
 });
+
+export default mongoose.model('Student', studentSchema);
