@@ -3,6 +3,8 @@ import connectDB from './utils/config/db.js';
 import dotenv from 'dotenv';
 import { engine } from 'express-handlebars';
 import User from './utils/models/User.js';
+import accountRouter from './routes/account.route.js';
+import hbs_sections from 'express-handlebars-sections';
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -20,6 +22,10 @@ app.engine(
   'hbs',
   engine({
     extname: 'hbs',
+    defaultLayout: 'main.hbs',
+    helpers: {
+      section: hbs_sections(),
+    },
   })
 );
 
@@ -66,6 +72,8 @@ app.get('/product', (req, res) => {
 
   res.status(200).json(p);
 });
+
+app.use('/account', accountRouter);
 
 app.listen(3000);
 
