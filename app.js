@@ -2,9 +2,11 @@ import express from 'express';
 import connectDB from './utils/config/db.js';
 import dotenv from 'dotenv';
 import { engine } from 'express-handlebars';
-import User from './utils/models/User.js';
+import User from './utils/models/user.model.js';
+import Course from './utils/models/course.model.js';
 import accountRouter from './routes/account.route.js';
 import hbs_sections from 'express-handlebars-sections';
+import mongoose from 'mongoose';
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -37,7 +39,20 @@ app.get('/', (req, res) => {
 });
 
 app.get('/user', async (req, res) => {
-  const p = await User.find();
+  const course = await Course.findOne({ course_name: 'Angular' });
+  console.log(course.id);
+  // const p = await User.find({
+  //   $or: [{ age: { $gt: 20 } }, { role: 'teacher' }],
+  // });
+
+  const p = await User.find({ registered_courses: course.id });
+
+  console.log(p);
+  res.status(200).json(p);
+});
+
+app.get('/course', async (req, res) => {
+  const p = await Course.find();
 
   console.log(p);
 
