@@ -5,6 +5,7 @@ import { engine } from 'express-handlebars';
 import User from './utils/models/User.js';
 import accountRouter from './routes/account.route.js';
 import hbs_sections from 'express-handlebars-sections';
+import detailRouter from './routes/detail-academy.route.js';
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -74,6 +75,7 @@ app.get('/product', (req, res) => {
 });
 
 app.use('/account', accountRouter);
+app.use('/detail', detailRouter);
 
 app.listen(3000);
 
