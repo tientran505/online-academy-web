@@ -7,9 +7,15 @@ const router = express.Router();
 
 router.get('/register', (req, res) => {
   res.render('vwAccount/register', {
-    isPress: true,
+    isRegister: true,
   });
 });
+
+router.get('/login', (req, res) => {
+  res.render('vwAccount/login', {
+    isLogin: true,
+  })
+})
 
 router.get('/valid-user', async(req, res) => {
   const username = req.query.username;
