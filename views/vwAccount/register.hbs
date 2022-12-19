@@ -11,8 +11,55 @@
   ></script>
 
   <script>
-    $('#txtDOB').datetimepicker({timepicker: false, format: 'd/m/Y', mask:
-    true});
+    $('#frmRegister').on('submit', (e) => { 
+      e.preventDefault(); 
+      const username = $('#txtUsername').val(); 
+      const password = $('#txtPassword').val(); 
+      const password1 = $('#txtPassword1').val(); 
+      const name = $('#txtName').val(); 
+      const email = $('#txtEmail').val(); 
+      console.log(email);
+      if (username.length === 0) { 
+        alert('Please enter username'); 
+      } 
+
+      else if (password.length === 0) {
+        alert('Please enter password'); 
+      }
+
+      else if (password1.length === 0) {
+        alert('Please re-enter password'); 
+      }
+      
+      else if (name.length === 0) {
+        alert('Please enter your name'); 
+      } 
+      
+      else if (email.length === 0) {
+        alert('Please enter your email'); 
+      }
+
+      else if (password !== password1) { 
+        alert('Your password does not match. Please try again'); 
+      }
+
+      else { 
+        $.getJSON(`/account/valid-user?username=${username}&email=${email}`, (data) => {
+          if (!data.userExist || !data.emailExist) {
+            if (!data.userExist) {
+              alert('Username was used. Please enter another username');
+            }
+            else alert('Email was used. Please enter another email');
+          } 
+
+          else {
+          $('#frmRegister').off('submit').submit();
+         }
+        })
+      }  
+    });
+
+    $('#txtDOB').datetimepicker({timepicker: false, format: 'd/m/Y', mask: true});
   </script>
 {{/section}}
 
@@ -21,7 +68,7 @@
     Registration Form
   </h5>
   <div class='card-body'>
-    <form>
+    <form method='post' id='frmRegister'>
       <h5 class='p0'>Account Information</h5>
       <div class='form-group'>
         <label for='exampleInputEmail1'>Username</label>
@@ -29,17 +76,32 @@
           type='text'
           class='form-control'
           placeholder='Enter your username'
+          id='txtUsername'
+          name='username'
+          autofocus
         />
       </div>
 
       <div class='form-group'>
         <label for='exampleInputPassword1'>Password</label>
-        <input type='password' class='form-control' />
+        <input
+          type='password'
+          class='form-control'
+          placeholder='Enter your password'
+          id='txtPassword'
+          name='password'
+        />
       </div>
 
       <div class='form-group'>
         <label for='exampleInputPassword1'>Confirm password</label>
-        <input type='password' class='form-control' />
+        <input
+          type='password'
+          class='form-control'
+          id='txtPassword1'
+          placeholder='Re-enter your password'
+          name='password1'
+        />
       </div>
 
       <h5 class='mt-5'>Personal Information</h5>
@@ -49,6 +111,8 @@
           type='text'
           class='form-control'
           placeholder='Enter your full name'
+          id='txtName'
+          name='name'
         />
       </div>
 
@@ -57,15 +121,22 @@
         <input
           type='email'
           class='form-control'
-          id='exampleInputEmail1'
+          id='txtEmail'
           aria-describedby='emailHelp'
           placeholder='Enter your email'
+          name='email'
         />
       </div>
 
       <div class='form-group'>
         <label for='txtDOB'>Birthday</label>
-        <input type='text' id='txtDOB' class='form-control' />
+        <input
+          type='text'
+          id='txtDOB'
+          class='form-control'
+          name='dob'
+          required
+        />
       </div>
 
       <button type='submit' class='btn btn-primary'>Submit</button>
