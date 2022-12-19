@@ -38,14 +38,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/user', async (req, res) => {
-  const course = await Course.findOne({ course_name: 'Angular' });
-  console.log(course.id);
-  // const p = await User.find({
-  //   $or: [{ age: { $gt: 20 } }, { role: 'teacher' }],
-  // });
-
-  const p = await User.find({ registered_courses: course.id });
-
+  const p =  await User.findOne({username: 'tientranssss'});
+  
   console.log(p);
   res.status(200).json(p);
 });

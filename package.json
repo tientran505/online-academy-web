@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/tientran505/online-academy-web#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
     "colog": "^1.0.4",
     "colors": "^1.4.0",

@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const dType = mongoose.Schema.Types;
 
-const courseSchema = mongoose.Schema({
+const reviewSchema = mongoose.Schema({
   course: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Course',
@@ -22,4 +22,4 @@ const courseSchema = mongoose.Schema({
   },
 });
 
-export default mongoose.model('Review', courseSchema);
+export default mongoose.model('Review', reviewSchema);

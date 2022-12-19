@@ -3,6 +3,10 @@ import mongoose from 'mongoose';
 const dType = mongoose.Schema.Types;
 
 const userSchema = new mongoose.Schema({
+  img: {
+    type: dType.String,
+  },
+
   username: {
     type: dType.String,
     require: true,
@@ -15,10 +19,6 @@ const userSchema = new mongoose.Schema({
 
   name: {
     type: dType.String,
-  },
-
-  age: {
-    type: dType.Number,
   },
 
   email: {
@@ -36,11 +36,6 @@ const userSchema = new mongoose.Schema({
 
   role: {
     type: dType.String,
-    require: true,
-  },
-
-  phone_number: {
-    type: String,
     require: true,
   },
 
