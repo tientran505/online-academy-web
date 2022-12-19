@@ -6,6 +6,7 @@ import User from './utils/models/user.model.js';
 import Course from './utils/models/course.model.js';
 import accountRouter from './routes/account.route.js';
 import hbs_sections from 'express-handlebars-sections';
+import detailRouter from './routes/detail-academy.route.js'
 
 dotenv.config();
 const port = process.env.PORT || 5000;
