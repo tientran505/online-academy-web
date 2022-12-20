@@ -105,3 +105,6 @@ dist
 
 # Database connection
 .env
+
+# idea of intellij
+.idea

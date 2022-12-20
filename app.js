@@ -9,7 +9,7 @@ import hbs_sections from 'express-handlebars-sections';
 import detailRouter from './routes/detail-academy.route.js';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import courseRouter from './routes/course.route.js'
+import courseRouter from './routes/course.route.js';
 import numeral from 'numeral';
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -34,27 +34,24 @@ app.engine(
       section: hbs_sections(),
       format_number(val) {
         return numeral(val).format('0,0');
-      }
-    }
-  }));
-
-// console.log(__dirname)
+      },
+    },
+  })
+);
 
 app.set('view engine', 'hbs');
-app.set('views', __dirname + "/views");
+app.set('views', __dirname + '/views');
 
 app.get('/', (req, res) => {
   res.render('home');
 });
 
 app.get('/user', async (req, res) => {
-  const p =  await User.findOne({username: 'tientranssss'});
-  
+  const p = await User.findOne({ username: 'tientranssss' });
+
   console.log(p);
   res.status(200).json(p);
 });
-
-
 
 app.post('/user/register', async (req, res) => {
   const { username, password } = req.body;
