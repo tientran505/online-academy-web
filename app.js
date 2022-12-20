@@ -6,11 +6,15 @@ import User from './utils/models/user.model.js';
 import Course from './utils/models/course.model.js';
 import accountRouter from './routes/account.route.js';
 import hbs_sections from 'express-handlebars-sections';
-import detailRouter from './routes/detail-academy.route.js'
+import detailRouter from './routes/detail-academy.route.js';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
 const port = process.env.PORT || 5000;
 connectDB();
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
@@ -31,8 +35,10 @@ app.engine(
   })
 );
 
+// console.log(__dirname)
+
 app.set('view engine', 'hbs');
-app.set('views', './views');
+app.set('views', __dirname + "/views");
 
 app.get('/', (req, res) => {
   res.render('home');
