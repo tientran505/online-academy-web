@@ -6,12 +6,15 @@ import User from './utils/models/user.model.js';
 import Course from './utils/models/course.model.js';
 import accountRouter from './routes/account.route.js';
 import hbs_sections from 'express-handlebars-sections';
-import detailRouter from './routes/detail-academy.route.js'
-import courseRouter from './routes/course.route.js'
-import numeral from 'numeral';
+import detailRouter from './routes/detail-academy.route.js';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
 dotenv.config();
 const port = process.env.PORT || 5000;
 connectDB();
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
@@ -28,14 +31,14 @@ app.engine(
     defaultLayout: 'main.hbs',
     helpers: {
       section: hbs_sections(),
-      format_number(val) {
-        return numeral(val).format('0,0');
-      }
-    }
-  }));
+    },
+  })
+);
+
+// console.log(__dirname)
 
 app.set('view engine', 'hbs');
-app.set('views', './views');
+app.set('views', __dirname + "/views");
 
 app.get('/', (req, res) => {
   res.render('home');
@@ -48,7 +51,13 @@ app.get('/user', async (req, res) => {
   res.status(200).json(p);
 });
 
+app.get('/course', async (req, res) => {
+  const p = await Course.find();
 
+  console.log(p);
+
+  res.status(200).json(p);
+});
 
 app.post('/user/register', async (req, res) => {
   const { username, password } = req.body;
@@ -81,7 +90,7 @@ app.get('/product', (req, res) => {
 
 app.use('/account', accountRouter);
 app.use('/detail', detailRouter);
-app.use('/course', courseRouter);
+
 app.listen(3000);
 
 app.listen(port, () => {
