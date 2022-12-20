@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "online-academy-web",
+  "name": "online-academy-web-hcmus",
   "builds": [
     {
       "src": "./app.js",
