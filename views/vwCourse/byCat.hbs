@@ -1,0 +1,48 @@
+
+<div class="card">
+    <div class="card-body">
+        <div class="card mb-12 border-0" >
+
+                    {{#each this.course}}
+                    <div class="card contain-fluid ">
+                        <div class="row no-gutters">
+                            <div class="col-md-3">
+                                <img src="..." alt="...">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body" >
+                                    <h5 class="card-title">{{course_name}}</h5>
+                                    <p class="card-text">{{brief_description}}</p>
+                                    <a class="card-text"><small class="text-muted">{{author}}</small></a>
+                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mr-auto p-2 ">
+                                <h5 class="card-title text-danger">{{format_number price}} vnd</h5>
+                            </div>
+                        </div>
+                    </div>
+                        <p></p>
+                    {{/each}}
+        </div>
+    </div>
+
+    <div class="card-footer text-muted">
+        <nav class="d-flex flex-row-reverse bd-highlight">
+            <ul class="pagination">
+                <li class="page-item disabled">
+                    <a class="page-link">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
