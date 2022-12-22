@@ -2,9 +2,17 @@
 <div class="card">
     <div class="card-body">
         <div class="card mb-12 border-0" >
-
+                    {{#if this.empty}}
+                        <div class="alert alert-success" role="alert">
+                            <h4 class="alert-heading">This page is empty</h4>
+                            <p> We are so sorry for this bad experience. Please view back later</p>
+                            <hr>
+                            <p class="mb-0">Move back to course <a href="course?page=1">Move</a></p>
+                        </div>
+                    </div>
+                    {{/if}}
                     {{#each this.course}}
-                    <div class="card contain-fluid ">
+                    <div class="card  " style=" min-height: 180px;">
                         <div class="row no-gutters">
                             <div class="col-md-3">
                                 <img src="..." alt="...">
@@ -17,8 +25,9 @@
                                     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                                 </div>
                             </div>
-                            <div class="col-md-2 mr-auto p-2 ">
-                                <h5 class="card-title text-danger">{{format_number price}} vnd</h5>
+                            <div class="col-2 px-md-4 p-3 ">
+                                <h5 class="card-title text-danger text-right">đ {{format_number sale}}</h5>
+                                <p class="text-right text-decoration-line-through" style="text-decoration: line-through;">đ {{format_number price}}</p>
                             </div>
                         </div>
                     </div>
@@ -30,17 +39,14 @@
     <div class="card-footer text-muted">
         <nav class="d-flex flex-row-reverse bd-highlight">
             <ul class="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
+                    <a class="page-link" href="?page={{this.prePage}}">Previous</a>
                 </li>
+        {{#each pageNumber}}
+      <li class="page-item {{#if isCurrent}}active{{/if}}"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
+        {{/each}}
+                </li>
+                <li class="page-item "><a class="page-link" href="?page={{this.nextPage}}">Next</a></li>
             </ul>
         </nav>
     </div>
