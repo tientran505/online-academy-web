@@ -1,7 +1,16 @@
+{{#section 'css'}}
 
-<div class="card">
-    <div class="card-body">
-        <div class="card mb-12 border-0" >
+{{/section}}
+
+{{#section 'js'}}
+<script>
+
+
+</script>
+{{/section}}
+<div id="byCat" class="card">
+    <div class="card-body ">
+        <div class=" mb-12 " >
                     {{#if this.empty}}
                         <div class="alert alert-success" role="alert">
                             <h4 class="alert-heading">This page is empty</h4>
@@ -12,22 +21,44 @@
                     </div>
                     {{/if}}
                     {{#each this.course}}
-                    <div class="card  " style=" min-height: 180px;">
+                        <div class="card h-100 border border-success " style=" min-height: 180px;">
                         <div class="row no-gutters">
                             <div class="col-md-3">
-                                <img class="img-fluid img-thumbnail"style="max-height: 160px; max-width: 160px; min-width: 160px; min-height: 160px; background-color: rgba(255,0,0,0.1);" src="public/imgs/image.png" alt="{{ProName}}" title="{{ProName}}">
+                                <img class="img-fluid img-thumbnail"style=" min-width: 160px; min-height: 160px; background-color: rgba(255,0,0,0.1);" src="public/imgs/image.png" alt="{{ProName}}" title="{{ProName}}">
                             </div>
                             <div class="col-md-7">
-                                <div class="card-body" >
-                                    <h5 class="card-title">{{course_name}}</h5>
-                                    <p class="card-text">{{brief_description}}</p>
-                                    <a class="card-text"><small class="text-muted">{{author}}</small></a>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                <div class="card-body text-dark"  >
+                                    <h5 class="card-title font-weight-bold ">{{course_name}}</h5>
+                                    <div>
+                                        {{brief_description}}  </br>
+                                   <small class="text text-muted">{{authors}} </small>
+                                    <div>
+                                        <a class="card-text text-dark" ><b class="font-weight-bold text-danger">{{rate}}</b>
+                                            <small> <i class="fa fa-star" style="color: gold" id="rate" aria-hidden="true"></i>
+                                            <a>    ({{count_rate}} 50000 )</a>
+                                        </small></a>
+
+                                    </div>
+                                        <small class="text text-muted">more detail </small>
+                                    </div>
+                                    <div>
+                                        <a class="btn btn-sm btn-outline-success" href="#" role="button">
+                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                            Add to cart
+                                        </a>
+                                        <a class="btn btn-sm btn-outline-danger" href="#" role="button">
+                                            <i class="fa fa-credit-card" aria-hidden="true"></i>
+                                            Buy now
+                                        </a>
+
+
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-2 px-md-4 p-3 ">
-                                <h5 class="card-title text-danger text-right">đ {{format_number sale}}</h5>
-                                <p class="text-right text-decoration-line-through" style="text-decoration: line-through;">đ {{format_number price}}</p>
+                            <div class="col p-3 " style=" min-width: 80px; display: block;" >
+                                <p id="discount" class="text-right text-decoration-line-through" style="text-decoration: line-through;">đ{{format_number price}}</p>
+                                <h5 id="sale" class="card-title text-danger text-right">đ{{format_number sale}}</h5>
+
                             </div>
                         </div>
                     </div>

@@ -35,8 +35,8 @@ router.get('/', async (req, res) => {
     nextPage = +curPage +1;
     
   }
-  console.log(prePage);
-  console.log(nextPage);
+  //console.log(list);
+  
   res.render('vwCourse/byCat', {
     course: list,
     pageNumber: pageNumber,
