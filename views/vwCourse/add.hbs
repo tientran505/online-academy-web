@@ -1,0 +1,78 @@
+{{#section 'css'}}
+{{/section}}
+
+{{#section 'js'}}
+
+    <script src="https://cdn.tiny.cloud/1/ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#txtTinyDescription',
+            selector:'#txtFullDescription',
+            // plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            // toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+            menubar: false,
+            plugins: 'paste image link autolink lists table media',
+            toolbar: [
+                'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
+            ],
+        });
+    </script>
+
+{{/section}}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="card">
+        <h4 class="card-header d-flex justify-content-center">
+            New Course
+        </h4>
+        <b>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="txtCourseName">Your Course Name</label>
+                <input name="CourseNAme" type="text" class="form-control" id="txtCourseName" autofocus>
+            </div>
+            <div class="form-group">
+                <label for="txtCategory">Course Category</label>
+                <input name="Category" type="text" class="form-control" id="Category"  placeholder="Python, Java, C/C++,...">
+            </div>
+            <div class="form-group ">
+                <input type="radio" id="complete" name="complete" value="complete">
+                <label for="complete">Course is completed</label><br>
+            </div>
+            <div class="form-group">
+                <label for="txtPrice">Your Course Price</label>
+                <input name="Price" type="text" class="form-control" id="Price">
+            </div>
+            <div class="form-group">
+                <label for="txtDiscount">Your Course Discount (if any)</label>
+                <input name="Discount" type="text" class="form-control" id="Discount">
+            </div>
+
+            <div class="form-group">
+                <label for="txtTinyDescription">Course Brief Description</label>
+                <textarea name="TinyDescription"  id="txtTinyDescription"  >Short description about your course..</textarea>
+            </div>
+            <div class="form-group">
+                <label for="txtFullDescription">Course Full Description</label>
+                <textarea name="FullDescription" id="txtFullDescription"  >All description about your course..</textarea>
+            </div>
+
+
+            <div class="form-group">
+                <label for="fuMain">Photo</label>
+                <input type="file" multiple name="fuMain" id="fuMain">
+            </div>
+            <div class="form-group">
+                <label for="txtFullDes">Description</label>
+                <textarea id="txtFullDes" name="FullDes">Welcome to TinyMCE!</textarea>
+            </div>
+        </div>
+        </b>
+        <div class="card-footer text-muted">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Save
+            </button>
+        </div>
+    </div>
+</form>

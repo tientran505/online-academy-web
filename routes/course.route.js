@@ -45,5 +45,9 @@ router.get('/', async (req, res) => {
     nextPage: nextPage,
   });
 });
+router.get('/add', async (req, res) => {
+  res.render('vwCourse/add',{
 
+  })
+});
 export default router;
