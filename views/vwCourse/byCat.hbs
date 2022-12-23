@@ -15,7 +15,7 @@
                     <div class="card  " style=" min-height: 180px;">
                         <div class="row no-gutters">
                             <div class="col-md-3">
-                                <img src="..." alt="...">
+                                <img class="img-fluid img-thumbnail"style="max-height: 160px; max-width: 160px; min-width: 160px; min-height: 160px; background-color: rgba(255,0,0,0.1);" src="public/imgs/image.png" alt="{{ProName}}" title="{{ProName}}">
                             </div>
                             <div class="col-md-7">
                                 <div class="card-body" >
@@ -39,14 +39,14 @@
     <div class="card-footer text-muted">
         <nav class="d-flex flex-row-reverse bd-highlight">
             <ul class="pagination">
-                <li class="page-item">
+               <li class="page-item {{#if this.prePage}}{{else}}disabled{{/if}} ">
                     <a class="page-link" href="?page={{this.prePage}}">Previous</a>
                 </li>
         {{#each pageNumber}}
       <li class="page-item {{#if isCurrent}}active{{/if}}"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
         {{/each}}
                 </li>
-                <li class="page-item "><a class="page-link" href="?page={{this.nextPage}}">Next</a></li>
+                <li class="page-item  {{#if this.nextPage}}{{else}}disabled{{/if}} "><a class="page-link" href="?page={{this.nextPage}}">Next</a></li>
             </ul>
         </nav>
     </div>

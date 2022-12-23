@@ -22,13 +22,13 @@ router.get('/', async (req, res) => {
   let prePage;
   let nextPage;
   if(1 ===+curPage){
-    prePage =1;
+    prePage =0;
   }
   else{
     prePage = +curPage -1;
   }
   if(+nPage===+curPage){
-    nextPage= nPage;
+    nextPage= 0;
 
   }
   else{
