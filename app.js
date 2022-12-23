@@ -10,7 +10,10 @@ import detailRouter from './routes/detail-academy.route.js';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import courseRouter from './routes/course.route.js';
+import categoryService from './services/category.service.js';
 import numeral from 'numeral';
+import session from 'express-session';
+
 dotenv.config();
 const port = process.env.PORT || 5000;
 connectDB();
@@ -42,7 +45,25 @@ app.engine(
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
 
-app.get('/', (req, res) => {
+app.set('trust proxy', 1); // trust first proxy
+app.use(
+  session({
+    secret: 'SECRET_KEYYYYYY',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      // secure: true
+    },
+  })
+);
+
+app.use(async (req, res, next) => {
+  const list = await categoryService.findAll();
+  res.locals.lcCategories = JSON.parse(JSON.stringify(list));
+  next();
+});
+
+app.get('/', async (req, res) => {
   res.render('home');
 });
 

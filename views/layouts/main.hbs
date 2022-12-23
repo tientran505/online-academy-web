@@ -51,22 +51,23 @@
               Categories
             </a>
             <div class='dropdown-menu'>
-              <a class='dropdown-item' href='#'>Web Development</a>
-              <a class='dropdown-item' href='#'>Mobile Development</a>
+              {{#each lcCategories}}
+                <a class='dropdown-item mb-2' href='#'>{{title}}</a>
+              {{/each}}
             </div>
           </li>
         </ul>
 
         <form class='form-inline my-2 my-lg-0 mr-4 w-75'>
           <input
-            class='form-control mr-sm-2 w-75'
+            class='form-control mr-sm-2 w-75 rounded-pill'
             type='search'
             placeholder='Search for anything'
             aria-label='Search'
           />
 
           <button
-            class='btn btn-outline-success my-2 my-sm-0 inline'
+            class='btn btn-outline-success my-2 my-sm-0 inline form-control'
             type='submit'
           >Search
             <i class='fa fa-search' aria-hidden='true'></i></button>
@@ -115,7 +116,6 @@
 
     <div class='container mt-2'>
       {{{body}}}
-      {{! add body here }}
     </div>
 
     <script src='https://code.jquery.com/jquery-3.6.1.min.js'></script>

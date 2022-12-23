@@ -14,26 +14,40 @@ router.get('/register', (req, res) => {
 router.get('/login', (req, res) => {
   res.render('vwAccount/login', {
     isLogin: true,
-  })
-})
+  });
+});
 
-router.get('/valid-user', async(req, res) => {
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  const user = await User.findOne({ username });
+  if (!user || !bcypt.compare(password, user.password)) {
+    return res.render('vwAccount/login', {
+      errMessage: 'Invalid credentials.',
+    });
+  }
+
+  const url = '/';
+  return res.redirect(url);
+});
+
+router.get('/valid-user', async (req, res) => {
   const username = req.query.username;
   const email = req.query.email;
 
-  const userExist = await User.findOne({username});
-  const emailExist = await User.findOne({email});
+  const userExist = await User.findOne({ username });
+  const emailExist = await User.findOne({ email });
 
   return res.json({
     userExist: userExist === null,
     emailExist: emailExist === null,
-  })
-})
+  });
+});
 
 router.post('/register', async (req, res) => {
   console.log(req.body);
 
-  const {username, name, email, dob, password} = req.body;
+  const { username, name, email, dob, password } = req.body;
 
   const salt = await bcypt.genSalt(10);
   const hashedPassword = await bcypt.hash(password, salt);
@@ -46,7 +60,7 @@ router.post('/register', async (req, res) => {
     email,
     birthday,
     role: 'student',
-  })
+  });
 
   res.render('vwAccount/register', {
     isPress: true,
