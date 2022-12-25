@@ -30,8 +30,9 @@ const courseSchema = mongoose.Schema({
   },
 
   category: {
-    type: dType.String,
+    type: Object,
     require: true,
+    ref: 'Category',
   },
 
   price: {

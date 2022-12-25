@@ -9,6 +9,7 @@
           <div class='form-group'>
             <label class='font-weight-bold'>USERNAME</label>
             <input
+              name='username'
               type='text'
               class='form-control'
               placeholder='Enter your username'
@@ -18,12 +19,31 @@
           <div class='form-group'>
             <label class='font-weight-bold'>PASSWORD</label>
             <input
+              name='password'
               type='password'
               class='form-control'
               id='exampleInputPassword1'
               placeholder='Enter your password'
             />
           </div>
+
+          {{#if this.errMessage}}
+            <div
+              class='alert alert-danger alert-dismissible fade show'
+              role='alert'
+            >
+              <strong>Login failed. </strong>
+              {{this.errMessage}}
+              <button
+                type='button'
+                class='close'
+                data-dismiss='alert'
+                aria-label='Close'
+              >
+                <span aria-hidden='true'>&times;</span>
+              </button>
+            </div>
+          {{/if}}
 
           <button type='submit' class='btn btn-primary container-fluid'>
             <span class='font-weight-bold'>
