@@ -10,24 +10,6 @@
 {{/section}}
 
 {{#section 'js'}}
-  <script
-    src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"
-  ></script>
-
-  <script
-    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-    crossorigin="anonymous"
-  ></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
-    integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
-    crossorigin="anonymous"
-  ></script>
-  <script src="https://kit.fontawesome.com/80d24bd388.js" crossorigin="anonymous"></script>
-  
   <script>
     $("#accordion").on("hide.bs.collapse show.bs.collapse", e => {
         $(e.target)
@@ -38,11 +20,12 @@
   </script>
 {{/section}}
 
+{{#each this.course}}
 <div class="container-fluid p-0 m-0">
   <div class="card-header border-0" style="background-color: lightcyan;">
       <div class="card d-flex flex-row p-3 border-0" style="background-color: lightcyan;">
         <div class="col-sm-6 p-0">
-          <h2 class="border-0 text-center font-weight-bold mb-4 mt-3">Tên khoá học</h2>
+          <h2 class="border-0 text-center font-weight-bold mb-4 mt-3">{{course_name}}</h2>
           <div class="d-flex flex-column">
             <div class="evaluation mb-3">
               <div class="stars">
@@ -117,7 +100,7 @@
             <div class="content mb-3">
               <div class="pl-3">
                 <i class="bi bi-card-checklist pr-3"></i>
-                <span> Nội dung </span>
+                <span>{{brief_description}}</span>
               </div>
             </div>
             <div class="number-of-student mb-3">
@@ -129,7 +112,7 @@
             <div class="fee mb-3">
               <div class="pl-3">
                 <i class="bi bi-cash-coin pr-3"></i>
-                <span> Học phí </span>
+                <span>{{price}}</span>
               </div>
             </div>
             <div class="last-update mb-3">
@@ -147,501 +130,477 @@
         </div>
       </div>
   </div>
-  <div class="card-detail">
-      <div class="card border-0 px-3 py-4 d-flex flex-row">
-        <div class="col-sm-6 pl-4 pr-0 border-success" style="height: 300px;">
-          <div class="img h-100 d-flex align-items-center justify-content-center">
-            <img src="./QpjAiHq.jpg" class="border p-2 mh-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+  <div class="info-course" style="margin: 0 70px;">
+    <div class="card-detail d-flex justify-content-center">
+        <div class="card border-0 px-3 py-4 d-flex flex-row w-75">
+          <div class="col-sm-6 pl-4 pr-0 border-success" style="height: 300px;">
+            <div class="img h-100 d-flex align-items-center justify-content-center">
+              <img src="./QpjAiHq.jpg" class="border p-2 mh-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+            </div>
+          </div>
+          <div class="col-sm-6 pl-4 pr-0">
+            <div class="container-fluid d-flex flex-column h-100">
+              <h2 class="text-left font-weight-bold mb-5">Nội dung chi tiết</h2>
+              <div class="jumbotron px-3 py-2 mb-4">
+                <div>
+                  <div class="icon d-flex justify-content-start align-items-stretch">
+                    <i class="bi bi-hourglass-split mr-3"></i>
+                    <span class="text-center">{{detail_description}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="jumbotron px-3 py-2 mb-4">
+                <div>
+                  <div class="icon d-flex justify-content-start align-items-stretch">
+                    <i class="bi bi-graph-up-arrow mr-3"></i>
+                    <span class="text-center">{{detail_description}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="jumbotron px-3 py-2 mb-4">
+                <div>
+                  <div class="icon d-flex justify-content-start align-items-stretch">
+                    <i class="bi bi-patch-check mr-3"></i>
+                    <span class="text-center">{{detail_description}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-sm-6 pl-4 pr-0">
-          <div class="container-fluid d-flex flex-column h-100">
-            <h2 class="text-left font-weight-bold mb-5">Nội dung chi tiết</h2>
-            <div class="jumbotron px-3 py-2 mb-4">
-              <div>
-                <div class="icon d-flex justify-content-start align-items-stretch">
-                  <i class="bi bi-hourglass-split mr-3"></i>
-                  <span class="text-center">Giúp bạn đạt chỉ tiêu nhanh nhất</span>
-                </div>
+    </div>
+    <hr width="85%" align="center">
+    <div class="card-document d-flex justify-content-center flex-column">
+        <div class="p-0 m-4">
+          <h2 class="text-left font-weight-bold">Bài giảng</h2>
+        </div>
+        <div id="accordion" class="myaccordion w-75" style="max-width: 800px; margin: 0 auto;">
+          <div class="card border-0">
+            <div class="card-header border-0" style="background-color: transparent;" id="headingOne">
+              <h2 class="mb-0">
+                <button class="d-flex align-items-center justify-content-between btn btn-link collapsed w-100 font-weight-bold p-0 text-decoration-none" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  Undergraduate Studies
+                  <span class="fa-stack fa-sm" style="font-size: 18px;">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </h2>
+            </div>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <ul>
+                  <li>Computer Science</li>
+                  <li>Economics</li>
+                  <li>Sociology</li>
+                  <li>Nursing</li>
+                  <li>English</li>
+                </ul>
               </div>
             </div>
-            <div class="jumbotron px-3 py-2 mb-4">
-              <div>
-                <div class="icon d-flex justify-content-start align-items-stretch">
-                  <i class="bi bi-graph-up-arrow mr-3"></i>
-                  <span class="text-center">Cải thiện bản thân</span>
-                </div>
+          </div>
+          <div class="card border-0">
+            <div class="card-header border-0" style="background-color: transparent;"  id="headingTwo">
+              <h2 class="mb-0">
+                <button class="d-flex align-items-center justify-content-between btn btn-link collapsed w-100 font-weight-bold p-0 text-decoration-none" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Postgraduate Studies
+                  <span class="fa-stack fa-2x" style="font-size: 18px;">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+              <div class="card-body">
+                <ul>
+                  <li>Informatics</li>
+                  <li>Mathematics</li>
+                  <li>Greek</li>
+                  <li>Biostatistics</li>
+                  <li>English</li>
+                  <li>Nursing</li>
+                </ul>
               </div>
             </div>
-            <div class="jumbotron px-3 py-2 mb-4">
-              <div>
-                <div class="icon d-flex justify-content-start align-items-stretch">
-                  <i class="bi bi-patch-check mr-3"></i>
-                  <a>Chứng chỉ</a>
-                </div>
+          </div>
+          <div class="card border-0">
+            <div class="card-header border-0" style="background-color: transparent;"  id="headingThree">
+              <h2 class="mb-0">
+                <button class="d-flex align-items-center justify-content-between btn btn-link collapsed w-100 font-weight-bold p-0 text-decoration-none" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Research
+                  <span class="fa-stack fa-2x" style="font-size: 18px;">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+              <div class="card-body">
+                <ul>
+                  <li>Astrophysics</li>
+                  <li>Informatics</li>
+                  <li>Criminology</li>
+                  <li>Economics</li>
+                </ul>
               </div>
             </div>
+          </div>
+        </div>
+    </div>
+    <hr width="85%" align="center">
+    <div class="card-teacher">
+        <div class="p-0 m-4">
+          <h2 class="text-left font-weight-bold">Instructor</h2>
+        </div>
+        <div class="instructor mx-5">
+          <div class="instructor-name">
+            <a href="#" class="font-weight-bolder">
+              <span>{{authors}}</span>
+            </a>
+          </div>
+          <div class="instructor-info d-flex flex-row mt-3" style="height: 130px;">
+            <div class="d-flex overflow-hidden mr-4" style="border-radius: 50%; width: 130px;">
+              <img class="mh-100 mw-100" src="./3f569278a9ec66b23ffd.jpg" alt="Not found">
+            </div>
+            <div class="rating d-flex flex-column justify-content-center">
+              <div class="star mb-2">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <span>{{rate}} Instructor Rating</span>
+              </div>
+              <div class="reviews mb-2">
+                <i class="bi bi-person-fill"></i>
+                <span>123,456 Reviews</span>
+              </div>
+              <div class="students mb-2">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                <span>12,456 Students</span>
+              </div>
+              <div class="courses mb-2">
+                <i class="bi bi-play-circle-fill"></i>
+                <span>2,000 Courses</span>
+              </div>
+            </div>
+          </div>
+          <div class="description mt-3">
+            <span>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio adipisci quia asperiores enim molestiae tenetur excepturi laborum incidunt illum obcaecati esse aliquid, eveniet dicta provident, dolorum architecto veniam autem vero.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint voluptatibus nobis ad molestias ratione, nulla dolor fuga tenetur nemo omnis, maiores tempore. Porro cupiditate fugit vitae voluptate tenetur animi cum.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni unde veritatis tempora itaque, saepe tempore, nisi neque aperiam nam consectetur vel repellat sunt nostrum fuga delectus minus quam, ad iure.
+            </span>
           </div>
         </div>
       </div>
-  </div>
-  <hr width="85%" align="center">
-  <div class="card-document">
-      <div class="p-0 m-4 ml-5 pl-5">
-        <h2 class="text-left font-weight-bold">Bài giảng</h2>
-      </div>
-      <div id="accordion" class="myaccordion" style="max-width: 800px; margin: 0 auto;">
-        <div class="card border-0">
-          <div class="card-header border-0" style="background-color: transparent;" id="headingOne">
-            <h2 class="mb-0">
-              <button class="d-flex align-items-center justify-content-between btn btn-link collapsed w-100 font-weight-bold p-0 text-decoration-none" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                Undergraduate Studies
-                <span class="fa-stack fa-sm" style="font-size: 18px;">
-                  <i class="fa fa-plus" aria-hidden="true"></i>
-                </span>
-              </button>
-            </h2>
-          </div>
-          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
-              <ul>
-                <li>Computer Science</li>
-                <li>Economics</li>
-                <li>Sociology</li>
-                <li>Nursing</li>
-                <li>English</li>
-              </ul>
-            </div>
-          </div>
+    <hr width="85%" align="center">
+    <div class="card-highlight">
+        <div class="p-0 ml-4">
+          <h2 class="text-left font-weight-bold">Các khoá học nổi bật</h2>
         </div>
-        <div class="card border-0">
-          <div class="card-header border-0" style="background-color: transparent;"  id="headingTwo">
-            <h2 class="mb-0">
-              <button class="d-flex align-items-center justify-content-between btn btn-link collapsed w-100 font-weight-bold p-0 text-decoration-none" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Postgraduate Studies
-                <span class="fa-stack fa-2x" style="font-size: 18px;">
-                  <i class="fa fa-plus" aria-hidden="true"></i>
-                </span>
-              </button>
-            </h2>
-          </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-            <div class="card-body">
-              <ul>
-                <li>Informatics</li>
-                <li>Mathematics</li>
-                <li>Greek</li>
-                <li>Biostatistics</li>
-                <li>English</li>
-                <li>Nursing</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="card border-0">
-          <div class="card-header border-0" style="background-color: transparent;"  id="headingThree">
-            <h2 class="mb-0">
-              <button class="d-flex align-items-center justify-content-between btn btn-link collapsed w-100 font-weight-bold p-0 text-decoration-none" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Research
-                <span class="fa-stack fa-2x" style="font-size: 18px;">
-                  <i class="fa fa-plus" aria-hidden="true"></i>
-                </span>
-              </button>
-            </h2>
-          </div>
-          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-            <div class="card-body">
-              <ul>
-                <li>Astrophysics</li>
-                <li>Informatics</li>
-                <li>Criminology</li>
-                <li>Economics</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-  </div>
-  <hr width="85%" align="center">
-  <div class="card-teacher">
-      <div class="p-0 m-4">
-        <h2 class="text-right font-weight-bold mr-sm-5">Giáo viên</h2>
-      </div>
-      <div class="card-deck m-0 w-100 mb-4 px-4">
-        <div class="card">
-          <img class="card-img-top" src="..." alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </div>
-        </div>
-        <div class="card">
-          <img class="card-img-top" src="..." alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </div>
-        </div>
-        <div class="card">
-          <img class="card-img-top" src="..." alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </div>
-        </div>
-      </div>
-      <div class="card-deck m-0 w-100 mb-4 px-4">
-        <div class="card">
-          <img class="card-img-top" src="..." alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </div>
-        </div>
-        <div class="card">
-          <img class="card-img-top" src="..." alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </div>
-        </div>
-        <div class="card">
-          <img class="card-img-top" src="..." alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </div>
-        </div>
-      </div>
-  </div>
-  <hr width="85%" align="center">
-  <div class="card-highlight">
-      <div class="p-0 ml-4">
-        <h2 class="text-left font-weight-bold">Các khoá học nổi bật</h2>
-      </div>
-      <div id="myCarousel" class="carousel slide" style="margin: 34px auto; padding: 0 70px;" data-ride="carousel" data-interval="0">
-        <!-- Carousel indicators -->
-        <ol class="carousel-indicators" style="bottom: -50px;">
-          <li data-target="#myCarousel" data-slide-to="0" style="background-color: black; height: 10px; width: 11px; border-radius: 50%;" class="active"></li>
-          <li data-target="#myCarousel" data-slide-to="1" style="background-color: black; height: 10px; width: 11px; border-radius: 50%;"></li>
-          <li data-target="#myCarousel" data-slide-to="2" style="background-color: black; height: 10px; width: 11px; border-radius: 50%;"></li>
-        </ol>   
-        <!-- Wrapper for carousel items -->
-        <div class="carousel-inner">
-          <div class="item carousel-item active">
-            <div class="row">
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="./QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>								
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Apple iPad</h4>									
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
+        <div id="myCarousel" class="carousel slide" style="margin: 34px auto; padding: 0 70px;" data-ride="carousel" data-interval="0">
+          <!-- Carousel indicators -->
+          <ol class="carousel-indicators" style="bottom: -50px;">
+            <li data-target="#myCarousel" data-slide-to="0" style="background-color: black; height: 10px; width: 11px; border-radius: 50%;" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1" style="background-color: black; height: 10px; width: 11px; border-radius: 50%;"></li>
+            <li data-target="#myCarousel" data-slide-to="2" style="background-color: black; height: 10px; width: 11px; border-radius: 50%;"></li>
+          </ol>   
+          <!-- Wrapper for carousel items -->
+          <div class="carousel-inner">
+            <div class="item carousel-item active">
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
+                    <div class="img-box border-success" style="height: 300px;">
+                      <div class="img w-100 h-100 d-flex align-items-center">
+                        <img src="./QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+                      </div>								
                     </div>
-                    <p class="item-price"><strike>$400.00</strike> <b>$369.00</b></p>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>						
+                    <div class="thumb-content">
+                      <h4>Apple iPad</h4>									
+                      <div class="star-rating">
+                        <ul class="list-inline">
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                        </ul>
+                      </div>
+                      <p class="item-price"><strike>$400.00</strike> <b>$369.00</b></p>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>						
+                  </div>
                 </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="./3f569278a9ec66b23ffd.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>								
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Sony Headphone</h4>									
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
+                <div class="col-sm-3">
+                  <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
+                    <div class="img-box border-success" style="height: 300px;">
+                      <div class="img w-100 h-100 d-flex align-items-center">
+                        <img src="./3f569278a9ec66b23ffd.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+                      </div>								
                     </div>
-                    <p class="item-price"><strike>$25.00</strike> <b>$23.99</b></p>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>						
-                </div>
-              </div>		
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="./MGorDUi.png" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>								
+                    <div class="thumb-content">
+                      <h4>Sony Headphone</h4>									
+                      <div class="star-rating">
+                        <ul class="list-inline">
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                        </ul>
+                      </div>
+                      <p class="item-price"><strike>$25.00</strike> <b>$23.99</b></p>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>						
                   </div>
-                  <div class="thumb-content">
-                    <h4>Macbook Air</h4>									
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
-                      </ul>
+                </div>		
+                <div class="col-sm-3">
+                  <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
+                    <div class="img-box border-success" style="height: 300px;">
+                      <div class="img w-100 h-100 d-flex align-items-center">
+                        <img src="./MGorDUi.png" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+                      </div>								
                     </div>
-                    <p class="item-price"><strike>$899.00</strike> <b>$649.00</b></p>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>						
-                </div>
-              </div>								
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="./IMG_20220109_144919_019.png" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>								
+                    <div class="thumb-content">
+                      <h4>Macbook Air</h4>									
+                      <div class="star-rating">
+                        <ul class="list-inline">
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
+                        </ul>
+                      </div>
+                      <p class="item-price"><strike>$899.00</strike> <b>$649.00</b></p>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>						
                   </div>
-                  <div class="thumb-content">
-                    <h4>Nikon DSLR</h4>									
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
+                </div>								
+                <div class="col-sm-3">
+                  <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
+                    <div class="img-box border-success" style="height: 300px;">
+                      <div class="img w-100 h-100 d-flex align-items-center">
+                        <img src="./IMG_20220109_144919_019.png" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+                      </div>								
                     </div>
-                    <p class="item-price"><strike>$315.00</strike> <b>$250.00</b></p>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>						
+                    <div class="thumb-content">
+                      <h4>Nikon DSLR</h4>									
+                      <div class="star-rating">
+                        <ul class="list-inline">
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                        </ul>
+                      </div>
+                      <p class="item-price"><strike>$315.00</strike> <b>$250.00</b></p>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>						
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="item carousel-item">
-            <div class="row">
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="./QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>								
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Sony Play Station</h4>
-                    <p class="item-price"><strike>$289.00</strike> <span>$269.00</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
+            <div class="item carousel-item">
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
+                    <div class="img-box border-success" style="height: 300px;">
+                      <div class="img w-100 h-100 d-flex align-items-center">
+                        <img src="./QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+                      </div>								
                     </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>						
+                    <div class="thumb-content">
+                      <h4>Sony Play Station</h4>
+                      <p class="item-price"><strike>$289.00</strike> <span>$269.00</span></p>
+                      <div class="star-rating">
+                        <ul class="list-inline">
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                        </ul>
+                      </div>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>						
+                  </div>
                 </div>
+                <div class="col-sm-3">
+                  <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
+                    <div class="img-box border-success" style="height: 300px;">
+                      <div class="img w-100 h-100 d-flex align-items-center">
+                        <img src="./QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+                      </div>								
+                    </div>
+                    <div class="thumb-content">
+                      <h4>Macbook Pro</h4>
+                      <p class="item-price"><strike>$1099.00</strike> <span>$869.00</span></p>
+                      <div class="star-rating">
+                        <ul class="list-inline">
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
+                        </ul>
+                      </div>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>						
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
+                    <div class="img-box border-success" style="height: 300px;">
+                      <div class="img w-100 h-100 d-flex align-items-center">
+                        <img src="./QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+                      </div>								
+                    </div>
+                    <div class="thumb-content">
+                      <h4>Bose Speaker</h4>
+                      <p class="item-price"><strike>$109.00</strike> <span>$99.00</span></p>
+                      <div class="star-rating">
+                        <ul class="list-inline">
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                        </ul>
+                      </div>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>						
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
+                    <div class="img-box border-success" style="height: 300px;">
+                      <div class="img w-100 h-100 d-flex align-items-center">
+                        <img src="./QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+                      </div>								
+                    </div>
+                    <div class="thumb-content">
+                      <h4>Samsung Galaxy S8</h4>
+                      <p class="item-price"><strike>$599.00</strike> <span>$569.00</span></p>
+                      <div class="star-rating">
+                        <ul class="list-inline">
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                        </ul>
+                      </div>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>						
+                  </div>
+                </div>						
               </div>
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="./QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>								
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Macbook Pro</h4>
-                    <p class="item-price"><strike>$1099.00</strike> <span>$869.00</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
-                      </ul>
-                    </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>						
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="./QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>								
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Bose Speaker</h4>
-                    <p class="item-price"><strike>$109.00</strike> <span>$99.00</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
-                    </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>						
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="./QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>								
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Samsung Galaxy S8</h4>
-                    <p class="item-price"><strike>$599.00</strike> <span>$569.00</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
-                    </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>						
-                </div>
-              </div>						
             </div>
-          </div>
-          <div class="item carousel-item">
-            <div class="row">
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="./QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>								
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Apple iPhone</h4>
-                    <p class="item-price"><strike>$369.00</strike> <span>$349.00</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
+            <div class="item carousel-item">
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
+                    <div class="img-box border-success" style="height: 300px;">
+                      <div class="img w-100 h-100 d-flex align-items-center">
+                        <img src="./QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+                      </div>								
                     </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>						
+                    <div class="thumb-content">
+                      <h4>Apple iPhone</h4>
+                      <p class="item-price"><strike>$369.00</strike> <span>$349.00</span></p>
+                      <div class="star-rating">
+                        <ul class="list-inline">
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                        </ul>
+                      </div>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>						
+                  </div>
                 </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="./QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>								
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Canon DSLR</h4>
-                    <p class="item-price"><strike>$315.00</strike> <span>$250.00</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
+                <div class="col-sm-3">
+                  <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
+                    <div class="img-box border-success" style="height: 300px;">
+                      <div class="img w-100 h-100 d-flex align-items-center">
+                        <img src="./QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+                      </div>								
                     </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>						
+                    <div class="thumb-content">
+                      <h4>Canon DSLR</h4>
+                      <p class="item-price"><strike>$315.00</strike> <span>$250.00</span></p>
+                      <div class="star-rating">
+                        <ul class="list-inline">
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                        </ul>
+                      </div>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>						
+                  </div>
                 </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="./QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>								
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Google Pixel</h4>
-                    <p class="item-price"><strike>$450.00</strike> <span>$418.00</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
-                      </ul>
+                <div class="col-sm-3">
+                  <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
+                    <div class="img-box border-success" style="height: 300px;">
+                      <div class="img w-100 h-100 d-flex align-items-center">
+                        <img src="./QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+                      </div>								
                     </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>						
-                </div>
-              </div>	
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="./QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>								
+                    <div class="thumb-content">
+                      <h4>Google Pixel</h4>
+                      <p class="item-price"><strike>$450.00</strike> <span>$418.00</span></p>
+                      <div class="star-rating">
+                        <ul class="list-inline">
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
+                        </ul>
+                      </div>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>						
                   </div>
-                  <div class="thumb-content">
-                    <h4>Apple Watch</h4>
-                    <p class="item-price"><strike>$350.00</strike> <span>$330.00</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
+                </div>	
+                <div class="col-sm-3">
+                  <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
+                    <div class="img-box border-success" style="height: 300px;">
+                      <div class="img w-100 h-100 d-flex align-items-center">
+                        <img src="./QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+                      </div>								
                     </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>						
+                    <div class="thumb-content">
+                      <h4>Apple Watch</h4>
+                      <p class="item-price"><strike>$350.00</strike> <span>$330.00</span></p>
+                      <div class="star-rating">
+                        <ul class="list-inline">
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                        </ul>
+                      </div>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>						
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <!-- Carousel controls -->
+          <a class="carousel-control-prev" style="height: 44px; width: 40px; background-color: #72f5a2; margin: auto 0; border-radius: 4px; opacity: 0.8;" href="#myCarousel" data-slide="prev">
+            <i class="bi bi-chevron-compact-left d-inline-block font-weight-bold" style="color: #ffffff; font-size: 36px; position: absolute; margin: -2px 0 0 0;z-index: 5;"></i>
+          </a>
+          <a class="carousel-control-next" style="height: 44px; width: 40px; background-color: #72f5a2; margin: auto 0; border-radius: 4px; opacity: 0.8;" href="#myCarousel" data-slide="next">
+            <i class="bi bi-chevron-compact-right d-inline-block font-weight-bold"  style="color: #ffffff; font-size: 36px; position: absolute; margin: -2px 0 0 0;z-index: 5;"></i>
+          </a>
         </div>
-        <!-- Carousel controls -->
-        <a class="carousel-control-prev" style="height: 44px; width: 40px; background-color: #72f5a2; margin: auto 0; border-radius: 4px; opacity: 0.8;" href="#myCarousel" data-slide="prev">
-          <i class="bi bi-chevron-compact-left d-inline-block font-weight-bold" style="color: #ffffff; font-size: 36px; position: absolute; margin: -2px 0 0 0;z-index: 5;"></i>
-        </a>
-        <a class="carousel-control-next" style="height: 44px; width: 40px; background-color: #72f5a2; margin: auto 0; border-radius: 4px; opacity: 0.8;" href="#myCarousel" data-slide="next">
-          <i class="bi bi-chevron-compact-right d-inline-block font-weight-bold"  style="color: #ffffff; font-size: 36px; position: absolute; margin: -2px 0 0 0;z-index: 5;"></i>
-        </a>
-      </div>
+    </div>
   </div>
 </div>
+{{/each}}
