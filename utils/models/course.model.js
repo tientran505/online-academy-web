@@ -8,7 +8,7 @@ const courseSchema = mongoose.Schema({
     require: true,
   },
 
-  title: {
+  course_name: {
     type: dType.String,
     require: true,
   },
