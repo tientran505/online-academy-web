@@ -1,1 +1,226 @@
-<h1>Example App: Home</h1>
+{{#section 'css'}}
+  <style>
+    .home-layout {
+        margin-left: 4rem;
+        margin-right: 4rem;
+    }
+    .carousel-item-spotlight {
+      height: 32rem;
+      background: #000;
+      color: white;
+      position: relative;
+    }
+    .container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding-bottom: 50px;
+    }
+    .overlay-image {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      background-position: center;
+      background-size: cover;
+      opacity: 0.8;
+    }
+  </style>
+  <style>
+    .cards-wrapper {
+      display: flex;
+      justify-content: center;
+    }
+    .card img {
+      max-width: 100%;
+      max-height: 180px;
+    }
+    button.carousel-control-prev,
+    button.carousel-control-next {
+      background-color: #504e4e;
+      width: 6vh;
+      height: 6vh;
+      border-radius: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .cate {
+      margin-top: 2rem;
+      margin-left: auto;
+      margin-right: auto;
+      border: 1px solid rgb(108, 108, 108);
+    }
+  </style>
+{{/section}}
+
+{{#section 'js'}}
+  
+{{/section}}
+
+
+<script>
+  const generateTopCoursesCarouselItem = (criteria, isActive) => {
+      let image = './public/imgs/image.png';
+      let title = 'Top 1 hltv';
+      let description = 'Description';
+      let link = '#';
+
+      let carouselItem = '';
+
+      if (isActive == true)
+        carouselItem = '<div class="carousel-item active carousel-item-spotlight">';
+      else carouselItem = '<div class="carousel-item carousel-item-spotlight">';
+
+      carouselItem +=
+        '<div class="overlay-image" style="background-image: url(' +
+        image +
+        ')"></div>' +
+        '<div class="container">' +
+        '<h1>' +
+        title +
+        '</h1>' +
+        '<p>' +
+        description +
+        '</p>' +
+        '<a href="' +
+        link +
+        '" class="btn btn-lg btn-primary">Sign up</a>' +
+        '</div>';
+      carouselItem += '</div>';
+
+      return carouselItem;
+    };
+  const generateTopCoursesCarousel = (carouselName) => {
+      let carousel = '';
+
+      carousel +=
+        '<div id="' +
+        carouselName +
+        '" class="carousel slide" data-ride="carousel">';
+      carousel +=
+        '<ol class="carousel-indicators">' +
+        '<li data-target="#' +
+        carouselName +
+        '" data-slide-to="0" class="active"></li>' +
+        '<li data-target="#' +
+        carouselName +
+        '" data-slide-to="1"></li>' +
+        '<li data-target="#' +
+        carouselName +
+        '" data-slide-to="2"></li> </ol>';
+      carousel += '<div class="carousel-inner">';
+      carousel += generateTopCoursesCarouselItem('', true);
+      carousel += generateTopCoursesCarouselItem('', false);
+      carousel += generateTopCoursesCarouselItem('', false);
+      carousel += '</div>';
+      carousel +=
+        '<a href="#' +
+        carouselName +
+        '" class="carousel-control-prev" role="button" data-slide="prev">' +
+        '<span class="carousel-control-prev-icon" aria-hidden="true"></span>' +
+        '</a>' +
+        '<a href="#' +
+        carouselName +
+        '" class="carousel-control-next" role="button" data-slide="next">' +
+        '<span class="carousel-control-next-icon" aria-hidden="true"></span>' +
+        '</a>';
+      carousel += '</div></div>';
+      return carousel;
+    };
+</script>
+
+<script>
+    const generate1CoursesCarouselItem = (criteria, rank) => {
+      let image = './public/imgs/image.png';
+      let title = 'Top 1 hltv';
+      let description = 'Description';
+      let link = '#';
+
+      let carousel1Item =
+        '<div class="card" style="width: 18rem;">'+
+        '<img src="'+image+'" class="card-img-top" alt="...">'+
+        '<div class="card-body">'+
+        '<h5 class="card-title">'+title+'</h5>'+
+        '<p class="card-text">'+description+'</p>'+
+        '<a href="#" class="btn btn-primary">View course</a>'+
+        ' </div></div>';
+
+      return carousel1Item;
+    };
+    const generate5CoursesCarouselItem = (criteria, isActive) => {
+      let carousel5Items = '';
+      let i = 1;
+
+      if (isActive == true)
+        carousel5Items = '<div class="carousel-item active">';
+      else {
+        carousel5Items = '<div class="carousel-item">';
+        i = 6;
+      }
+      carousel5Items += '<div class="cards-wrapper">';
+
+      carousel5Items += generate1CoursesCarouselItem('', i++);
+      carousel5Items += generate1CoursesCarouselItem('', i++);
+      carousel5Items += generate1CoursesCarouselItem('', i++);
+      carousel5Items += generate1CoursesCarouselItem('', i++);
+      carousel5Items += generate1CoursesCarouselItem('', i++);
+
+      carousel5Items += '</div></div>';
+
+      return carousel5Items;
+    };
+    const generate10CoursesCarousel = (carouselName) => {
+      let carousel10Items = '';
+      carousel10Items +=
+        '<div class="cate">' +
+        '<div id="' +
+        carouselName +
+        '"class="carousel slide"' +
+        'data-ride="carousel">' +
+        '<div class="carousel-inner">';
+      carousel10Items += generate5CoursesCarouselItem('', true);
+      carousel10Items += generate5CoursesCarouselItem('', false);
+      carousel10Items += '</div>';
+      carousel10Items +=
+        '<button class="carousel-control-prev" type="button" data-target="#'+
+        carouselName+'" data-slide="prev">'+
+        '<span class="carousel-control-prev-icon" aria-hidden="true"></span>'+
+        '<span class="sr-only">Previous</span>'+
+        '</button>'+
+        '<button class="carousel-control-next" type="button" data-target="#'+
+        carouselName+
+        '" data-slide="next">'+
+        '<span class="carousel-control-next-icon" aria-hidden="true"></span>'+
+        '<span class="sr-only">Next</span>'+
+        '</button>'+
+        '</div></div>';
+
+      return carousel10Items;
+    };
+</script>
+
+  <div class="mx-5">
+  <script>
+    document.write(generateTopCoursesCarousel('spotlightCourses'));
+  </script>
+  </div>
+  <div class="mx-5">
+    <h2 class="mt-5">Web develop</h2>
+    <script>
+      document.write(generate10CoursesCarousel('top10ViewWeb'));
+      document.write(generate10CoursesCarousel('top10NewestWeb'));
+    </script>
+  </div>
+
+  <div class="mx-5">
+    <h2 class="mt-5">Mobile develop</h2>
+    <script>
+      document.write(generate10CoursesCarousel('top10ViewMobile'));
+      document.write(generate10CoursesCarousel('top10NewestMobile'));
+    </script>
+  </div>
+  
+  
+</div>
