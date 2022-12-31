@@ -13,6 +13,27 @@
       .toggleClass("fa-minus fa-plus");
   });
 </script>
+<script>
+  function pauseVid() {
+    document.querySelector('video').pause();
+  }
+  function getTimeOfVideo() {
+    var vid = document.getElementById('video');
+    var timeVidBySecond = Math.floor(vid.duration);
+    
+    var min = Math.floor(timeVidBySecond / 60);
+    var second = timeVidBySecond % 60;
+
+    if (min > 59) {
+      var hour = Math.floor(min / 60);
+      min = min % 60;
+      document.getElementById('timeOfVid').innerHTML = `${hour}:${min}:${second}`;
+    }
+    else {
+      document.getElementById('timeOfVid').innerHTML = `${min}:${second}`;
+    }
+  }
+</script>
 {{/section}}
 
 {{#each this.course}}
@@ -124,12 +145,12 @@
       <div class="p-0 m-4">
         <h2 class="text-left font-weight-bold">Bài giảng</h2>
       </div>
-      <div id="accordion" class="myaccordion w-75" style="max-width: 800px; margin: 0 auto;">
+      <div id="accordion" class="myaccordion mw-100" style="margin: 0 200px;">
         <div class="card border-0">
           <div class="card-header border-0" style="background-color: transparent;" id="headingOne">
             <h2 class="mb-0">
               <button class="d-flex align-items-center justify-content-between btn btn-link collapsed w-100 font-weight-bold p-0 text-decoration-none" data-toggle="collapse" data-target="#collapseOne"
-                aria-expanded="false" aria-controls="collapseOne">
+                onclick="getTimeOfVideo()" aria-expanded="false" aria-controls="collapseOne">
                 Undergraduate Studies
                 <span class="fa-stack fa-sm" style="font-size: 18px;">
                   <i class="fa fa-plus" aria-hidden="true"></i>
@@ -139,63 +160,150 @@
           </div>
           <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
-              <ul>
-                <li>Computer Science</li>
-                <li>Economics</li>
-                <li>Sociology</li>
-                <li>Nursing</li>
-                <li>English</li>
+              <ul class="p-3">
+                <div>
+                  <button type="button" class="btn btn-outline-primary border-0 w-100" data-toggle="modal" data-target="#exampleModalCenter">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <i class="bi bi-play-circle"></i>
+                        <span>Chapter 1: Javascript</span>
+                      </div>
+                      <div>
+                        <span id="timeOfVid"></span>
+                      </div>
+                    </div>
+                  </button>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                          <button type="button" class="close" onclick="pauseVid()" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="video embed-responsive embed-responsive-16by9">
+                            <video controls id="video">
+                              <source src="/public/imgs/01_20127027_20127355_20127468.mp4" type="video/mp4">
+                            </video>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </ul>
             </div>
           </div>
         </div>
         <div class="card border-0">
-          <div class="card-header border-0" style="background-color: transparent;" id="headingTwo">
-            <h2 class="mb-0">
-              <button class="d-flex align-items-center justify-content-between btn btn-link collapsed w-100 font-weight-bold p-0 text-decoration-none" data-toggle="collapse" data-target="#collapseTwo"
-                aria-expanded="false" aria-controls="collapseTwo">
-                Postgraduate Studies
-                <span class="fa-stack fa-2x" style="font-size: 18px;">
-                  <i class="fa fa-plus" aria-hidden="true"></i>
-                </span>
-              </button>
-            </h2>
-          </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-            <div class="card-body">
-              <ul>
-                <li>Informatics</li>
-                <li>Mathematics</li>
-                <li>Greek</li>
-                <li>Biostatistics</li>
-                <li>English</li>
-                <li>Nursing</li>
-              </ul>
+            <div class="card-header border-0" style="background-color: transparent;" id="headingTwo">
+              <h2 class="mb-0">
+                <button class="d-flex align-items-center justify-content-between btn btn-link collapsed w-100 font-weight-bold p-0 text-decoration-none" data-toggle="collapse" data-target="#collapseTwo"
+                  onclick="getTimeOfVideo()" aria-expanded="false" aria-controls="collapseTwo">
+                  Undergraduate Studies
+                  <span class="fa-stack fa-sm" style="font-size: 18px;">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </h2>
             </div>
-          </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+              <div class="card-body">
+                <ul class="p-3">
+                  <div>
+                    <button type="button" class="btn btn-outline-primary border-0 w-100" data-toggle="modal" data-target="#exampleModalCenter">
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <i class="bi bi-play-circle"></i>
+                          <span>Chapter 1: Javascript</span>
+                        </div>
+                        <div>
+                          <span id="timeOfVid"></span>
+                        </div>
+                      </div>
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                            <button type="button" class="close" onclick="pauseVid()" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="video embed-responsive embed-responsive-16by9">
+                              <video controls id="video">
+                                <source src="/public/imgs/01_20127027_20127355_20127468.mp4" type="video/mp4">
+                              </video>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ul>
+              </div>
+            </div>
         </div>
         <div class="card border-0">
-          <div class="card-header border-0" style="background-color: transparent;" id="headingThree">
-            <h2 class="mb-0">
-              <button class="d-flex align-items-center justify-content-between btn btn-link collapsed w-100 font-weight-bold p-0 text-decoration-none" data-toggle="collapse"
-                data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Research
-                <span class="fa-stack fa-2x" style="font-size: 18px;">
-                  <i class="fa fa-plus" aria-hidden="true"></i>
-                </span>
-              </button>
-            </h2>
-          </div>
-          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-            <div class="card-body">
-              <ul>
-                <li>Astrophysics</li>
-                <li>Informatics</li>
-                <li>Criminology</li>
-                <li>Economics</li>
-              </ul>
+            <div class="card-header border-0" style="background-color: transparent;" id="headingThree">
+              <h2 class="mb-0">
+                <button class="d-flex align-items-center justify-content-between btn btn-link collapsed w-100 font-weight-bold p-0 text-decoration-none" data-toggle="collapse" data-target="#collapseThree"
+                  onclick="getTimeOfVideo()" aria-expanded="false" aria-controls="collapseThree">
+                  Undergraduate Studies
+                  <span class="fa-stack fa-sm" style="font-size: 18px;">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </h2>
             </div>
-          </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+              <div class="card-body">
+                <ul class="p-3">
+                  <div>
+                    <button type="button" class="btn btn-outline-primary border-0 w-100" data-toggle="modal" data-target="#exampleModalCenter">
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <i class="bi bi-play-circle"></i>
+                          <span>Chapter 1: Javascript</span>
+                        </div>
+                        <div>
+                          <span id="timeOfVid"></span>
+                        </div>
+                      </div>
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                            <button type="button" class="close" onclick="pauseVid()" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="video embed-responsive embed-responsive-16by9">
+                              <video controls id="video">
+                                <source src="/public/imgs/01_20127027_20127355_20127468.mp4" type="video/mp4">
+                              </video>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ul>
+              </div>
+            </div>
         </div>
       </div>
     </div>
@@ -260,7 +368,7 @@
         <!-- Wrapper for carousel items -->
         <div class="carousel-inner">
           <div class="item carousel-item active">
-            <div class="row">
+            <div class="row d-flex justify-content-center">
               <div class="col-sm-3">
                 <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
                   <div class="img-box border-success" style="height: 300px;">
@@ -356,7 +464,7 @@
             </div>
           </div>
           <div class="item carousel-item">
-            <div class="row">
+            <div class="row d-flex justify-content-center">
               <div class="col-sm-3">
                 <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
                   <div class="img-box border-success" style="height: 300px;">
@@ -452,7 +560,7 @@
             </div>
           </div>
           <div class="item carousel-item">
-            <div class="row">
+            <div class="row d-flex justify-content-center">
               <div class="col-sm-3">
                 <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
                   <div class="img-box border-success" style="height: 300px;">
