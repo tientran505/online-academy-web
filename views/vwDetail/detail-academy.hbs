@@ -45,27 +45,11 @@
         <div class="d-flex flex-column ml-5 pl-5">
           <div class="evaluation mb-3">
             <div class="stars">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16" color="yellow">
-                <path
-                  d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16" color="yellow">
-                <path
-                  d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16" color="yellow">
-                <path
-                  d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16" color="yellow">
-                <path
-                  d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16" color="yellow">
-                <path
-                  d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
-              </svg>
-              <span class="review-no">41 reviews</span>
+              <a class="card-text text-dark text-decoration-none" ><b class="font-weight-bold text-danger">{{rate}}</b>
+                <small> <i class="fa fa-star" style="color: gold" id="rate" aria-hidden="true"></i>
+                  <a>({{count_rate}} 50000 )</a>
+                </small>
+              </a>
             </div>
           </div>
           <div class="content mb-3">
@@ -83,7 +67,7 @@
           <div class="fee mb-3">
             <div class="pl-3">
               <i class="bi bi-cash-coin pr-3"></i>
-              <span>{{price}}</span>
+              <span>{{#if price}}{{format_number price}}đ{{else}}0đ{{/if}}</span>
             </div>
           </div>
           <div class="last-update mb-3">
@@ -361,300 +345,46 @@
       <div id="myCarousel" class="carousel slide" style="margin: 34px auto; padding: 0 70px;" data-ride="carousel" data-interval="0">
         <!-- Carousel indicators -->
         <ol class="carousel-indicators" style="bottom: -50px;">
-          <li data-target="#myCarousel" data-slide-to="0" style="background-color: black; height: 10px; width: 11px; border-radius: 50%;" class="active"></li>
-          <li data-target="#myCarousel" data-slide-to="1" style="background-color: black; height: 10px; width: 11px; border-radius: 50%;"></li>
-          <li data-target="#myCarousel" data-slide-to="2" style="background-color: black; height: 10px; width: 11px; border-radius: 50%;"></li>
+          {{!-- <li data-target="#myCarousel" style="background-color: black; height: 10px; width: 11px; border-radius: 50%;" class="active"></li>
+          <li data-target="#myCarousel" style="background-color: black; height: 10px; width: 11px; border-radius: 50%;"></li>
+          <li data-target="#myCarousel" style="background-color: black; height: 10px; width: 11px; border-radius: 50%;"></li> --}}
+          {{#each ../slide}}
+            <li data-target="#myCarousel" style="background-color: black; height: 10px; width: 11px; border-radius: 50%;"></li>
+          {{/each}}
         </ol>
         <!-- Wrapper for carousel items -->
         <div class="carousel-inner">
-          <div class="item carousel-item active">
-            <div class="row d-flex justify-content-center">
+          {{#each ../slide}}
+          {{#each slides}}
+          <div class="item carousel-item {{#if activeSlide}}active{{/if}}">
+            <div class="row d-flex justify-content-around">
+              {{#each cates}}
               <div class="col-sm-3">
                 <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
                   <div class="img-box border-success" style="height: 300px;">
                     <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="/public/imgs/QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+                      <img src="/public/imgs/{{_id}}.png" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="{{course_name}}">
                     </div>
                   </div>
                   <div class="thumb-content">
-                    <h4>Apple iPad</h4>
+                    <h4>{{course_name}}</h4>
                     <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
+                      <a class="card-text text-dark text-decoration-none" ><b class="font-weight-bold text-danger">{{rate}}</b>
+                        <small> <i class="fa fa-star" style="color: gold" id="rate" aria-hidden="true"></i>
+                          <a>({{count_rate}} 50000 )</a>
+                        </small>
+                      </a>
                     </div>
-                    <p class="item-price"><strike>$400.00</strike> <b>$369.00</b></p>
+                    <p class="item-price"><strike>{{#if price}}{{format_number price}}đ{{else}}0đ{{/if}}</strike><br><b>{{format_number price}}đ</b></p>
                     <a href="#" class="btn btn-primary">Add to Cart</a>
                   </div>
                 </div>
               </div>
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="/public/imgs/MGorDUi.png" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Sony Headphone</h4>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
-                    </div>
-                    <p class="item-price"><strike>$25.00</strike> <b>$23.99</b></p>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="/public/imgs/QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Macbook Air</h4>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
-                      </ul>
-                    </div>
-                    <p class="item-price"><strike>$899.00</strike> <b>$649.00</b></p>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="/public/imgs/MGorDUi.png" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Nikon DSLR</h4>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
-                    </div>
-                    <p class="item-price"><strike>$315.00</strike> <b>$250.00</b></p>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>
-                </div>
-              </div>
+              {{/each}}
             </div>
           </div>
-          <div class="item carousel-item">
-            <div class="row d-flex justify-content-center">
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="/public/imgs/QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Sony Play Station</h4>
-                    <p class="item-price"><strike>$289.00</strike> <span>$269.00</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
-                    </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="/public/imgs//MGorDUi.png" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Macbook Pro</h4>
-                    <p class="item-price"><strike>$1099.00</strike> <span>$869.00</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
-                      </ul>
-                    </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="/public/imgs/QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Bose Speaker</h4>
-                    <p class="item-price"><strike>$109.00</strike> <span>$99.00</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
-                    </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="/public/imgs/MGorDUi.png" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Samsung Galaxy S8</h4>
-                    <p class="item-price"><strike>$599.00</strike> <span>$569.00</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
-                    </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="item carousel-item">
-            <div class="row d-flex justify-content-center">
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="/public/imgs/QpjAiHq.jpg" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Apple iPhone</h4>
-                    <p class="item-price"><strike>$369.00</strike> <span>$349.00</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
-                    </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="/public/imgs/image.png" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Canon DSLR</h4>
-                    <p class="item-price"><strike>$315.00</strike> <span>$250.00</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
-                    </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="/public/imgs/image.png" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Google Pixel</h4>
-                    <p class="item-price"><strike>$450.00</strike> <span>$418.00</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
-                      </ul>
-                    </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <div class="img-box border-success" style="height: 300px;">
-                    <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="/public/imgs/MGorDUi.png" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="Not found">
-                    </div>
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Apple Watch</h4>
-                    <p class="item-price"><strike>$350.00</strike> <span>$330.00</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
-                    </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          {{/each}}
+          {{/each}}
         </div>
         <!-- Carousel controls -->
         <a class="carousel-control-prev" style="height: 44px; width: 40px; background-color: #72f5a2; margin: auto 0; border-radius: 4px; opacity: 0.8;" href="#myCarousel" data-slide="prev">
@@ -669,4 +399,5 @@
       This is review view
     </div>
   </div>
+</div>
 {{/each}}
