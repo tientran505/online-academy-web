@@ -6,8 +6,8 @@
     <script src="https://cdn.tiny.cloud/1/ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
-            selector: '#txtTinyDescription',
-            selector:'#txtFullDescription',
+            selector: 'textarea',
+
             // plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
             // toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
             menubar: false,
@@ -17,12 +17,14 @@
             ],
         });
     </script>
-
+<script>
+    var language = ["Python", "Java", "JavaScript","C","C++","C#","React", "React Native","HTML","PHP","CSS"];
+</script>
 {{/section}}
 
 <form method="post" enctype="multipart/form-data">
-    <div class="card">
-        <h4 class="card-header d-flex justify-content-center">
+    <div class="card w-75 p-3 mx-auto">
+        <h4 class="card-header d-flex justify-content-left">
             New Course
         </h4>
         <b>
@@ -58,14 +60,7 @@
             </div>
 
 
-            <div class="form-group">
-                <label for="fuMain">Photo</label>
-                <input type="file" multiple name="fuMain" id="fuMain">
-            </div>
-            <div class="form-group">
-                <label for="txtFullDes">Description</label>
-                <textarea id="txtFullDes" name="FullDes">Welcome to TinyMCE!</textarea>
-            </div>
+
         </div>
         </b>
         <div class="card-footer text-muted">
