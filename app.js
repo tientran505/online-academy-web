@@ -57,6 +57,18 @@ app.use(
   })
 );
 
+
+app.use(async (req, res, next) => {
+  if (typeof(req.session.auth) === 'undefined') {
+    res.locals.auth = false;
+  }
+
+  res.locals.auth = req.session.auth;
+  res.locals.authUser = req.session.authUser;
+  
+  next();
+})
+
 app.use(async (req, res, next) => {
   const list = await categoryService.findAll();
   res.locals.lcCategories = JSON.parse(JSON.stringify(list));
@@ -64,6 +76,8 @@ app.use(async (req, res, next) => {
 });
 
 app.get('/', async (req, res) => {
+  console.log(req.session.auth);
+  console.log(req.session.authUser);
   res.render('home');
 });
 

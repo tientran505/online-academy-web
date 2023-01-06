@@ -11,6 +11,8 @@
   ></script>
 
   <script>
+    $('#txtDOB').datetimepicker({timepicker: false, format: 'd/m/Y', mask: true});
+
     $('#frmRegister').on('submit', (e) => { 
       e.preventDefault(); 
       const username = $('#txtUsername').val(); 
@@ -18,38 +20,70 @@
       const password1 = $('#txtPassword1').val(); 
       const name = $('#txtName').val(); 
       const email = $('#txtEmail').val(); 
-      console.log(email);
+      const dob = $('#txtDOB').val();
+      let isValidForm = true;
+      
+      $('#txtUsername').addClass('is-valid').removeClass('is-invalid');
       if (username.length === 0) { 
-        alert('Please enter username'); 
+        $('#txtUsername').removeClass('is-valid').addClass('is-invalid');
+        $('#usernameFeedback').text('Username is required');  
+        isValidForm = false;
       } 
 
-      else if (password.length === 0) {
-        alert('Please enter password'); 
+      $('#txtPassword').addClass('is-valid').removeClass('is-invalid');
+      if (password.length === 0) {
+        $('#txtPassword').removeClass('is-valid').addClass('is-invalid');
+        $('#passwordFeedback').text('Password is required');  
+        isValidForm = false;
       }
 
-      else if (password1.length === 0) {
-        alert('Please re-enter password'); 
-      }
-      
-      else if (name.length === 0) {
-        alert('Please enter your name'); 
-      } 
-      
-      else if (email.length === 0) {
-        alert('Please enter your email'); 
+      $('#txtDOB').addClass('is-valid').removeClass('is-invalid');
+      if (dob.length === 0 || dob === '__/__/____') {
+        $('#txtDOB').removeClass('is-valid').addClass('is-invalid');
+        $('#dobFeedback').text('Birthday is required');  
+        isValidForm = false;
       }
 
+      $('#txtPassword1').addClass('is-valid').removeClass('is-invalid');
+      if (password1.length === 0) {
+        console.log('khoai qua ta');
+        $('#txtPassword1').removeClass('is-valid').addClass('is-invalid');
+        $('#password1Feedback').text('Password is required');  
+        isValidForm = false;
+      }
       else if (password !== password1) { 
-        alert('Your password does not match. Please try again'); 
+        $('#txtPassword1').removeClass('is-valid').addClass('is-invalid')
+        $('#password1Feedback').text('Password does not match');  
+        isValidForm = false;
       }
 
-      else { 
+      $('#txtName').addClass('is-valid').removeClass('is-invalid');
+      if (name.length === 0) {
+        $('#txtName').removeClass('is-valid').addClass('is-invalid')
+        $('#nameFeedback').text('Name is required');  
+        isValidForm = false;
+      } 
+      
+      $('#txtEmail').addClass('is-valid');
+      if (email.length === 0) {
+        $('#txtEmail').removeClass('is-valid').addClass('is-invalid');
+        $('#emailFeedback').text('Email is required');  
+        isValidForm = false;
+      }
+
+      
+
+      if (isValidForm) { 
         $.getJSON(`/account/valid-user?username=${username}&email=${email}`, (data) => {
           if (!data.userExist || !data.emailExist) {
             if (!data.userExist) {
-              alert('Username was used. Please enter another username');
+              $('#txtUsername').removeClass('is-valid').addClass('is-invalid');
+              $('#usernameFeedback').text('Username was used. Please enter another username'); 
             }
-            else alert('Email was used. Please enter another email');
+            else  {
+              $('#txtEmail').removeClass('is-valid').addClass('is-invalid');
+              $('#emailFeedback').text('Email was used. Please enter another email'); 
+            }
           } 
 
           else {
@@ -58,12 +92,11 @@
         })
       }  
     });
-
-    $('#txtDOB').datetimepicker({timepicker: false, format: 'd/m/Y', mask: true});
   </script>
+
 {{/section}}
 
-<div class='card'>
+<div class='card mt-5' style="width: 50%; margin:auto">
   <h5 class='card-header text-center'>
     Registration Form
   </h5>
@@ -71,72 +104,88 @@
     <form method='post' id='frmRegister'>
       <h5 class='p0'>Account Information</h5>
       <div class='form-group'>
-        <label for='exampleInputEmail1'>Username</label>
+        <label for='txtUsername'>Username</label>
         <input
           type='text'
           class='form-control'
           placeholder='Enter your username'
           id='txtUsername'
           name='username'
+          aria-describedby="usernameFeedback"
           autofocus
         />
+        <div id="usernameFeedback" class="invalid-feedback ml-1">
+        </div>
       </div>
 
       <div class='form-group'>
-        <label for='exampleInputPassword1'>Password</label>
+        <label for='txtPassword'>Password</label>
         <input
           type='password'
           class='form-control'
           placeholder='Enter your password'
           id='txtPassword'
+          aria-describedby="passwordFeedback"
           name='password'
         />
+        <div id="passwordFeedback" class="invalid-feedback ml-1">
+        </div>
       </div>
 
       <div class='form-group'>
-        <label for='exampleInputPassword1'>Confirm password</label>
+        <label for='txtPassword1'>Confirm password</label>
         <input
           type='password'
           class='form-control'
           id='txtPassword1'
           placeholder='Re-enter your password'
+          aria-describedby="password1Feedback"
           name='password1'
         />
+        <div id="password1Feedback" class="invalid-feedback ml-1">
+        </div>
       </div>
 
       <h5 class='mt-5'>Personal Information</h5>
       <div class='form-group'>
-        <label for='exampleInputEmail1'>Full name</label>
+        <label for='txtName'>Full name</label>
         <input
           type='text'
           class='form-control'
           placeholder='Enter your full name'
           id='txtName'
           name='name'
+          aria-describedby="nameFeedback"
         />
+        <div id="nameFeedback" class="invalid-feedback ml-1">
+        </div>
       </div>
 
       <div class='form-group'>
-        <label for='exampleInputEmail1'>Emaill address</label>
+        <label for='txtEmail'>Emaill address</label>
         <input
           type='email'
           class='form-control'
           id='txtEmail'
-          aria-describedby='emailHelp'
+          aria-describedby='emailFeedback'
           placeholder='Enter your email'
           name='email'
         />
+        <div id="emailFeedback" class="invalid-feedback ml-1">
+        </div>
       </div>
 
       <div class='form-group'>
         <label for='txtDOB'>Birthday</label>
         <input
           type='text'
-          id='txtDOB'
           class='form-control'
+          id='txtDOB'
           name='dob'
-          required
+          aria-describedby='dobFeedback'
         />
+        <div id="dobFeedback" class="invalid-feedback ml-1">
+        </div>
       </div>
 
       <button type='submit' class='btn btn-primary'>Submit</button>
