@@ -3,7 +3,7 @@ import colors from 'colors';
 
 colors.enable();
 
-mongoose.set('strictQuery', true);
+mongoose.set('strictQuery', false);
 
 const connectDB = async () => {
   const conn = await mongoose.connect(process.env.MONGO_URI);
