@@ -3,7 +3,7 @@
 
 {{#section 'js'}}
 
-    <script src="https://cdn.tiny.cloud/1/ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/hygzc72vtb6fcja8plsjnx8quebr9pxltpz0qqnlrpmcvm9n/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
             selector: 'textarea',
@@ -21,8 +21,8 @@
     var language = ["Python", "Java", "JavaScript","C","C++","C#","React", "React Native","HTML","PHP","CSS"];
 </script>
 {{/section}}
-
-<form method="post" enctype="multipart/form-data">
+<!---->
+<form method="POST"  >
     <div class="card w-75 p-3 mx-auto">
         <h4 class="card-header d-flex justify-content-left">
             New Course
@@ -31,40 +31,40 @@
         <div class="card-body">
             <div class="form-group">
                 <label for="txtCourseName">Your Course Name</label>
-                <input name="CourseNAme" type="text" class="form-control" id="txtCourseName" autofocus>
+                <input  type="text" class="form-control" id="txtCourseName" name="course_name" autofocus>
             </div>
             <div class="form-group">
                 <label for="txtCategory">Course Category</label>
-                <input name="Category" type="text" class="form-control" id="Category"  placeholder="Python, Java, C/C++,...">
+                <input  type="text" class="form-control" id="Category" name="program_language" placeholder="Python, Java, C/C++,...">
             </div>
             <div class="form-group ">
-                <input type="radio" id="complete" name="complete" value="complete">
+                <input type="radio" id="complete" name="is_completed" value="true">
                 <label for="complete">Course is completed</label><br>
             </div>
             <div class="form-group">
                 <label for="txtPrice">Your Course Price</label>
-                <input name="Price" type="text" class="form-control" id="Price">
+                <input name="price" type="text" class="form-control" id="Price">
             </div>
             <div class="form-group">
                 <label for="txtDiscount">Your Course Discount (if any)</label>
-                <input name="Discount" type="text" class="form-control" id="Discount">
+                <input name="discount" type="text" class="form-control" id="Discount">
             </div>
 
             <div class="form-group">
                 <label for="txtTinyDescription">Course Brief Description</label>
-                <textarea name="TinyDescription"  id="txtTinyDescription"  >Short description about your course..</textarea>
+                <textarea name="brief_description"  id="txtTinyDescription"  >Short description about your course..</textarea>
             </div>
             <div class="form-group">
                 <label for="txtFullDescription">Course Full Description</label>
-                <textarea name="FullDescription" id="txtFullDescription"  >All description about your course..</textarea>
+                <textarea name="detail_description" id="txtFullDescription"  >All description about your course..</textarea>
             </div>
 
 
 
         </div>
         </b>
-        <div class="card-footer text-muted">
-            <button type="submit" class="btn btn-primary">
+        <div class="card-footer text-muted d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary bg-success text-white">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 Save
             </button>

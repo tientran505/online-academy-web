@@ -1,6 +1,6 @@
 import express from 'express';
 import Course from '../utils/models/course.model.js';
-
+import CourseService from '../services/course.service.js';
 const router = express.Router();
 
 router.get('/list/:course', async (req, res) => {
@@ -11,7 +11,6 @@ router.get('/list/:course', async (req, res) => {
   }
   else{
     total =  await Course.find({category:course}).count();
-
   }
   const limit = 6;
   const curPage = req.query.page || 1;
@@ -27,14 +26,18 @@ router.get('/list/:course', async (req, res) => {
   }
   let list;
   if(course === "All"){
-    const p = await Course.find().skip(offset).limit(limit);
-    list = JSON.parse(JSON.stringify(p));
+    list = await CourseService.findCondition(offset,limit);
+   
   }
   else{
-    const p = await Course.find({ category: course }).skip(offset).limit(limit);
-    list = JSON.parse(JSON.stringify(p));
+    list = await CourseService.findConditionCategory( course,offset,limit );
+    
   }
-  // const list = JSON.parse(JSON.stringify(p));
+  
+  // const p = await CourseService.findAll();
+  // // list = JSON.parse(JSON.stringify(p));
+  // console.log(p);
+  // // const list = JSON.parse(JSON.stringify(p));
   let prePage;
   let nextPage;
   if(1 ===+curPage){
@@ -45,14 +48,14 @@ router.get('/list/:course', async (req, res) => {
   }
   if(+nPage===+curPage){
     nextPage= 0;
-
+  }
+  else if(+nPage===0){
+    nextPage=0;
   }
   else{
     nextPage = +curPage +1;
-    
   }
 
-  
   res.render('vwCourse/byCat', {
     course: list,
     pageNumber: pageNumber,
@@ -63,8 +66,10 @@ router.get('/list/:course', async (req, res) => {
 });
 //
 router.get('/add', async (req, res) => {
-  res.render('vwCourse/add',{
-
-  })
+  res.render('vwCourse/add');
+});
+router.post('/add', (req, res) => {
+  console.log(req.body);
+  res.render('vwCourse/add');
 });
 export default router;
