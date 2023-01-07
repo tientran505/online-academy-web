@@ -1,9 +1,9 @@
 {{#section 'css'}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/css/fileinput.min.css" />
 {{/section}}
 
 {{#section 'js'}}
-
-    <script src="https://cdn.tiny.cloud/1/hygzc72vtb6fcja8plsjnx8quebr9pxltpz0qqnlrpmcvm9n/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/buffer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/filetype.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/piexif.min.js"></script>
@@ -12,17 +12,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/themes/fa4/theme.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/locales/vi.min.js"></script>
     <script>
-        $('#fuMain').fileinput({
+        $('#img').fileinput({
             language: 'vi',
             theme: 'fa4',
             dropZoneEnabled: false,
             maxFileCount: 5,
+            showUpload: false,
+            showCaption: false,
             allowedFileExtensions: ['jpg', 'png', 'gif'],
         });
 
         tinymce.init({
-            selector: 'textarea',
-
+            selector: '#txtTinyDescription',
+            height:200,
             // plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
             // toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
             menubar: false,
@@ -31,13 +33,25 @@
                 'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
             ],
         });
+        tinymce.init({
+            selector: '#txtdetail_description',
+            height:400,
+            // plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            // toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+            menubar: false,
+            plugins: 'paste image link autolink lists table media',
+            toolbar: [
+                'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
+            ],
+        });
+
     </script>
 <script>
-    var language = ["Python", "Java", "JavaScript","C","C++","C#","React", "React Native","HTML","PHP","CSS"];
+    // var language = ["Python", "Java", "JavaScript","C","C++","C#","React", "React Native","HTML","PHP","CSS"];
 </script>
 {{/section}}
 <!---->
-<form method="POST"  >
+<form method="POST" enctype="multipart/form-data" id="uploadform" >
     <div class="card w-75 p-3 mx-auto">
         <h4 class="card-header d-flex justify-content-left">
             New Course
@@ -49,24 +63,24 @@
                 <input  type="text" class="form-control" id="txtCourseName" name="course_name" autofocus>
             </div>
             <div class="form-group">
-                <label for="imgThumbnail">Image Thumbnail</label>
-                <input type="file" multiple name="imgThumbnail" id="imgThumbnail">
+                <label for="img">Image Thumbnail</label>
+                <input type="file" multiple name="img" id="img">
             </div>
-            <div class="form-group">
-                <label for="txtCategory">Course Category</label>
-                <input  type="text" class="form-control" id="Category" name="program_language" placeholder="Python, Java, C/C++,...">
-            </div>
+<!--            <div class="form-group">-->
+<!--                <label for="txtCategory">Course Category</label>-->
+<!--                <input  type="text" class="form-control" id="Category" name="program_language" placeholder="Python, Java, C/C++,...">-->
+<!--            </div>-->
             <div class="form-group ">
                 <input type="radio" id="complete" name="is_completed" value="true">
                 <label for="complete">Course is completed</label><br>
             </div>
             <div class="form-group">
-                <label for="txtPrice">Your Course Price</label>
-                <input name="price" type="text" class="form-control" id="Price">
+                <label for="txtPrice">Course Price VNĐ</label>
+                <input name="price" type="number" class="form-control" id="Price">
             </div>
             <div class="form-group">
-                <label for="txtDiscount">Your Course Discount (if any)</label>
-                <input name="discount" type="text" class="form-control" id="Discount">
+                <label for="txtSale">Course Discount VNĐ (if any)</label>
+                <input name="sale" type="number" class="form-control" id="sale">
             </div>
 
             <div class="form-group">
@@ -74,16 +88,27 @@
                 <textarea name="brief_description"  id="txtTinyDescription"  >Short description about your course..</textarea>
             </div>
             <div class="form-group">
-                <label for="txtFullDescription">Course Full Description</label>
-                <textarea name="detail_description" id="txtFullDescription"  >All description about your course..</textarea>
+                <label for="txtdetail_description">Course Full Description</label>
+                <textarea name="detail_description" id="txtdetail_description"  >All description about your course..</textarea>
             </div>
 
         </div>
         </b>
-        <div class="card-footer text-muted d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary bg-success text-white">
+        <div class="card-footer text-muted d-flex justify-content-between">
+
+
+
+            <button type="reset" class="btn btn-primary bg-secondary w-20 text-white-white m-2">
+                <i class="fa fa-repeat" aria-hidden="true"></i>
+                Reset
+            </button>
+            <button type="submit" class="btn btn-primary bg-danger w-20 text-white m-2">
+                <i class="fa fa-ban" aria-hidden="true"></i>
+                Cancel
+            </button>
+            <button type="submit" class="btn btn-primary bg-success w-50 text-white m-2">
                 <i class="fa fa-check" aria-hidden="true"></i>
-                Save
+                Continue
             </button>
         </div>
     </div>
