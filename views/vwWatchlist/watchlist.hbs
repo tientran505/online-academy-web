@@ -1,0 +1,71 @@
+<div id="byCat" class="card">
+    <div class="card-body ">
+        <div class=" mb-12 " >
+            {{#if this.empty}}
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">This page is empty</h4>
+                         <p> We are so sorry for this bad experience. Please view back later</p>
+                    <hr>
+                    <p class="mb-0">Move back to course <a href="course?page=1">Move</a></p>
+                </div>
+            </div>
+            {{/if}}
+            {{#each this.course}}
+                <div class="card h-100 border border-success " style=" min-height: 180px;">
+                <div class="row no-gutters">
+                    <div class="col-md-3">
+                        <img class="img-fluid img-thumbnail"style=" min-width: 160px; min-height: 160px; background-color: rgba(255,0,0,0.1);" src="public/imgs/image.png" alt="{{ProName}}" title="{{ProName}}">
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body text-dark"  >
+                            <h5 class="card-title font-weight-bold ">{{course_name}}</h5>
+                            <div>
+                                {{brief_description}}  </br>
+                           <small class="text text-muted">{{authors}} </small>
+                            <div>
+                                <a class="card-text text-dark" ><b class="font-weight-bold text-danger">{{rate}}</b>
+                                    <small> <i class="fa fa-star" style="color: gold" id="rate" aria-hidden="true"></i>
+                                    <a>    ({{count_rate}} 50000 )</a>
+                                </small></a>    
+                            </div>
+                                <small class="text text-muted">more detail (wait for database of other collection to add) </small>
+                            </div>
+                            <div>
+                                <a class="btn btn-sm btn-outline-success" href="#" role="button">
+                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                    Add to cart
+                                </a>
+                                <a class="btn btn-sm btn-outline-danger" href="#" role="button">
+                                    <i class="fa fa-credit-card" aria-hidden="true"></i>
+                                    Buy now
+                                </a>    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col p-3 " style=" min-width: 80px; display: block;" >
+                        <p id="discount" class="text-right text-decoration-line-through" style="text-decoration: line-through;">đ{{format_number price}}</p>
+                        <h5 id="sale" class="card-title text-danger text-right">đ{{format_number sale}}</h5>    
+                    </div>
+                </div>
+            </div>
+                <p></p>
+            {{/each}}
+        </div>
+    </div>
+
+    <div class="card-footer text-muted">
+        <nav class="d-flex flex-row-reverse bd-highlight">
+            <ul class="pagination">
+               <li class="page-item {{#if this.prePage}}{{else}}disabled{{/if}} ">
+                    <a class="page-link" href="?page={{this.prePage}}">Previous</a>
+                </li>
+        {{#each pageNumber}}
+      <li class="page-item {{#if isCurrent}}active{{/if}}"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
+        {{/each}}
+                </li>
+                <li class="page-item  {{#if this.nextPage}}{{else}}disabled{{/if}} "><a class="page-link" href="?page={{this.nextPage}}">Next</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
