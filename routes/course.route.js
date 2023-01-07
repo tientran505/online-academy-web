@@ -1,14 +1,21 @@
 import express from 'express';
 import Course from '../utils/models/course.model.js';
-
+import CourseService from '../services/course.service.js';
 const router = express.Router();
 
-router.get('/', async (req, res) => {
-
+router.get('/list/:course', async (req, res) => {
+  const course = req.params.course || "";
+  let total;
+  if(course === "All"){
+   total =  await Course.find().count();
+  }
+  else{
+    total =  await Course.find({category:course}).count();
+  }
   const limit = 6;
   const curPage = req.query.page || 1;
   const offset = (curPage - 1)*limit;
-  const total =  await Course.find().count();
+  //const total =  await Course.find().count();
   const nPage = Math.ceil(total/limit);
   const pageNumber =[];
   for (let i =1;i <= nPage; i++){
@@ -17,8 +24,20 @@ router.get('/', async (req, res) => {
       isCurrent: i ===+curPage,
     })
   }
-  const p = await Course.find().skip(offset).limit(limit);
-  const list = JSON.parse(JSON.stringify(p));
+  let list;
+  if(course === "All"){
+    list = await CourseService.findCondition(offset,limit);
+   
+  }
+  else{
+    list = await CourseService.findConditionCategory( course,offset,limit );
+    
+  }
+  
+  // const p = await CourseService.findAll();
+  // // list = JSON.parse(JSON.stringify(p));
+  // console.log(p);
+  // // const list = JSON.parse(JSON.stringify(p));
   let prePage;
   let nextPage;
   if(1 ===+curPage){
@@ -29,14 +48,14 @@ router.get('/', async (req, res) => {
   }
   if(+nPage===+curPage){
     nextPage= 0;
-
+  }
+  else if(+nPage===0){
+    nextPage=0;
   }
   else{
     nextPage = +curPage +1;
-    
   }
-  //console.log(list);
-  
+
   res.render('vwCourse/byCat', {
     course: list,
     pageNumber: pageNumber,
@@ -45,9 +64,12 @@ router.get('/', async (req, res) => {
     nextPage: nextPage,
   });
 });
+//
 router.get('/add', async (req, res) => {
-  res.render('vwCourse/add',{
-
-  })
+  res.render('vwCourse/add');
+});
+router.post('/add', (req, res) => {
+  console.log(req.body);
+  res.render('vwCourse/add');
 });
 export default router;
