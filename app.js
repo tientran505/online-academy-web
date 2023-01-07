@@ -14,6 +14,8 @@ import categoryService from './services/category.service.js';
 import numeral from 'numeral';
 import session from 'express-session';
 
+import adminRoute from './routes/admin.route.js';
+
 dotenv.config();
 const port = process.env.PORT || 5000;
 connectDB();
@@ -106,6 +108,7 @@ app.get('/product', (req, res) => {
 app.use('/account', accountRouter);
 app.use('/detail', detailRouter);
 app.use('/course', courseRouter);
+app.use('/admin', adminRoute);
 app.listen(3000);
 
 app.listen(port, () => {
