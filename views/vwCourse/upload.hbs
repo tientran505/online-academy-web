@@ -44,7 +44,11 @@
                 'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
             ],
         });
-
+        $('#uploadform').on('reset', (e) => {
+            $(document).ready(function(){
+                $(this).scrollTop(0);
+            });
+        });
     </script>
 <script>
     // var language = ["Python", "Java", "JavaScript","C","C++","C#","React", "React Native","HTML","PHP","CSS"];
@@ -95,18 +99,17 @@
         </div>
         </b>
         <div class="card-footer text-muted d-flex justify-content-between">
-
-
-
             <button type="reset" class="btn btn-primary bg-secondary w-20 text-white-white m-2">
                 <i class="fa fa-repeat" aria-hidden="true"></i>
                 Reset
             </button>
-            <button type="submit" class="btn btn-primary bg-danger w-20 text-white m-2">
+            <a href="/" class="btn btn-primary bg-danger w-20 text-white m-2">
+
                 <i class="fa fa-ban" aria-hidden="true"></i>
                 Cancel
-            </button>
-            <button type="submit" class="btn btn-primary bg-success w-50 text-white m-2">
+
+            </a>
+            <button class="btn btn-primary bg-success w-50 text-white m-2">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 Continue
             </button>
