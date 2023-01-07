@@ -7,7 +7,7 @@ import Course from './utils/models/course.model.js';
 import accountRouter from './routes/account.route.js';
 import hbs_sections from 'express-handlebars-sections';
 import detailRouter from './routes/detail-academy.route.js';
-import { dirname } from 'path';
+import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import courseRouter from './routes/course.route.js';
 import categoryService from './services/category.service.js';
@@ -43,7 +43,8 @@ app.engine(
     },
   })
 );
-app.use('/public',express.static('public'));
+
+app.use('/public', express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
 
