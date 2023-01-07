@@ -24,7 +24,7 @@ const courseSchema = mongoose.Schema({
     require: true,
   },
 
-  detailed_description: {
+  detail_description: {
     type: dType.String,
     require: true,
   },

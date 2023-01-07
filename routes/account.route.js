@@ -6,15 +6,11 @@ import moment from 'moment';
 const router = express.Router();
 
 router.get('/register', (req, res) => {
-  res.render('vwAccount/register', {
-    isRegister: true,
-  });
+  res.render('vwAccount/register');
 });
 
 router.get('/login', (req, res) => {
-  res.render('vwAccount/login', {
-    isLogin: true,
-  });
+  res.render('vwAccount/login');
 });
 
 router.post('/login', async (req, res) => {
@@ -26,6 +22,17 @@ router.post('/login', async (req, res) => {
       errMessage: 'Invalid credentials.',
     });
   }
+
+  req.session.auth = true;
+  req.session.authUser = user;
+
+  const url = '/';
+  return res.redirect(url);
+});
+
+router.post('/logout', async (req, res) => {
+  req.session.auth = false;
+  req.session.authUser = null;
 
   const url = '/';
   return res.redirect(url);
@@ -62,9 +69,7 @@ router.post('/register', async (req, res) => {
     role: 'student',
   });
 
-  res.render('vwAccount/register', {
-    isPress: true,
-  });
+  res.render('vwAccount/register');
 });
 
 export default router;

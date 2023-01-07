@@ -13,6 +13,8 @@ import courseRouter from './routes/course.route.js';
 import categoryService from './services/category.service.js';
 import numeral from 'numeral';
 import session from 'express-session';
+import subCategoryModel from './utils/models/sub-category.model.js';
+import mongoose from 'mongoose';
 
 import adminRoute from './routes/admin.route.js';
 
@@ -59,13 +61,48 @@ app.use(
   })
 );
 
+
 app.use(async (req, res, next) => {
-  const list = await categoryService.findAll();
-  res.locals.lcCategories = JSON.parse(JSON.stringify(list));
+  if (typeof(req.session.auth) === 'undefined') {
+    res.locals.auth = false;
+  }
+
+  res.locals.auth = req.session.auth;
+  res.locals.authUser = req.session.authUser;
+  
+  next();
+})
+
+app.use(async (req, res, next) => {
+  let sub = await subCategoryModel.aggregate([
+    {
+      $group: {
+        _id: "$category",
+        items: {
+          $addToSet: {
+            name: "$title" 
+          }
+        }
+      }
+    },
+    {
+      $lookup: {
+        from: 'categories',
+        localField: '_id',
+        foreignField: '_id',
+        as: '_id'
+      }
+    }
+  ])
+  
+  res.locals.lcCategories = JSON.parse(JSON.stringify(sub));
+
   next();
 });
 
 app.get('/', async (req, res) => {
+  console.log(req.session.auth);
+  console.log(req.session.authUser);
   res.render('home');
 });
 
