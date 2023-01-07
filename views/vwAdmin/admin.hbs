@@ -10,10 +10,10 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <form method="post">
                   <div class="btn">
-                    <button type="sumit" formaction="#" class="dropdown-item" type="button">Ascending</button>
+                    <button name="value" type="sumit" formaction="/admin/No" value="ascending" class="dropdown-item" type="button">Ascending</button>
+                    <button name="value" type="sumit" formaction="/admin/No" value="descending" class="dropdown-item" type="button">Descending</button>
                   </div>
                 </form>
-                <button class="dropdown-item" type="button">Descending</button>
               </div>
             </div>
           </th>
@@ -23,8 +23,12 @@
                 Name
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <button class="dropdown-item" type="button">A-Z</button>
-                <button class="dropdown-item" type="button">Z-A</button>
+                <form method="post">
+                  <div class="btn">
+                    <button name="value" type="sumit" formaction="/admin/Name" value="A-Z" class="dropdown-item" type="button">A-Z</button>
+                    <button name="value" type="sumit" formaction="/admin/Name" value="Z-A" class="dropdown-item" type="button">Z-A</button>
+                  </div>
+                </form>
               </div>
             </div>
           </th>
@@ -34,19 +38,27 @@
                 Email
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <button class="dropdown-item" type="button">A-Z</button>
-                <button class="dropdown-item" type="button">Z-A</button>
+                <form method="post">
+                  <div class="btn">
+                    <button name="value" type="sumit" formaction="/admin/Email" value="A-Z" class="dropdown-item" type="button">A-Z</button>
+                    <button name="value" type="sumit" formaction="/admin/Email" value="Z-A" class="dropdown-item" type="button">Z-A</button>
+                  </div>
+                </form>
               </div>
             </div>
           </th>
           <th>
             <div class="dropdown">
               <button class="btn btn-outline-success dropdown-toggle border-0" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                DoB
+                Birthday
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <button class="dropdown-item" type="button">Ascending</button>
-                <button class="dropdown-item" type="button">Descending</button>
+                <form method="post">
+                  <div class="btn">
+                    <button name="value" type="sumit" formaction="/admin/DoB" value="ascending" class="dropdown-item" type="button">Ascending</button>
+                    <button name="value" type="sumit" formaction="/admin/DoB" value="descending" class="dropdown-item" type="button">Descending</button>
+                  </div>
+                </form>
               </div>
             </div>
           </th>
@@ -56,8 +68,12 @@
                 Role
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <button class="dropdown-item" type="button">Teacher</button>
-                <button class="dropdown-item" type="button">Student</button>
+                <form method="post">
+                  <div class="btn">
+                    <button name="value" type="sumit" formaction="/admin/Role" value="teacher" class="dropdown-item" type="button">Teacher</button>
+                    <button name="value" type="sumit" formaction="/admin/Role" value="student" class="dropdown-item" type="button">Student</button>
+                  </div>
+                </form>
               </div>
             </div>
           </th>
@@ -67,54 +83,28 @@
                 Created Date
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <button class="dropdown-item" type="button">Ascending</button>
-                <button class="dropdown-item" type="button">Descending</button>
+                <form method="post">
+                  <div class="btn">
+                    <button name="value" type="sumit" formaction="/admin/CreatedDate" value="ascending" class="dropdown-item" type="button">Ascending</button>
+                    <button name="value" type="sumit" formaction="/admin/CreatedDate" value="descending" class="dropdown-item" type="button">Descending</button>
+                  </div>
+                </form>
               </div>
             </div>
           </th>
         </tr>
       </thead>
       <tbody>
+        {{#each users}}
         <tr>
-          <th scope="row">1</th>
-          <td>Huỳnh Đức</td>
-          <td>nhduc1201@gmail.com</td>
-          <td>12/01/2002</td>
-          <td>Student</td>
-          <td>22/11/2002</td>
+            <th scope="row">{{no}}</th>
+            <td>{{name}}</td>
+            <td>{{email}}</td>
+            <td>{{birthday}}</td>
+            <td>{{role}}</td>
+            <td>22/11/2002</td>
         </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Huỳnh Đức</td>
-          <td>nhduc1201@gmail.com</td>
-          <td>12/01/2002</td>
-          <td>Student</td>
-          <td>22/11/2002</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Huỳnh Đức</td>
-          <td>nhduc1201@gmail.com</td>
-          <td>12/01/2002</td>
-          <td>Student</td>
-          <td>22/11/2002</td>
-        </tr>
-        <tr>
-          <th scope="row">4</th>
-          <td>Huỳnh Đức</td>
-          <td>nhduc1201@gmail.com</td>
-          <td>12/01/2002</td>
-          <td>Student</td>
-          <td>22/11/2002</td>
-        </tr>
-        <tr>
-          <th scope="row">5</th>
-          <td>Huỳnh Đức</td>
-          <td>nhduc1201@gmail.com</td>
-          <td>12/01/2002</td>
-          <td>Student</td>
-          <td>22/11/2002</td>
-        </tr>
+        {{/each}}
       </tbody>
     </table>
   </div>
