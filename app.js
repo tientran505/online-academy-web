@@ -13,6 +13,8 @@ import courseRouter from './routes/course.route.js';
 import categoryService from './services/category.service.js';
 import numeral from 'numeral';
 import session from 'express-session';
+import subCategoryModel from './utils/models/sub-category.model.js';
+import mongoose from 'mongoose';
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -70,8 +72,29 @@ app.use(async (req, res, next) => {
 })
 
 app.use(async (req, res, next) => {
-  const list = await categoryService.findAll();
-  res.locals.lcCategories = JSON.parse(JSON.stringify(list));
+  let sub = await subCategoryModel.aggregate([
+    {
+      $group: {
+        _id: "$category",
+        items: {
+          $addToSet: {
+            name: "$title" 
+          }
+        }
+      }
+    },
+    {
+      $lookup: {
+        from: 'categories',
+        localField: '_id',
+        foreignField: '_id',
+        as: '_id'
+      }
+    }
+  ])
+  
+  res.locals.lcCategories = JSON.parse(JSON.stringify(sub));
+
   next();
 });
 
