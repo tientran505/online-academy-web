@@ -19,6 +19,7 @@ import mongoose from 'mongoose';
 
 import adminRoute from './routes/admin.user.route.js';
 import categoryRoute from './routes/admin.category.route.js';
+import adminCourseRoute from './routes/admin.course.route.js'
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -154,6 +155,7 @@ app.use('/course', courseTeacherRouter);
 
 app.use('/admin/user', adminRoute);
 app.use('/admin/category', categoryRoute);
+app.use('/admin/course', adminCourseRoute);
 
 app.listen(3000);
 
