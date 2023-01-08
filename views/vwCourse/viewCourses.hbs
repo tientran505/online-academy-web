@@ -1,0 +1,21 @@
+
+
+<div class="card w-75 p-3 mx-auto" id="header">
+
+    <h4>
+    <div class="card-header"> Course List     </div></h4>
+    <div class="card-body">
+        <div class="list-group">
+        {{#each course}}
+            <a href="/course/viewSectionLecture/{{_id}}" class="list-group-item list-group-item-action">
+                <div class="d-flex justify-content-between">
+                {{course_name}}
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    </div>
+            </a>
+
+        {{/each}}
+        </div>
+    </div>
+
+</div>

@@ -52,11 +52,11 @@ router.post('/addCourse',(req, res) => {
 });
 router.get('/viewSectionLecture/:id',async (req,res)=> {
     const course_id = req.params.id || "";
-    console.log(course_id);
     const c = await Course.findOne({_id : course_id});
     const p = await CourseService.loadSectionLecture(course_id);
-    const list =  JSON.parse(JSON.stringify(p));
-    console.log(list[0].lectures);
+    const list =  JSON.parse(JSON.stringify(c));
+    console.log(list.course_name);
+    // console.log(list);
     res.render('vwCourse/viewSectionLecture', {
         course_id: course_id,
         course_name: list.course_name,
@@ -193,18 +193,31 @@ router.get('/addSection/:id',async (req,res)=> {
         empty: p.length ===0,
     });
 });
+router.get('/listcourse',async (req,res)=> {
+    //lcUserID....
+
+
+    // const course = await Course.find({author: id});
+    const course = await Course.find();
+    const list =  JSON.parse(JSON.stringify(course));
+    // console.log(list);
+    // const p = await CourseService.loadSectionLecture(course_id);
+    res.render('vwCourse/viewCourses', {
+        course: list,
+    });
+});
 router.post('/addSection/:id',async (req,res)=> {
     const course_id = req.params.id || "";
     const p = req.body;
-    console.log(p);
-    console.log(p.SectionName.length);
+    // console.log(p);
+    // console.log(p.SectionName.length);
     for (let i =0 ;i <p.SectionName.length; i++) {
         if (p.SectionName[i] !== '') {
             const section = await Section.create({
                 title: p.SectionName[i],
                 course_id,
             });
-            console.log(section);
+            // console.log(section);
         }
         }
         res.redirect('/course/viewSectionLecture/' + course_id);
