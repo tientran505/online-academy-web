@@ -11,11 +11,11 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import courseRouter from './routes/course.route.js';
 import categoryService from './services/category.service.js';
+import courseTeacherRouter from './routes/course_teacher.route.js';
 import numeral from 'numeral';
 import session from 'express-session';
 import subCategoryModel from './utils/models/sub-category.model.js';
 import mongoose from 'mongoose';
-
 import adminRoute from './routes/admin.route.js';
 
 dotenv.config();
@@ -145,6 +145,7 @@ app.get('/product', (req, res) => {
 app.use('/account', accountRouter);
 app.use('/detail', detailRouter);
 app.use('/course', courseRouter);
+app.use('/course', courseTeacherRouter);
 app.use('/admin', adminRoute);
 app.listen(3000);
 

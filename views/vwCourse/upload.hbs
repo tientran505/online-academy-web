@@ -3,7 +3,7 @@
 {{/section}}
 
 {{#section 'js'}}
-    <script src="https://cdn.tiny.cloud/1/ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/hygzc72vtb6fcja8plsjnx8quebr9pxltpz0qqnlrpmcvm9n/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/buffer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/filetype.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/piexif.min.js"></script>
@@ -19,7 +19,7 @@
             maxFileCount: 5,
             showUpload: false,
             showCaption: false,
-            allowedFileExtensions: ['jpg', 'png', 'gif'],
+            allowedFileExtensions: ['jpg', 'png', 'gif','mp4','mkv'],
         });
 
         tinymce.init({
@@ -28,7 +28,7 @@
             // plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
             // toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
             menubar: false,
-            plugins: 'paste image link autolink lists table media',
+            plugins: ' image link autolink lists table media',
             toolbar: [
                 'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
             ],
@@ -39,7 +39,7 @@
             // plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
             // toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
             menubar: false,
-            plugins: 'paste image link autolink lists table media',
+            plugins: 'image link autolink lists table media',
             toolbar: [
                 'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
             ],
@@ -67,13 +67,10 @@
                 <input  type="text" class="form-control" id="txtCourseName" name="course_name" autofocus>
             </div>
             <div class="form-group">
-                <label for="img">Image Thumbnail</label>
+                <label for="img">Image</label>
                 <input type="file" multiple name="img" id="img">
             </div>
-<!--            <div class="form-group">-->
-<!--                <label for="txtCategory">Course Category</label>-->
-<!--                <input  type="text" class="form-control" id="Category" name="program_language" placeholder="Python, Java, C/C++,...">-->
-<!--            </div>-->
+
             <div class="form-group ">
                 <input type="radio" id="complete" name="is_completed" value="true">
                 <label for="complete">Course is completed</label><br>
@@ -99,17 +96,17 @@
         </div>
         </b>
         <div class="card-footer text-muted d-flex justify-content-between">
-            <button type="reset" class="btn btn-primary bg-secondary w-20 text-white-white m-2">
+            <button type="reset" class="btn btn-primary bg-secondary  text-white-white m-2 w-50">
                 <i class="fa fa-repeat" aria-hidden="true"></i>
                 Reset
             </button>
-            <a href="/" class="btn btn-primary bg-danger w-20 text-white m-2">
+            <a href="/" class="btn btn-primary bg-danger  text-white w-50 m-2">
 
                 <i class="fa fa-ban" aria-hidden="true"></i>
                 Cancel
 
             </a>
-            <button class="btn btn-primary bg-success w-50 text-white m-2">
+            <button type="submit" class="btn btn-primary bg-success w-50 text-white m-2">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 Continue
             </button>
