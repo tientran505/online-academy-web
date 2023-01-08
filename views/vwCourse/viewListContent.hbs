@@ -1,0 +1,101 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="./public/css/viewListContent.css">
+{{/section}}
+{{#section 'js'}}
+    <script>
+    document.addEventListener("DOMContentLoaded", function(){
+         document.querySelectorAll('.sidebar .nav-link').forEach(function(element){
+            element.addEventListener('click', function (e) {
+                let nextEl = element.nextElementSibling;
+                let parentEl  = element.parentElement;
+
+                if(nextEl) {
+                    e.preventDefault();
+                    let mycollapse = new bootstrap.Collapse(nextEl);
+
+                    if(nextEl.classList.contains('show')){
+                        mycollapse.hide();
+                } else {
+                    mycollapse.show();
+        // find other submenus with class=show
+                    var opened_submenu = parentEl.parentElement.querySelector('.submenu.show');
+        // if it exists, then close all of them
+                    if(opened_submenu){
+                        new bootstrap.Collapse(opened_submenu);
+                        }
+                    }
+                 }
+            }); // addEventListener
+        }) // forEach
+    });
+    </script>
+{{/section}}
+<div class="card w-75 p-3 mx-auto" id="header">
+    <h4 class="card-header d-flex justify-content-left">
+            <div class="row w-100 ">
+                <div class="col-md-10 d-flex flex-row  ">
+                    <a class="nav-link text-dark align-middle" >Course Section </a>
+                </div>
+                <div class="col-md-2 d-flex flex-row-reverse  ">
+
+                    <a href="#">
+                        <button  class="btn btn-primary bg-light text-success m-2"  >
+
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            Add
+                        </button>
+                    </a>
+                </div>
+
+
+            </div>
+    </h4>
+    <b>
+        <div class=" w-100">
+            <nav class="sidebar card py-2 mb-4">
+                {{#if this.empty}}
+                    <p class="text-muted align-middle text-center">
+                            No Section to display.
+                    </p>
+                    {{else}}
+                        <ul class="nav flex-column" id="nav_accordion">
+                            {{#each section}}
+                            <li class="nav-item has-submenu" class="list-group list-group-flush">
+
+                                <a class="nav-link">
+                                    <div class="card-header">
+                                        {{title}}
+                                    </div>
+                                </a>
+
+                                    <ul class="submenu collapse" >
+                                       <ol>{{#each lectures}}
+                                            <div class=" d-flex justify-content-between " >
+                                                    <div class="row w-100 ">
+                                                        <div class="col-md-10 d-flex flex-row  ">
+                                                            <a class="nav-link text-dark align-middle" >{{title}} </a>
+                                                        </div>
+                                                       <div class="col-md-2 d-flex flex-row-reverse  ">
+                                                            <a href="#">
+                                                                <button  class="btn btn-primary bg-light text-success m-2"  >
+
+                                                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                                     Edit
+                                                                 </button>
+                                                            </a>
+                                                       </div>
+                                                    </div>
+                                            </div>    {{/each}}
+                                       </ol>
+                                    </ul>
+
+                            </li>
+                    {{/each}}
+                </ul>
+{{/if}}
+            </nav>
+    </div>
+    </b>
+    <div class="card-footer text-muted d-flex justify-content-between">
+    </div>
+</div>

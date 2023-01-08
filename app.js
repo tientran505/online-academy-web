@@ -11,10 +11,12 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import courseRouter from './routes/course.route.js';
 import categoryService from './services/category.service.js';
+import courseTeacherRouter from './routes/course_teacher.route.js';
 import numeral from 'numeral';
 import session from 'express-session';
 import subCategoryModel from './utils/models/sub-category.model.js';
 import mongoose from 'mongoose';
+
 import adminRoute from './routes/admin.user.route.js';
 import categoryRoute from './routes/admin.category.route.js';
 import adminCourseRoute from './routes/admin.course.route.js'
@@ -149,6 +151,8 @@ app.get('/product', (req, res) => {
 app.use('/account', accountRouter);
 app.use('/detail', detailRouter);
 app.use('/course', courseRouter);
+app.use('/course', courseTeacherRouter);
+
 app.use('/admin/user', adminRoute);
 app.use('/admin/category', categoryRoute);
 app.use('/admin/course', adminCourseRoute);
