@@ -7,16 +7,21 @@ const sectionSchema = new mongoose.Schema({
     type: dType.String,
     require: true,
   },
-
-  lectures: {
-    type: [
+  course_id: {
+    type: dType.ObjectId,
+    require: true,
+    ref: 'Course',
+  },
+  lectures:
+     [
       {
-        lecture: dType.ObjectId,
-        created_date: dType.Date,
+        type: dType.ObjectId,
+        ref: 'Lecture',
+        // created_date: dType.Date,
       },
     ],
-    ref: 'Lecture',
-  },
+
+
 });
 
 export default mongoose.model('Section', sectionSchema);

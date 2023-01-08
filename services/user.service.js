@@ -14,4 +14,12 @@ export default {
   del(id) {
     return UserModel.findByIdAndDelete(id);
   },
+
+  findByIdAndUpdate(id, name, password, email) {
+    return User.findByIdAndUpdate(id, {
+      name,
+      password,
+      email,
+    });
+  },
 };

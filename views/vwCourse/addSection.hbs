@@ -1,0 +1,87 @@
+{{#section 'js'}}
+    <script>
+        var count_field = 1;
+        function add_more_field() {
+            count_field +=1;
+            console.log(count_field);
+
+            html = ' <div class="form-group">\
+                    <label >New Section</label>\
+            <input  type="text" class="form-control"  id="txtCourseTitle'+count_field+'" name="SectionName[]"></div>'
+            var form =document.getElementById(`addSectionFrm`);
+
+            form.innerHTML += html
+        }
+
+
+       function resetSection(){
+            console.log(0);
+            var form =document.getElementById(`addSectionFrm`);
+             form.innerHTML = '';
+           count_field = 0;
+             add_more_field();
+        };
+    </script>
+{{/section}}
+
+<from>
+    <div class="card w-75 p-3 mx-auto" id="header">
+        <h4 class="card-header d-flex justify-content-left">
+            <div class="row w-100 ">
+                <div class="col-md-8 d-flex flex-row  ">
+                    <a class="nav-link text-dark align-middle" >Course Content </a>
+                </div>
+
+            </div>
+        </h4>
+        <b>
+            <div class=" w-100">
+                <nav class="sidebar card py-2 mb-4">
+                    <ul class="nav flex-column" id="nav_accordion">
+
+
+                            {{#each section}}
+                                <li class="nav-item has-submenu" class="list-group list-group-flush">
+
+                                    <a class="nav-link">
+                                        <div class="card-header">
+                                            {{title}}
+                                        </div>
+                                    </a>
+                            {{/each}}
+                            <form method="post" id="addSectionFrm">
+                                <div class="form-horizontal">
+                                    <label >New Section</label>
+                                    <input  type="text" class="form-control"  id="txtCourseTitle1" name="SectionName[]" autofocus>
+                                </div>
+                            </form>
+                                </li>
+                        <button  class="btn btn-primary bg-primary text-white w-25 m-2" onclick="add_more_field()" >
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            Add More Section
+                        </button>
+
+                    </ul>
+                </nav>
+            </div>
+        </b>
+        <div class="card-footer text-muted d-flex justify-content-between">
+            <button type="reset" class="btn btn-primary bg-secondary w-25 text-white-white m-2" onclick="resetSection()">
+                <i class="fa fa-repeat" aria-hidden="true"></i>
+                Reset
+            </button>
+
+            <a href="/" class="btn btn-primary bg-danger w-25 text-white m-2">
+
+                <i class="fa fa-ban" aria-hidden="true"></i>
+                Cancel
+
+            </a>
+
+            <button type="submit" form="addSectionFrm" class="btn btn-primary bg-success w-25 text-white m-2"  >
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Done
+            </button>
+        </div>
+    </div>
+</from>

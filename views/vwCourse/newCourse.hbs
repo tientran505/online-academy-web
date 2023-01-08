@@ -1,0 +1,128 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/css/fileinput.min.css" />
+{{/section}}
+
+{{#section 'js'}}
+    <script src="https://cdn.tiny.cloud/1/hygzc72vtb6fcja8plsjnx8quebr9pxltpz0qqnlrpmcvm9n/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/buffer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/filetype.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/piexif.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/sortable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/fileinput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/themes/fa4/theme.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/locales/vi.min.js"></script>
+
+    <script>
+
+    $('.img').fileinput({
+            language: 'vi',
+            theme: 'fa4',
+            dropZoneEnabled: false,
+            maxFileCount: 5,
+            showUpload: false,
+            showCaption: false,
+            allowedFileExtensions: ['jpg', 'png', 'gif','mp4','mkv'],
+        });
+    tinymce.init({
+            selector: 'textarea.txtLecture',
+            height:300,
+            // plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            // toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+            menubar: false,
+            plugins: ' image link autolink lists table media',
+            toolbar: [
+                'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
+            ],
+        });
+        $('#ContentFrm').on('reset', (e) => {
+            $(document).ready(function(){
+                $(this).scrollTop(0);
+            });
+        });
+    $('#ContentFrm').on('submit', (e) => {
+        e.preventDefault();
+        // console.log($('#CourseId').val());
+        const course_id = $('#CourseId').val();
+        $('#ContentFrm').append(course_id);
+        $('#ContentFrm').off('submit').submit();
+    });
+
+    var count_field = 1;
+    function add_more_field() {
+        count_field +=1;
+        console.log(count_field);
+
+        html = '<div class="form-group">\
+                <label >Title</label>\
+        <input  type="text" class="form-control" class="txtCourseTitle" id="txtCourseTitle" name="title" autofocus></div>\
+        <div class="row" id="row">\
+            <div class="col-sm-4">\
+                <label >Image</label>\
+                <input type="file" multiple name="img" class="img" id="img">\
+            </div>\
+            <div class="col-sm-8">\
+                <label >Lecture</label>\
+                <textarea name="Lecture" class="txtLecture" id="txtLecture" ></textarea>\
+            </div>\
+        </div>'
+
+        var form =document.getElementById(`ContentFrm`);
+
+        form.innerHTML+= html
+    }
+    </script>
+
+{{/section}}
+<!---->
+    <div class="card w-100 p-3 mx-auto">
+        <h4 class="card-header d-flex justify-content-left">
+            Course Content
+        </h4>
+
+            <div class="card-body">
+
+                <form method="POST" enctype="multipart/form-data" id="ContentFrm" >
+
+                    <div class="form-group">
+
+                        <label >Title</label>
+                        <input  type="text" class="form-control" class="txtCourseTitle" id="txtCourseTitle" name="title" autofocus></div>
+                    <div class="row" id="row">
+                        <div class="col-sm-4">
+                            <label >Image</label>
+                            <input type="file" multiple name="img" class="img" id="img">
+                        </div>
+                        <div class="col-sm-8">
+                            <label >Lecture</label>
+                            <textarea name="Lecture" class="txtLecture" id="txtLecture" ></textarea>
+                        </div>
+                    </div>
+
+                </form>
+                <div class="form-group">
+                <button  class="btn btn-primary bg-primary text-white w-25 m-2" onclick="add_more_field()" >
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                Add more Lecture
+                </button>
+                </div>
+            </div>
+
+        <div class="card-footer text-muted d-flex justify-content-between">
+            <button type="reset" class="btn btn-primary bg-secondary w-25 text-white-white m-2">
+                <i class="fa fa-repeat" aria-hidden="true"></i>
+                Reset
+            </button>
+
+            <a href="/" class="btn btn-primary bg-danger w-25 text-white m-2">
+
+                <i class="fa fa-ban" aria-hidden="true"></i>
+                Cancel
+
+            </a>
+
+            <button type="submit" form="ContentFrm" class="btn btn-primary bg-success w-25 text-white m-2"  >
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Done
+            </button>
+        </div>
+    </div>

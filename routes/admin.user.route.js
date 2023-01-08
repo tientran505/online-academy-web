@@ -130,13 +130,13 @@ router.post('/Email', async (req, res) => {
   var order = req.body.value;
 
   if (order === 'A-Z') {
-    res.render('vwAdmin/admin', {
+    res.render('vwAdmin/user', {
       users: userList.sort(function (a, b) {
         return a.email.charCodeAt(0) - b.email.charCodeAt(0);
       }),
     });
   } else if (order === 'Z-A') {
-    res.render('vwAdmin/admin', {
+    res.render('vwAdmin/user', {
       users: userList.sort(function (a, b) {
         return b.email.charCodeAt(0) - a.email.charCodeAt(0);
       }),
@@ -171,7 +171,7 @@ router.post('/DoB', async (req, res) => {
   var order = req.body.value;
 
   if (order === 'ascending') {
-    res.render('vwAdmin/admin', {
+    res.render('vwAdmin/user', {
       users: userList.sort(function (a, b) {
         return a.birthday - b.birthday;
       }),

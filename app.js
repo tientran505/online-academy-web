@@ -11,6 +11,7 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import courseRouter from './routes/course.route.js';
 import categoryService from './services/category.service.js';
+import courseTeacherRouter from './routes/course_teacher.route.js';
 import numeral from 'numeral';
 import session from 'express-session';
 import subCategoryModel from './utils/models/sub-category.model.js';
@@ -20,6 +21,7 @@ import categoryRoute from './routes/admin.category.route.js';
 import categoryModel from './utils/models/category.model.js';
 import { log } from 'console';
 import userModel from './utils/models/user.model.js';
+import adminCourseRoute from './routes/admin.course.route.js';
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -176,8 +178,11 @@ app.get('/product', async (req, res) => {
 app.use('/account', accountRouter);
 app.use('/detail', detailRouter);
 app.use('/course', courseRouter);
+app.use('/course', courseTeacherRouter);
+
 app.use('/admin/user', adminRoute);
 app.use('/admin/category', categoryRoute);
+app.use('/admin/course', adminCourseRoute);
 
 app.listen(3000);
 
