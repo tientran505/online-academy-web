@@ -1,0 +1,121 @@
+<div class='container-fluid p-0 m-0'>
+  <div class='row'>
+    <div class='col-sm-3'>
+      <div class='card'>
+        <h3 class='card-header'>
+          Admin Dashboard
+        </h3>
+        <div class='list-group list-group-flush'>
+          <a href='/admin/user' class='list-group-item list-group-item-action active'>
+            <i class='fa fa-users mr-1' aria-hidden='true'></i>
+            User
+          </a>
+          <a href='/admin/category' class='list-group-item list-group-item-action'>
+            <i class='fa fa-list-alt mr-1' aria-hidden='true'></i>
+            Category
+          </a>
+          <a href='#' class='list-group-item list-group-item-action'>
+            <i class='fa fa-graduation-cap mr-1' aria-hidden='true'></i>
+            Course
+          </a>
+          <a href='#' class='list-group-item list-group-item-action'>
+            <i class='fa fa-user-plus mr-1' aria-hidden='true'></i>
+            Lecturer Account Approve
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class='col-sm-9'>
+      <div class='card'>
+        <h3 class='card-header'>
+          User
+        </h3>
+        <div class='card-body container-fluid'>
+          <table class='table table-bordered text-center table-hover'>
+            <thead class="thead-light">
+                <tr>
+                    <th>
+                        <div class="dropdown">
+                        <button class="btn btn-outline-success border-0" type="button">
+                            No
+                        </button>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="dropdown">
+                        <button class="btn btn-outline-success dropdown-toggle border-0" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Name
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <button class="dropdown-item" type="button">A-Z</button>
+                            <button class="dropdown-item" type="button">Z-A</button>
+                        </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="dropdown">
+                        <button class="btn btn-outline-success dropdown-toggle border-0" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Category
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <button class="dropdown-item" type="button">A-Z</button>
+                            <button class="dropdown-item" type="button">Z-A</button>
+                        </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="dropdown">
+                        <button class="btn btn-outline-success dropdown-toggle border-0" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Price
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <button class="dropdown-item" type="button">Ascending</button>
+                            <button class="dropdown-item" type="button">Descending</button>
+                        </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="dropdown">
+                        <button class="btn btn-outline-success dropdown-toggle border-0" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Rate
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <button class="dropdown-item" type="button">Ascending</button>
+                            <button class="dropdown-item" type="button">Descending</button>
+                        </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="dropdown">
+                        <button class="btn btn-outline-success dropdown-toggle border-0" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Author
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <button class="dropdown-item" type="button">A-Z</button>
+                            <button class="dropdown-item" type="button">A-Z</button>
+                        </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+              {{#each courses}}
+              <tr>
+                <th scope='row'>{{inc @index}}</th>
+                <td>{{course_name}}</td>
+                <td>{{category}}</td>
+                <td>{{price}}</td>
+                <td>{{rate}}</td>
+                <td>{{authors}}</td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

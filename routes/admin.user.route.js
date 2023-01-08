@@ -51,11 +51,11 @@ router.post('/No', async (req, res) => {
   var order = req.body.value;
 
   if (order === 'ascending') {
-    res.render('vwAdmin/admin', {
+    res.render('vwAdmin/user', {
       users: userList,
     });
   } else if (order === 'descending') {
-    res.render('vwAdmin/admin', {
+    res.render('vwAdmin/user', {
       users: userList.reverse(),
     });
   }
@@ -88,13 +88,13 @@ router.post('/Name', async (req, res) => {
   var order = req.body.value;
 
   if (order === 'A-Z') {
-    res.render('vwAdmin/admin', {
+    res.render('vwAdmin/user', {
       users: userList.sort(function (a, b) {
         return a.name.charCodeAt(0) - b.name.charCodeAt(0);
       }),
     });
   } else if (order === 'Z-A') {
-    res.render('vwAdmin/admin', {
+    res.render('vwAdmin/user', {
       users: userList.sort(function (a, b) {
         return b.name.charCodeAt(0) - a.name.charCodeAt(0);
       }),
@@ -129,13 +129,13 @@ router.post('/Email', async (req, res) => {
   var order = req.body.value;
 
   if (order === 'A-Z') {
-    res.render('vwAdmin/admin', {
+    res.render('vwAdmin/user', {
       users: userList.sort(function (a, b) {
         return a.email.charCodeAt(0) - b.email.charCodeAt(0);
       }),
     });
   } else if (order === 'Z-A') {
-    res.render('vwAdmin/admin', {
+    res.render('vwAdmin/user', {
       users: userList.sort(function (a, b) {
         return b.email.charCodeAt(0) - a.email.charCodeAt(0);
       }),
@@ -170,13 +170,13 @@ router.post('/DoB', async (req, res) => {
   var order = req.body.value;
 
   if (order === 'ascending') {
-    res.render('vwAdmin/admin', {
+    res.render('vwAdmin/user', {
       users: userList.sort(function (a, b) {
         return a.birthday - b.birthday;
       }),
     });
   } else if (order === 'descending') {
-    res.render('vwAdmin/admin', {
+    res.render('vwAdmin/user', {
       users: userList.sort(function (a, b) {
         return b.birthday - a.birthday;
       }),
@@ -210,14 +210,9 @@ router.post('/Role', async (req, res) => {
     }
   }
 
-  res.render('vwAdmin/admin', {
+  res.render('vwAdmin/user', {
     users: userList,
   });
-});
-
-router.post('/CreatedDate', (req, res) => {
-  console.log(req.body.value);
-  res.render('vwAdmin/admin');
 });
 
 export default router;
