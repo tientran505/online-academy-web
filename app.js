@@ -20,7 +20,6 @@ import mongoose from 'mongoose';
 import adminRoute from './routes/admin.user.route.js';
 import categoryRoute from './routes/admin.category.route.js';
 
-
 dotenv.config();
 const port = process.env.PORT || 5000;
 connectDB();
@@ -151,6 +150,7 @@ app.get('/product', (req, res) => {
 app.use('/account', accountRouter);
 app.use('/detail', detailRouter);
 app.use('/course', courseRouter);
+app.use('/course', courseTeacherRouter);
 
 app.use('/admin/user', adminRoute);
 app.use('/admin/category', categoryRoute);
