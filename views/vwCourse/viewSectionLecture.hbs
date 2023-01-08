@@ -33,14 +33,18 @@
 <div class="card w-75 p-3 mx-auto" id="header">
     <h4 class="card-header d-flex justify-content-left">
             <div class="row w-100 ">
-                <div class="col-md-10 d-flex flex-row  ">
-                    <a class="nav-link text-dark align-middle" >Course Section </a>
+                <div class="col-md-8 d-flex flex-row  ">
+                    <a class="nav-link text-dark align-middle" >Course Content </a>
                 </div>
-                <div class="col-md-2 d-flex flex-row-reverse  ">
-
-                    <a href="#">
+                <div class="col-md-4 d-flex flex-row-reverse  ">
+                    <a href="/course/editSection/{{course_id}}">
                         <button  class="btn btn-primary bg-light text-success m-2"  >
-
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                            Edit
+                        </button>
+                    </a>
+                    <a href="/course/addSection/{{course_id}}">
+                        <button  class="btn btn-primary bg-light text-success m-2">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                             Add
                         </button>
@@ -53,12 +57,12 @@
     <b>
         <div class=" w-100">
             <nav class="sidebar card py-2 mb-4">
-                {{#if this.empty}}
-                    <p class="text-muted align-middle text-center">
-                            No Section to display.
-                    </p>
-                    {{else}}
                         <ul class="nav flex-column" id="nav_accordion">
+{{#if this.empty}}
+        <p class="text-muted align-middle text-center">
+            No Section to display.
+        </p>
+{{else}}
                             {{#each section}}
                             <li class="nav-item has-submenu" class="list-group list-group-flush">
 
@@ -70,7 +74,7 @@
 
                                     <ul class="submenu collapse" >
                                        <ol>{{#each lectures}}
-                                            <div class=" d-flex justify-content-between " >
+                                            <div class="card d-flex justify-content-between " >
                                                     <div class="row w-100 ">
                                                         <div class="col-md-10 d-flex flex-row  ">
                                                             <a class="nav-link text-dark align-middle" >{{title}} </a>
@@ -85,14 +89,22 @@
                                                             </a>
                                                        </div>
                                                     </div>
-                                            </div>    {{/each}}
+                                            </div>
+                                       {{/each}}
+                                           <div class="d-flex justify-content-end" >
+                                           <a href="/course/addLecture/{{ _id}}">
+                                               <button  class="btn btn-primary  bg-light text-success m-2">
+                                                   <i class="fa fa-plus" aria-hidden="true"></i>
+                                                   Add more Lecture
+                                               </button>
+                                           </a>
+                                           </div>
                                        </ol>
                                     </ul>
-
                             </li>
                     {{/each}}
-                </ul>
 {{/if}}
+                </ul>
             </nav>
     </div>
     </b>
