@@ -56,7 +56,9 @@
 {{/section}}
 
 {{#section 'js'}}
-  
+<script>
+
+</script>  
 {{/section}}
 
 
@@ -132,7 +134,7 @@
 </script>
 
 <script>
-    const generate1CoursesCarouselItem = (criteria, rank) => {
+    const generate1CoursesCarouselItem = (criteria, category, rank) => {
       let image = './public/imgs/image.png';
       let title = 'Top 1 hltv';
       let description = 'Description';
@@ -149,7 +151,7 @@
 
       return carousel1Item;
     };
-    const generate5CoursesCarouselItem = (criteria, isActive) => {
+    const generate5CoursesCarouselItem = (criteria, category, isActive) => {
       let carousel5Items = '';
       let i = 1;
 
@@ -161,17 +163,17 @@
       }
       carousel5Items += '<div class="cards-wrapper">';
 
-      carousel5Items += generate1CoursesCarouselItem('', i++);
-      carousel5Items += generate1CoursesCarouselItem('', i++);
-      carousel5Items += generate1CoursesCarouselItem('', i++);
-      carousel5Items += generate1CoursesCarouselItem('', i++);
-      carousel5Items += generate1CoursesCarouselItem('', i++);
+      carousel5Items += generate1CoursesCarouselItem(criteria, category, i++);
+      carousel5Items += generate1CoursesCarouselItem(criteria, category, i++);
+      carousel5Items += generate1CoursesCarouselItem(criteria, category, i++);
+      carousel5Items += generate1CoursesCarouselItem(criteria, category, i++);
+      carousel5Items += generate1CoursesCarouselItem(criteria, category, i++);
 
       carousel5Items += '</div></div>';
 
       return carousel5Items;
     };
-    const generate10CoursesCarousel = (carouselName) => {
+    const generate10CoursesCarousel = (carouselName, criteria, category) => {
       let carousel10Items = '';
       carousel10Items +=
         '<div class="cate">' +
@@ -180,8 +182,8 @@
         '"class="carousel slide"' +
         'data-ride="carousel">' +
         '<div class="carousel-inner">';
-      carousel10Items += generate5CoursesCarouselItem('', true);
-      carousel10Items += generate5CoursesCarouselItem('', false);
+      carousel10Items += generate5CoursesCarouselItem(criteria, category, true);
+      carousel10Items += generate5CoursesCarouselItem(criteria, category, false);
       carousel10Items += '</div>';
       carousel10Items +=
         '<button class="carousel-control-prev" type="button" data-target="#'+
@@ -209,16 +211,16 @@
   <div class="mx-5">
     <h2 class="mt-5">Web develop</h2>
     <script>
-      document.write(generate10CoursesCarousel('top10ViewWeb'));
-      document.write(generate10CoursesCarousel('top10NewestWeb'));
+      document.write(generate10CoursesCarousel('top10ViewWeb', 'View', 'Web'));
+      document.write(generate10CoursesCarousel('top10NewestWeb', 'New', 'Web'));
     </script>
   </div>
 
   <div class="mx-5">
     <h2 class="mt-5">Mobile develop</h2>
     <script>
-      document.write(generate10CoursesCarousel('top10ViewMobile'));
-      document.write(generate10CoursesCarousel('top10NewestMobile'));
+      document.write(generate10CoursesCarousel('top10ViewMobile', 'View', 'Mobile'));
+      document.write(generate10CoursesCarousel('top10NewestMobile', 'View', 'Web'));
     </script>
   </div>
   

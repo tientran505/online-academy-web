@@ -44,12 +44,7 @@ const userSchema = new mongoose.Schema({
   },
 
   registered_courses: {
-    type: [
-      {
-        course_id: dType.ObjectId,
-        registered_date: dType.Date,
-      },
-    ],
+    type: [dType.ObjectId],
     ref: 'Course',
   },
 
