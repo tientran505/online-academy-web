@@ -15,8 +15,8 @@ import numeral from 'numeral';
 import session from 'express-session';
 import subCategoryModel from './utils/models/sub-category.model.js';
 import mongoose from 'mongoose';
-
-import adminRoute from './routes/admin.route.js';
+import adminRoute from './routes/admin.user.route.js';
+import categoryRoute from './routes/admin.category.route.js';
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -42,6 +42,9 @@ app.engine(
       format_number(val) {
         return numeral(val).format('0,0');
       },
+      inc(val, option) {
+        return parseInt(val) + 1;
+      },
     },
   })
 );
@@ -62,40 +65,39 @@ app.use(
   })
 );
 
-
 app.use(async (req, res, next) => {
-  if (typeof(req.session.auth) === 'undefined') {
+  if (typeof req.session.auth === 'undefined') {
     res.locals.auth = false;
   }
 
   res.locals.auth = req.session.auth;
   res.locals.authUser = req.session.authUser;
-  
+
   next();
-})
+});
 
 app.use(async (req, res, next) => {
   let sub = await subCategoryModel.aggregate([
     {
       $group: {
-        _id: "$category",
+        _id: '$category',
         items: {
           $addToSet: {
-            name: "$title" 
-          }
-        }
-      }
+            name: '$title',
+          },
+        },
+      },
     },
     {
       $lookup: {
         from: 'categories',
         localField: '_id',
         foreignField: '_id',
-        as: '_id'
-      }
-    }
-  ])
-  
+        as: '_id',
+      },
+    },
+  ]);
+
   res.locals.lcCategories = JSON.parse(JSON.stringify(sub));
 
   next();
@@ -146,7 +148,9 @@ app.get('/product', (req, res) => {
 app.use('/account', accountRouter);
 app.use('/detail', detailRouter);
 app.use('/course', courseRouter);
-app.use('/admin', adminRoute);
+app.use('/admin/user', adminRoute);
+app.use('/admin/category', categoryRoute);
+
 app.listen(3000);
 
 app.listen(port, () => {

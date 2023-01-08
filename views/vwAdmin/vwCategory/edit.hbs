@@ -1,0 +1,113 @@
+<div class='container-fluid p-0 m-0'>
+  <div class='row'>
+    <div class='col-sm-3'>
+      <div class='card'>
+        <h3 class='card-header'>
+          Admin Dashboard
+        </h3>
+        <div class='list-group list-group-flush'>
+          <a href='/admin/user' class='list-group-item list-group-item-action'>
+            <i class='fa fa-users mr-1' aria-hidden='true'></i>
+            User
+          </a>
+          <a href='#' class='list-group-item list-group-item-action active'>
+            <i class='fa fa-list-alt mr-1' aria-hidden='true'></i>
+            Category
+          </a>
+          <a href='#' class='list-group-item list-group-item-action'>
+            <i class='fa fa-graduation-cap mr-1' aria-hidden='true'></i>
+            Course
+          </a>
+          <a href='#' class='list-group-item list-group-item-action'>
+            <i class='fa fa-user-plus mr-1' aria-hidden='true'></i>
+            Lecturer Account Approve
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class='col-sm-9'>
+      <div class='card'>
+        <h3 class='m-0 card-header'>
+          Edit Category
+        </h3>
+
+        <div class='card-body'>
+          <form method='post'>
+            <div class='form-group'>
+              <label for='txtCatID'><strong>Category ID</strong></label>
+              <input
+                value='{{this.category._id}}'
+                name='catID'
+                type='text'
+                class='form-control'
+                id='txtCatID'
+                readonly
+              />
+            </div>
+
+            <div class='form-group'>
+              <label for='titleTxt'><strong>Category Title</strong></label>
+              <input
+                type='text'
+                class='form-control'
+                id='titleTxt'
+                name='catTitle'
+                value='{{this.category.title}}'
+                autofocus
+              />
+            </div>
+
+            <a
+              role='button'
+              type='button'
+              class='btn btn-secondary'
+              href='/admin/category'
+            >
+              <i class='fa fa-arrow-left' aria-hidden='true'></i>
+              Back
+            </a>
+
+            <button
+              type='submit'
+              class='btn btn-primary'
+              formaction='/admin/category/patch'
+            >
+              <i class='fa fa-floppy-o' aria-hidden='true'></i>
+              Save
+            </button>
+
+            <button
+              type='submit'
+              class='btn btn-danger'
+              formaction='/admin/category/del?catID={{this.category._id}}'
+            >
+              <i class='fa fa-trash-o' aria-hidden='true'></i>
+              Delete
+            </button>
+
+            {{#if this.errMessage}}
+              <div
+                class='alert alert-danger alert-dismissible fade show'
+                role='alert'
+              >
+                <strong>Error!</strong>
+                {{this.errMessage}}
+                <button
+                  type='button'
+                  class='close'
+                  data-dismiss='alert'
+                  aria-label='Close'
+                >
+                  <span aria-hidden='true'>&times;</span>
+                </button>
+              </div>
+            {{/if}}
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
