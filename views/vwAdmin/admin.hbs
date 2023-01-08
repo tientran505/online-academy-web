@@ -7,7 +7,7 @@
               <button class="btn btn-outline-success dropdown-toggle border-0" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 No
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
                 <form method="post">
                   <div class="btn">
                     <button name="value" type="sumit" formaction="/admin/No" value="ascending" class="dropdown-item" type="button">Ascending</button>
@@ -22,7 +22,7 @@
               <button class="btn btn-outline-success dropdown-toggle border-0" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Name
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
                 <form method="post">
                   <div class="btn">
                     <button name="value" type="sumit" formaction="/admin/Name" value="A-Z" class="dropdown-item" type="button">A-Z</button>
@@ -37,7 +37,7 @@
               <button class="btn btn-outline-success dropdown-toggle border-0" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Email
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
                 <form method="post">
                   <div class="btn">
                     <button name="value" type="sumit" formaction="/admin/Email" value="A-Z" class="dropdown-item" type="button">A-Z</button>
@@ -52,7 +52,7 @@
               <button class="btn btn-outline-success dropdown-toggle border-0" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Birthday
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
                 <form method="post">
                   <div class="btn">
                     <button name="value" type="sumit" formaction="/admin/DoB" value="ascending" class="dropdown-item" type="button">Ascending</button>
@@ -67,7 +67,7 @@
               <button class="btn btn-outline-success dropdown-toggle border-0" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Role
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
                 <form method="post">
                   <div class="btn">
                     <button name="value" type="sumit" formaction="/admin/Role" value="teacher" class="dropdown-item" type="button">Teacher</button>
@@ -78,18 +78,10 @@
             </div>
           </th>
           <th>
-            <div class="dropdown">
-              <button class="btn btn-outline-success dropdown-toggle border-0" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Created Date
+            <div class="btn">
+              <button class="btn btn-outline-success border-0" type="button">
+                Status
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <form method="post">
-                  <div class="btn">
-                    <button name="value" type="sumit" formaction="/admin/CreatedDate" value="ascending" class="dropdown-item" type="button">Ascending</button>
-                    <button name="value" type="sumit" formaction="/admin/CreatedDate" value="descending" class="dropdown-item" type="button">Descending</button>
-                  </div>
-                </form>
-              </div>
             </div>
           </th>
         </tr>
@@ -102,7 +94,18 @@
             <td>{{email}}</td>
             <td>{{birthday}}</td>
             <td>{{role}}</td>
-            <td>22/11/2002</td>
+            <td>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <span>abc</span>
+                <form method="post">
+                  <div class="btn">
+                    <button name="value" type="sumit" formaction="/admin/Status" value="accessible" class="dropdown-item" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button">Accessible</button>
+                    <button name="value" type="sumit" formaction="/admin/Status" value="block" class="dropdown-item" type="button">Block</button>
+                    <button name="value" type="sumit" formaction="/admin/Status" value="delete" class="dropdown-item" type="button">Delete</button>
+                  </div>
+                </form>
+              </div>
+            </td>
         </tr>
         {{/each}}
       </tbody>

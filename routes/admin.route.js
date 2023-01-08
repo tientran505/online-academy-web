@@ -204,9 +204,4 @@ router.post('/Role', async (req, res) => {
     })
 });
 
-router.post('/CreatedDate', (req, res) => {
-    console.log(req.body.value);
-    res.render('vwAdmin/admin');
-});
-
 export default router;
