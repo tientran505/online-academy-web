@@ -7,7 +7,7 @@ import Course from './utils/models/course.model.js';
 import accountRouter from './routes/account.route.js';
 import hbs_sections from 'express-handlebars-sections';
 import detailRouter from './routes/detail-academy.route.js';
-import { dirname } from 'path';
+import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import courseRouter from './routes/course.route.js';
 import categoryService from './services/category.service.js';
@@ -16,7 +16,10 @@ import numeral from 'numeral';
 import session from 'express-session';
 import subCategoryModel from './utils/models/sub-category.model.js';
 import mongoose from 'mongoose';
-import adminRoute from './routes/admin.route.js';
+
+import adminRoute from './routes/admin.user.route.js';
+import categoryRoute from './routes/admin.category.route.js';
+
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -42,10 +45,14 @@ app.engine(
       format_number(val) {
         return numeral(val).format('0,0');
       },
+      inc(val, option) {
+        return parseInt(val) + 1;
+      },
     },
   })
 );
-app.use('/public',express.static('public'));
+
+app.use('/public', express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
 
@@ -61,40 +68,39 @@ app.use(
   })
 );
 
-
 app.use(async (req, res, next) => {
-  if (typeof(req.session.auth) === 'undefined') {
+  if (typeof req.session.auth === 'undefined') {
     res.locals.auth = false;
   }
 
   res.locals.auth = req.session.auth;
   res.locals.authUser = req.session.authUser;
-  
+
   next();
-})
+});
 
 app.use(async (req, res, next) => {
   let sub = await subCategoryModel.aggregate([
     {
       $group: {
-        _id: "$category",
+        _id: '$category',
         items: {
           $addToSet: {
-            name: "$title" 
-          }
-        }
-      }
+            name: '$title',
+          },
+        },
+      },
     },
     {
       $lookup: {
         from: 'categories',
         localField: '_id',
         foreignField: '_id',
-        as: '_id'
-      }
-    }
-  ])
-  
+        as: '_id',
+      },
+    },
+  ]);
+
   res.locals.lcCategories = JSON.parse(JSON.stringify(sub));
 
   next();
@@ -145,8 +151,10 @@ app.get('/product', (req, res) => {
 app.use('/account', accountRouter);
 app.use('/detail', detailRouter);
 app.use('/course', courseRouter);
-app.use('/course', courseTeacherRouter);
-app.use('/admin', adminRoute);
+
+app.use('/admin/user', adminRoute);
+app.use('/admin/category', categoryRoute);
+
 app.listen(3000);
 
 app.listen(port, () => {

@@ -1,0 +1,101 @@
+<div class='container-fluid p-0 m-0'>
+  <div class='row'>
+    <div class='col-sm-3'>
+      <div class='card'>
+        <h3 class='card-header'>
+          Admin Dashboard
+        </h3>
+        <div class='list-group list-group-flush'>
+          <a href='/admin/user' class='list-group-item list-group-item-action'>
+            <i class='fa fa-users mr-1' aria-hidden='true'></i>
+            User
+          </a>
+          <a href='#' class='list-group-item list-group-item-action active'>
+            <i class='fa fa-list-alt mr-1' aria-hidden='true'></i>
+            Category
+          </a>
+          <a href='#' class='list-group-item list-group-item-action'>
+            <i class='fa fa-graduation-cap mr-1' aria-hidden='true'></i>
+            Course
+          </a>
+          <a href='#' class='list-group-item list-group-item-action'>
+            <i class='fa fa-user-plus mr-1' aria-hidden='true'></i>
+            Lecturer Account Approve
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class='col-sm-9'>
+      <div class='card'>
+        <div class='d-flex justify-content-between card-header'>
+          <div>
+            <h3 class='m-0'>
+              Category
+            </h3>
+          </div>
+
+          <div>
+            <a
+              type='button'
+              class='btn btn-outline-primary'
+              role='button'
+              href='/admin/category/add'
+            >
+              <i class='fa fa-plus' aria-hidden='true'></i>
+              Add Category
+            </a>
+          </div>
+        </div>
+
+        <div class='card-body'>
+          <table class='table table-hover'>
+            <thead>
+              <tr>
+                <th scope='col'>#</th>
+                <th scope='col'>Category Name</th>
+                <th scope='col'></th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each this.categories}}
+                <tr>
+                  <th scope='row'>{{inc @index}}</th>
+                  <td>{{title}}</td>
+                  <td class='text-right'>
+                    <a
+                      type='button'
+                      class='btn btn-outline-primary'
+                      role='button'
+                      href='/admin/category/{{_id}}'
+                      data-toggle='tooltip'
+                      data-placement='bottom'
+                      title='View Subcategory'
+                    >
+                      <i class='fa fa-eye' aria-hidden='true'></i>
+                    </a>
+
+                    <a
+                      type='button'
+                      class='btn btn-outline-primary'
+                      role='button'
+                      href='/admin/category/edit/{{_id}}'
+                      data-toggle='tooltip'
+                      data-placement='bottom'
+                      title='Edit'
+                    >
+                      <i class='fa fa-pencil' aria-hidden='true'></i>
+                    </a>
+
+                  </td>
+                </tr>
+              {{/each}}
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
