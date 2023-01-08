@@ -17,7 +17,11 @@ router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   const user = await User.findOne({ username });
-  if (!user || !bcypt.compare(password, user.password)) {
+
+  if (
+    user === null ||
+    (user !== null && !(await bcypt.compare(password, user.password)))
+  ) {
     return res.render('vwAccount/login', {
       errMessage: 'Invalid credentials.',
     });

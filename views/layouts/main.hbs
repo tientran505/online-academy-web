@@ -62,23 +62,23 @@
             <div class='dropdown-menu'>
               {{#each lcCategories}}
                 <div class='dropright'>
-                  <a
-                    class='nav-link dropdown-toggle block'
-                    href='#'
-                    role='button'
-                    data-toggle='dropdown'
-                    aria-expanded='false'
-                  >
-                    {{#with _id.[0]}}
+                    <a
+                      class='nav-link dropdown-toggle block'
+                      href='#'
+                      role='button'
+                      data-toggle='dropdown'
+                      aria-expanded='false'
+                    >
                       {{title}}
-                    {{/with}}
-                  </a>
-                  <div class='dropdown-menu'>
-                    {{#each items}}
-                      <a class='dropdown-item' href='#'>{{name}}</a>
-                    {{/each}}
+                    </a>
+                    {{#if isNotEmpty}}
+                      <div class='dropdown-menu'>
+                        {{#each items}}
+                          <a class='dropdown-item' href='#'>{{title}}</a>
+                        {{/each}}
+                      </div>
+                    {{/if}}
                   </div>
-                </div>
               {{/each}}
             </div>
           </li>

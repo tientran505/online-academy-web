@@ -17,6 +17,9 @@ import subCategoryModel from './utils/models/sub-category.model.js';
 import mongoose from 'mongoose';
 import adminRoute from './routes/admin.user.route.js';
 import categoryRoute from './routes/admin.category.route.js';
+import categoryModel from './utils/models/category.model.js';
+import { log } from 'console';
+import userModel from './utils/models/user.model.js';
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -77,28 +80,47 @@ app.use(async (req, res, next) => {
 });
 
 app.use(async (req, res, next) => {
-  let sub = await subCategoryModel.aggregate([
-    {
-      $group: {
-        _id: '$category',
-        items: {
-          $addToSet: {
-            name: '$title',
+  // let sub = await subCategoryModel.aggregate([
+  //   {
+  //     $group: {
+  //       _id: '$category',
+  //       items: {
+  //         $addToSet: {
+  //           name: '$title',
+  //         },
+  //       },
+  //     },
+  //   },
+  //   {
+  //     $lookup: {
+  //       from: 'categories',
+  //       localField: '_id',
+  //       foreignField: '_id',
+  //       as: '_id',
+  //     },
+  //   },
+  // ]);
+
+  const categories = JSON.parse(
+    JSON.stringify(
+      await categoryModel.aggregate([
+        {
+          $lookup: {
+            from: 'sub_categories',
+            localField: '_id',
+            foreignField: 'category',
+            as: 'items',
           },
         },
-      },
-    },
-    {
-      $lookup: {
-        from: 'categories',
-        localField: '_id',
-        foreignField: '_id',
-        as: '_id',
-      },
-    },
-  ]);
+      ])
+    )
+  );
 
-  res.locals.lcCategories = JSON.parse(JSON.stringify(sub));
+  for (const c of categories) {
+    c.isNotEmpty = c.items.length > 0;
+  }
+
+  res.locals.lcCategories = categories;
 
   next();
 });
@@ -136,7 +158,13 @@ app.post('/user/register', async (req, res) => {
   }
 });
 
-app.get('/product', (req, res) => {
+app.get('/product', async (req, res) => {
+  const { name, email } = req.body;
+  const u = await userModel.findByIdAndUpdate(id, {
+    name: name,
+    email: email,
+  });
+
   const p = {
     name: 'Laptop',
     price: 3000,
