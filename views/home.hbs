@@ -76,11 +76,11 @@
           {{else}}
           <div class="carousel-item carousel-item-spotlight">
           {{/if}}
-            <div class="overlay-image" style="background-image: url(./public/imgs/{{_id}}.png)">
+            <div class="overlay-image" style="background-image: url(./public/imgs/{{_id}})">
             </div>
             <div class="container">
               <h1>{{course_name}}</h1>
-              <p>{{brief_description}}</p>
+                <div>{{{brief_description}}}</div>
               <div class="stars mb-3">
                 <a class="card-text text-dark text-decoration-none">
                   <b class="font-weight-bold" style="color: white">{{rate}}</b>

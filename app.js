@@ -23,11 +23,8 @@ import categoryModel from './utils/models/category.model.js';
 import { log } from 'console';
 import userModel from './utils/models/user.model.js';
 import adminCourseRoute from './routes/admin.course.route.js';
-<<<<<<< HEAD
 import courseModel from './utils/models/course.model.js';
-=======
 import activate_error_handlers from './mdw/error.mdw.js';
->>>>>>> 909c6ffcbb26408fcdc69595b1829473d3dd41c7
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -54,6 +51,31 @@ app.engine(
       },
       inc(val, option) {
         return parseInt(val) + 1;
+      },
+      when(op1, operator, op2, options) {
+        var operators = {
+            eq: function (l, r) {
+              return l == r;
+            },
+            noteq: function (l, r) {
+              return l != r;
+            },
+            gt: function (l, r) {
+              return Number(l) > Number(r);
+            },
+            or: function (l, r) {
+              return l || r;
+            },
+            and: function (l, r) {
+              return l && r;
+            },
+            '%': function (l, r) {
+              return l % r === 0;
+            },
+          },
+          result = operators[operator](op1, op2);
+        if (result) return options.fn(this);
+        else return options.inverse(this);
       },
     },
   })
@@ -82,8 +104,6 @@ app.use(async (req, res, next) => {
   res.locals.auth = req.session.auth;
   res.locals.authUser = req.session.authUser;
 
-
-
   next();
 });
 
@@ -108,8 +128,6 @@ app.use(async (req, res, next) => {
   }
   // console.log(categories[0].items);
   res.locals.lcCategories = categories;
-
-
 
   next();
 });

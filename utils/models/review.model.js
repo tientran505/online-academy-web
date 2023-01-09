@@ -20,6 +20,10 @@ const reviewSchema = mongoose.Schema({
   rating: {
     type: dType.Number,
   },
+
+  created_date: {
+    type: String,
+  },
 });
 
 export default mongoose.model('Review', reviewSchema);

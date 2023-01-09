@@ -71,17 +71,25 @@ referrerpolicy="no-referrer">
     const feedbackTxt = $('#validationTextarea').val();
     const starFeedback = $('#input-1').val();
 
+    let isValid = true;
     console.log(starFeedback);
 
     $('#validationTextarea').removeClass('is-invalid');
     if (feedbackTxt.length === 0) {
       $('#validationTextarea').addClass('is-invalid');
+      isValid = false;
     } 
 
     $('#input-1').removeClass('is-invalid');
     if (starFeedback.length === 0) {
       $('#input-1').addClass('is-invalid');
-    } 
+      isValid = false;
+    }
+
+    if (isValid) {
+      $('#frmSubmit').off('submit').submit();
+    }
+
   })
 </script>
 
@@ -170,7 +178,7 @@ referrerpolicy="no-referrer">
           <div class="content mb-3">
             <div class="pl-3">
               <i class="bi bi-card-checklist pr-3"></i>
-              <span>{{course.brief_description}}</span>
+              <span>{{{course.brief_description}}}</span>
             </div>
           </div>
           <div class="number-of-student mb-3">
@@ -187,8 +195,8 @@ referrerpolicy="no-referrer">
           </div>
           <div class="last-update mb-3">
             <div class="pl-3">
-              <i class="bi bi-patch-exclamation pr-3"></i>
-              <span>10/12/2022</span>
+              {{!-- <i class="bi bi-patch-exclamation pr-3"></i> --}}
+              {{!-- <span>10/12/2022</span> --}}
             </div>
           </div>
           <div class="enrollAndHeart mb-3 d-flex flex-row">
@@ -236,23 +244,7 @@ referrerpolicy="no-referrer">
               <div>
                 <div class="icon d-flex justify-content-start align-items-stretch">
                   <i class="bi bi-hourglass-split mr-3"></i>
-                  <span class="text-center">{{course.detail_description}}</span>
-                </div>
-              </div>
-            </div>
-            <div class="jumbotron px-3 py-2 mb-4">
-              <div>
-                <div class="icon d-flex justify-content-start align-items-stretch">
-                  <i class="bi bi-graph-up-arrow mr-3"></i>
-                  <span class="text-center">{{course.detail_description}}</span>
-                </div>
-              </div>
-            </div>
-            <div class="jumbotron px-3 py-2 mb-4">
-              <div>
-                <div class="icon d-flex justify-content-start align-items-stretch">
-                  <i class="bi bi-patch-check mr-3"></i>
-                  <span class="text-center">{{course.detail_description}}</span>
+                  <span class="">{{{course.detail_description}}}</span>
                 </div>
               </div>
             </div>
@@ -546,12 +538,12 @@ referrerpolicy="no-referrer">
       <div class="d-inline-flex align-items-center mb-4">
         <i class="fa fa-star fa-lg mr-2" aria-hidden="true" style="color: gold;"></i>
         <h2 class="font-weight-bold m-0">
-          4.6 course rating
+          {{avg}} course rating
         </h2>
         
         <i class="fa fa-circle mr-2 ml-4" aria-hidden="true"></i>
         <h2 class="font-weight-bold m-0">
-          624 ratings
+          {{total}} ratings
         </h2>
       </div>
 
@@ -560,7 +552,7 @@ referrerpolicy="no-referrer">
           <div class="col-sm-4">
             <div class="d-flex align-items-center p-0">
               <div class="progress bar-wrapper w-50 mr-2">
-                <div class="progress-bar skill-bar" role="progressbar" style="width: 62%" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar skill-bar" role="progressbar" style="width: {{fStar.percentage}}%" aria-valuenow="{{fStar.percentage}}" aria-valuemin="0" aria-valuemax="100">
                 </div>
               </div>
               <div>
@@ -578,12 +570,12 @@ referrerpolicy="no-referrer">
               <div>
                 <i class="fa fa-star fa-lg align-middle pb-1 mr-2" aria-hidden="true" style="color: gold; font-size:medium"></i>
               </div>
-              <span class="p-1">62%</span>
+              <span class="p-1">{{fStar.percentage}}%</span>
             </div>
 
             <div class="d-flex align-items-center p-0">
               <div class="progress bar-wrapper w-50 mr-2">
-                <div class="progress-bar skill-bar" role="progressbar" style="width: 27%" aria-valuenow="27" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar skill-bar" role="progressbar" style="width: {{foStar.percentage}}%" aria-valuenow="{{foStar.percentage}}" aria-valuemin="0" aria-valuemax="100">
                 </div>
               </div>
               <div>
@@ -601,12 +593,12 @@ referrerpolicy="no-referrer">
               <div>
                 <i class="fa fa-star fa-lg align-middle pb-1 mr-2" aria-hidden="true" style="color: gold; font-size:medium"></i>
               </div>
-              <span class="p-1">27%</span>
+              <span class="p-1">{{foStar.percentage}}%</span>
             </div>
 
             <div class="d-flex align-items-center p-0">
               <div class="progress bar-wrapper w-50 mr-2">
-                <div class="progress-bar skill-bar" role="progressbar" style="width: 7%" aria-valuenow="7" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar skill-bar" role="progressbar" style="width: {{thStar.percentage}}%" aria-valuenow="{{thStar.percentage}}" aria-valuemin="0" aria-valuemax="100">
                 </div>
               </div>
               <div>
@@ -624,12 +616,12 @@ referrerpolicy="no-referrer">
               <div>
                 <i class="fa fa-star-o fa-lg align-middle pb-1 mr-2" aria-hidden="true" style="color: gold; font-size:medium"></i>
               </div>
-              <span class="p-1">7%</span>
+              <span class="p-1">{{thStar.percentage}}%</span>
             </div>
 
             <div class="d-flex align-items-center p-0">
               <div class="progress bar-wrapper w-50 mr-2">
-                <div class="progress-bar skill-bar" role="progressbar" style="width: 2%" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar skill-bar" role="progressbar" style="width: {{twStar.percentage}}%" aria-valuenow="{{twStar.percentage}}" aria-valuemin="0" aria-valuemax="100">
                 </div>
               </div>
               <div>
@@ -647,12 +639,12 @@ referrerpolicy="no-referrer">
               <div>
                 <i class="fa fa-star-o fa-lg align-middle pb-1 mr-2" aria-hidden="true" style="color: gold; font-size:medium"></i>
               </div>
-              <span class="p-1">2%</span>
+              <span class="p-1">{{twStar.percentage}}%</span>
             </div>
 
             <div class="d-flex align-items-center p-0">
               <div class="progress bar-wrapper w-50 mr-2">
-                <div class="progress-bar skill-bar" role="progressbar" style="width: 2%" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar skill-bar" role="progressbar" style="width: {{oStar.percentage}}%" aria-valuenow="{{oStar.percentage}}" aria-valuemin="0" aria-valuemax="100">
                 </div>
               </div>
               <div>
@@ -670,42 +662,117 @@ referrerpolicy="no-referrer">
               <div>
                 <i class="fa fa-star-o fa-lg align-middle pb-1 mr-2" aria-hidden="true" style="color: gold; font-size:medium"></i>
               </div>
-              <span class="p-1">2%</span>
+              <span class="p-1">{{oStar.percentage}}%</span>
             </div>
           
           </div>
           <div class="col-sm-8 d-flex flex-column justify-content-center align-items-center">
+
+            {{#each this.course_review}}
             <div class="card mb-4 shadow w-75">
               <div class="card-body">
                 <div class="d-flex">
                   <div id="avatar" class="mr-2">
                     <img src="/public/imgs/admin_avatar.png" alt="" width="50" height="50" class="rounded-circle mr-1">
                   </div>
-
                   <div id="title">
                     <div class="card-title">
-                      <h5 class="m-0">Henrymarianathan J.</h5> 
+                      <h5 class="m-0">{{user.name}}</h5> 
                     <div>
 
                     <div class="d-flex mb-4">
-                      <div class="align-self-center">
-                        <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
-                      </div>
-                      <div class="align-self-center">
-                        <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
-                      </div>
-                      <div class="align-self-center">
-                        <i class="fa fa-star-o fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
-                      </div>
-                      <div class="align-self-center">
-                        <i class="fa fa-star-o fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
-                      </div>
-                      <div class="align-self-center">
-                        <i class="fa fa-star-o fa-lg mr-2" aria-hidden="true" style="color: gold; font-size:medium"></i>
-                      </div>
+                      {{#when rating 'eq' 1}}
+                        <div class="align-self-center">
+                          <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star-o fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star-o fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star-o fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star-o fa-lg mr-2" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                      {{/when}}
+
+                      {{#when rating 'eq' 2}}
+                        <div class="align-self-center">
+                          <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star-o fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star-o fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star-o fa-lg mr-2" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                      {{/when}}
+
+                      {{#when rating 'eq' 3}}
+                        <div class="align-self-center">
+                          <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star-o fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star-o fa-lg mr-2" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                      {{/when}}
+
+                      {{#when rating 'eq' 4}}
+                        <div class="align-self-center">
+                          <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star-o fa-lg mr-2" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                      {{/when}}
+
+                      {{#when rating 'eq' 5}}
+                        <div class="align-self-center">
+                          <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                        <div class="align-self-center">
+                          <i class="fa fa-star fa-lg mr-2" aria-hidden="true" style="color: gold; font-size:medium"></i>
+                        </div>
+                      {{/when}}
 
                       <div>
-                        4 months ago
+                        {{created_date}}
                       </div>
                     </div>
                   </div>
@@ -714,115 +781,24 @@ referrerpolicy="no-referrer">
                   </div>
 
                 </div>
-                <p class="card-text">little outdated and could be improved.</p>
+                <p class="card-text">{{content}}</p>
               </div>
 
             </div>
-
-            <div class="card mb-4 shadow w-75">
-              <div class="card-body">
-                <div class="d-flex">
-                  <div id="avatar" class="mr-2">
-                    <img src="/public/imgs/admin_avatar.png" alt="" width="50" height="50" class="rounded-circle mr-1">
-                  </div>
-
-                  <div id="title">
-                    <div class="card-title">
-                      <h5 class="m-0">Henrymarianathan J.</h5> 
-                    <div>
-
-                    <div class="d-flex mb-4">
-                      <div class="align-self-center">
-                        <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
-                      </div>
-                      <div class="align-self-center">
-                        <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
-                      </div>
-                      <div class="align-self-center">
-                        <i class="fa fa-star-o fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
-                      </div>
-                      <div class="align-self-center">
-                        <i class="fa fa-star-o fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
-                      </div>
-                      <div class="align-self-center">
-                        <i class="fa fa-star-o fa-lg mr-2" aria-hidden="true" style="color: gold; font-size:medium"></i>
-                      </div>
-
-                      <div>
-                        4 months ago
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                  </div>
-
-                </div>
-                <p class="card-text">little outdated and could be improved.</p>
-              </div>
-
-            </div>
-
-            <div class="card mb-4 shadow w-75">
-              <div class="card-body">
-                <div class="d-flex">
-                  <div id="avatar" class="mr-2">
-                    <img src="/public/imgs/admin_avatar.png" alt="" width="50" height="50" class="rounded-circle mr-1">
-                  </div>
-
-                  <div id="title">
-                    <div class="card-title">
-                      <h5 class="m-0">Henrymarianathan J.</h5> 
-                    <div>
-
-                    <div class="d-flex mb-4">
-                      <div class="align-self-center">
-                        <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
-                      </div>
-                      <div class="align-self-center">
-                        <i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
-                      </div>
-                      <div class="align-self-center">
-                        <i class="fa fa-star-o fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
-                      </div>
-                      <div class="align-self-center">
-                        <i class="fa fa-star-o fa-lg" aria-hidden="true" style="color: gold; font-size:medium"></i>
-                      </div>
-                      <div class="align-self-center">
-                        <i class="fa fa-star-o fa-lg mr-2" aria-hidden="true" style="color: gold; font-size:medium"></i>
-                      </div>
-
-                      <div>
-                        4 months ago
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                  </div>
-
-                </div>
-                <p class="card-text">little outdated and could be improved.</p>
-              </div>
-
-            </div>
+            {{/each}}
 
             <nav class="w-75 d-flex justify-content-center">
               <ul class="pagination">
-                <li class="page-item disabled">
-                  <span class="page-link">Previous</span>
+                <li class="page-item {{#if this.prePage}}{{else}}disabled{{/if}}">
+                  <a class="page-link" href="?page={{this.prePage}}#card-rating">Previous</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active" aria-current="page">
-                  <span class="page-link">2</span>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">Next</a>
+                {{#each pageNumber}}
+                  <li class="page-item {{#if isCurrent}}active{{/if}}"><a class="page-link" href="?page={{value}}#card-rating">{{value}}</a></li>
+                {{/each}}
+                <li class="page-item  {{#if this.nextPage}}{{else}}disabled{{/if}} "><a class="page-link" href="?page={{this.nextPage}}#card-rating">Next</a></li>
                 </li>
               </ul>
             </nav>
-
           </div>
           
         </div>
@@ -831,8 +807,9 @@ referrerpolicy="no-referrer">
 
     <hr width="85%" align="center">
 
+    {{#unless isRegistered}}
     <div id="card-review">
-      <form method="post" id="frmSubmit">
+      <form method="post" id="frmSubmit" action="/detail/review/{{course._id}}">
         <div class="card text-center" style="width: 50%; margin:auto">
           <h5 class='card-header text-center'>
             Course Review
@@ -847,7 +824,7 @@ referrerpolicy="no-referrer">
             </div>
 
             <div class="mb-3">
-              <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" aria-describedby='starFeedback'>
+              <input id="input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" aria-describedby='starFeedback'>
               <div id="starFeedback" class="invalid-feedback ml-1">
                 Please star a rate before submit
               </div>
@@ -862,6 +839,7 @@ referrerpolicy="no-referrer">
               height="100%;" 
               placeholder="Example: Thank you for this another amazing course, I learned a lot."
               aria-describedby='feedback'
+              name="content"
               ></textarea>
               <div id="feedback" class="invalid-feedback ml-1">
                 Please write a review before submit.
@@ -873,6 +851,7 @@ referrerpolicy="no-referrer">
         </div>
       </form>
     </div>
+    {{/unless}}
     </div>
   </div>
 </div>
