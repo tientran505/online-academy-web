@@ -31,19 +31,23 @@ router.post('/login', async (req, res) => {
 
   req.session.auth = true;
   const users =  JSON.parse(JSON.stringify(user));
-
+  res.locals.lcTeacher = false;
   if(user.role === 'student'){
     users.permission = 0;
+
   }
   else if(user.role === 'teacher'){
     users.permission = 1;
+    res.locals.lcTeacher = true;
   }
   else if(user.role === 'admin'){
     users.permission = 2;
+
   }
+
   req.session.authUser = users;
   console.log(req.session.authUser);
-  
+  console.log(res.locals.lcTeacher);
   const url = '/';
   return res.redirect(url);
 });

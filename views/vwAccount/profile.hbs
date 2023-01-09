@@ -240,20 +240,20 @@
                 {{#if createdlistempty2}}
                     <div id="watchlist" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
-                            <div class="carousel-item active">   
-                                <div class="cards-wrapper d-flex flex-row"> 
+                            <div class="carousel-item active">
+                                <div class="cards-wrapper d-flex flex-row">
                                     {{#each createdlistactive}}
                                     <div class="card" style="width: 18rem;">
                                         <img src="../public/imgs/{{_id}}.png" class="card-img-top" alt="...">
                                         <div class="card-body">
                                             <h5 class="card-title">{{course_name}}</h5>
                                             <p class="card-text">{{brief_description}}</p>
-                                            <a href="/detail/{{_id}}" class="btn btn-primary">View course</a> 
+                                            <a href="/detail/{{_id}}" class="btn btn-primary">View course</a>
                                         </div>
                                     </div>
                                     {{/each}}
-                                </div> 
-                            </div>  
+                                </div>
+                            </div>
                             {{#each createdlist}}
                             <div class="carousel-item">
                                 <div class="cards-wrapper d-flex flex-row">
@@ -263,13 +263,13 @@
                                         <div class="card-body">
                                             <h5 class="card-title">{{course_name}}</h5>
                                             <p class="card-text">{{brief_description}}</p>
-                                            <a href="/detail/{{_id}}" class="btn btn-primary">View course</a> 
+                                            <a href="/detail/{{_id}}" class="btn btn-primary">View course</a>
                                         </div>
                                     </div>
                                     {{/each}}
                                 </div>
                             </div>
-                            {{/each}}               
+                            {{/each}}
                         </div>
                         <button class="carousel-control-prev" type="button" data-target="#watchlist" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -281,21 +281,21 @@
                         </button>
                     </div>
                 {{else}}
-                    <div class="cards-wrapper d-flex flex-row"> 
+                    <div class="cards-wrapper d-flex flex-row">
                         {{#each createdlistactive}}
                         <div class="card" style="width: 18rem;">
                             <img src="../public/imgs/{{_id}}.png" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">{{course_name}}</h5>
                                 <p class="card-text">{{brief_description}}</p>
-                                <a href="/detail/{{_id}}" class="btn btn-primary">View course</a> 
+                                <a href="/detail/{{_id}}" class="btn btn-primary">View course</a>
                             </div>
-                        </div> 
+                        </div>
                         {{/each}}
                     </div>
                 {{/if}}
             {{/if}}
-        </div>  
+        </div>
     </div>
     {{/if}}
     <hr  width="85%" size="3px" align="center" color="lightgreen" />

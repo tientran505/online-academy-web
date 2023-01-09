@@ -79,6 +79,8 @@ app.use(async (req, res, next) => {
   res.locals.auth = req.session.auth;
   res.locals.authUser = req.session.authUser;
 
+
+
   next();
 });
 
@@ -103,6 +105,8 @@ app.use(async (req, res, next) => {
   }
   // console.log(categories[0].items);
   res.locals.lcCategories = categories;
+
+
 
   next();
 });
