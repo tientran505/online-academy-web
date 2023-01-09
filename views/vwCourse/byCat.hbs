@@ -24,14 +24,14 @@
                         <div class="card h-100 border border-success " style=" min-height: 180px;">
                         <div class="row no-gutters">
                             <div class="col-md-3">
-                                <img class="img-fluid img-thumbnail"style=" min-width: 160px; min-height: 160px; background-color: rgba(255,0,0,0.1);" src="../../public/imgs/image.png" alt="{{course_name}}" title="{{course_name}}">
+                                <img class="img-fluid img-thumbnail"style=" min-width: 160px; min-height: 160px; background-color: rgba(255,0,0,0.1);" src="../../public/imgs/{{img}}" alt="{{course_name}}" title="{{course_name}}">
                             </div>
                             <div class="col-md-7">
                                 <div class="card-body text-dark"  >
                                     <h5 class="card-title font-weight-bold ">{{course_name}}</h5>
                                     <div>
                                         {{{brief_description}}}  </br>
-                                   <small class="text text-muted">{{authors}} </small>
+                                   <small class="text text-muted">{{author}} </small>
                                     <div>
                                         <a class="card-text text-dark" ><b class="font-weight-bold text-danger">{{rate}}</b>
                                             <small> <i class="fa fa-star" style="color: gold" id="rate" aria-hidden="true"></i>
@@ -39,7 +39,6 @@
                                         </small></a>
 
                                     </div>
-                                        <small class="text text-muted">more detail (wait for database of other collection to add) </small>
                                     </div>
                                     <div>
                                         <a class="btn btn-sm btn-outline-success" href="#" role="button">

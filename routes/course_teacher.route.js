@@ -19,6 +19,7 @@ router.get('/addCourse', authWithRequiredPermission(1), async (req, res) => {
 });
 
 router.post('/addCourse', (req, res) => {
+  let img;
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
 
@@ -27,16 +28,15 @@ router.post('/addCourse', (req, res) => {
       cb(null, path);
     },
     filename: function (req, file, cb) {
-
+      img =  file.originalname + path.extname(file.originalname);
       cb(
         null,
-        file.fieldname + file.originalname + path.extname(file.originalname)
+         file.originalname + path.extname(file.originalname)
       );
     },
   });
 
   //
-  // const img=  String(file.fieldname) + String(file.originalname) + String(path.extname(file.originalname));
   const upload = multer({ storage: storage });
   upload.single('img', 1)(req, res, async function (err) {
     if (err) {
@@ -58,7 +58,8 @@ router.post('/addCourse', (req, res) => {
         is_completed: is_completed ? true : false,
         price,
         sale,
-
+        img,
+        rate: 0,
         brief_description,
         detail_description,
       });
@@ -67,6 +68,87 @@ router.post('/addCourse', (req, res) => {
     }
   });
 });
+router.get('/editCourse/:id', authWithRequiredPermission(1), async (req, res) => {
+  const course_id = req.params.id || '';
+  const category = await SubCategory.find();
+  const c = await Course.findOne({ _id: course_id });
+
+  const listcategory = JSON.parse(JSON.stringify(category));
+    // console.log(listcategory);
+
+  // for(const ca in listcategory){
+  //   if(ca._id === c.category){
+  //     ca.choice = true;
+  //   }
+  // }
+  const listcourse = JSON.parse(JSON.stringify(c));
+  console.log(listcourse);
+
+  // console.log(list);
+  res.render('vwCourse/editCourse', {
+    course_id:listcourse.course_id,
+    course_name: listcourse.course_name,
+    brief_description:listcourse.brief_description,
+    detail_description:listcourse.detail_description,
+    sale:listcourse.sale,
+    price:listcourse.price,
+    is_complete: listcourse.is_complete,
+    category:listcategory,
+  });
+});
+router.post('/editCourse/:id', authWithRequiredPermission(1), async (req, res) => {
+
+    let img;
+    const storage = multer.diskStorage({
+      destination: function (req, file, cb) {
+
+        const path = `./public/imgs/`;
+        fs.mkdirSync(path, { recursive: true });
+        cb(null, path);
+      },
+      filename: function (req, file, cb) {
+        img =  file.originalname + path.extname(file.originalname);
+        cb(
+            null,
+            file.originalname + path.extname(file.originalname)
+        );
+      },
+    });
+
+    //
+    const upload = multer({ storage: storage });
+    upload.single('img', 1)(req, res, async function (err) {
+      if (err) {
+        console.error(err);
+      } else {
+        const course_id = req.params.id || '';
+        const {
+          course_name,
+          is_completed,
+          price,
+          sale,
+          brief_description,
+          detail_description,
+        } = req.body;
+        const course = await Course.updateOne(
+            {_id: course_id},
+            {
+              course_name,
+              author: req.session.authUser._id,
+              is_completed: is_completed ? true : false,
+              price,
+              sale,
+              img,
+
+              brief_description,
+              detail_description,
+            });
+
+
+        res.redirect('/course/viewCourses/' );
+      }
+    });
+  });
 router.get('/viewSectionLecture/:id', authWithRequiredPermission(1), async (req, res) => {
   const course_id = req.params.id || '';
   const p = await CourseService.loadSectionLecture(course_id);
