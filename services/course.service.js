@@ -2,6 +2,7 @@ import Course from '../utils/models/course.model.js';
 import User from '../utils/models/user.model.js';
 import Section from '../utils/models/section.model.js';
 import Lecture from '../utils/models/lecture.model.js';
+import courseModel from '../utils/models/course.model.js';
 
 export default {
     async findAll() {
@@ -20,6 +21,11 @@ export default {
         }
        return list;
     },
+
+    findCourseById(id) {
+        return courseModel.findById(id);
+    },
+
     async findWithCategory(cate){
         const p = await Course.find({category: cate});
         const list =  JSON.parse(JSON.stringify(p));

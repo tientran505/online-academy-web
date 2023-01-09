@@ -35,7 +35,12 @@
     }
     .card img {
       max-width: 100%;
-      max-height: 180px;
+      height: 180px;
+    }
+    .card {
+      height: 400px;
+      margin-left: auto;
+      margin-right: auto;
     }
     button.carousel-control-prev,
     button.carousel-control-next {
@@ -47,7 +52,6 @@
       transform: translateY(-50%);
     }
     .cate {
-      margin-top: 2rem;
       margin-left: auto;
       margin-right: auto;
       border: 1px solid rgb(108, 108, 108);
@@ -55,174 +59,150 @@
   </style>
 {{/section}}
 
-{{#section 'js'}}
-<script>
-
-</script>  
+{{#section 'js'}} 
 {{/section}}
 
-
-<script>
-  const generateTopCoursesCarouselItem = (criteria, isActive) => {
-      let image = './public/imgs/image.png';
-      let title = 'Top 1 hltv';
-      let description = 'Description';
-      let link = '#';
-
-      let carouselItem = '';
-
-      if (isActive == true)
-        carouselItem = '<div class="carousel-item active carousel-item-spotlight">';
-      else carouselItem = '<div class="carousel-item carousel-item-spotlight">';
-
-      carouselItem +=
-        '<div class="overlay-image" style="background-image: url(' +
-        image +
-        ')"></div>' +
-        '<div class="container">' +
-        '<h1>' +
-        title +
-        '</h1>' +
-        '<p>' +
-        description +
-        '</p>' +
-        '<a href="' +
-        link +
-        '" class="btn btn-lg btn-primary">Sign up</a>' +
-        '</div>';
-      carouselItem += '</div>';
-
-      return carouselItem;
-    };
-  const generateTopCoursesCarousel = (carouselName) => {
-      let carousel = '';
-
-      carousel +=
-        '<div id="' +
-        carouselName +
-        '" class="carousel slide" data-ride="carousel">';
-      carousel +=
-        '<ol class="carousel-indicators">' +
-        '<li data-target="#' +
-        carouselName +
-        '" data-slide-to="0" class="active"></li>' +
-        '<li data-target="#' +
-        carouselName +
-        '" data-slide-to="1"></li>' +
-        '<li data-target="#' +
-        carouselName +
-        '" data-slide-to="2"></li> </ol>';
-      carousel += '<div class="carousel-inner">';
-      carousel += generateTopCoursesCarouselItem('', true);
-      carousel += generateTopCoursesCarouselItem('', false);
-      carousel += generateTopCoursesCarouselItem('', false);
-      carousel += '</div>';
-      carousel +=
-        '<a href="#' +
-        carouselName +
-        '" class="carousel-control-prev" role="button" data-slide="prev">' +
-        '<span class="carousel-control-prev-icon" aria-hidden="true"></span>' +
-        '</a>' +
-        '<a href="#' +
-        carouselName +
-        '" class="carousel-control-next" role="button" data-slide="next">' +
-        '<span class="carousel-control-next-icon" aria-hidden="true"></span>' +
-        '</a>';
-      carousel += '</div></div>';
-      return carousel;
-    };
-</script>
-
-<script>
-    const generate1CoursesCarouselItem = (criteria, category, rank) => {
-      let image = './public/imgs/image.png';
-      let title = 'Top 1 hltv';
-      let description = 'Description';
-      let link = '#';
-
-      let carousel1Item =
-        '<div class="card" style="width: 18rem;">'+
-        '<img src="'+image+'" class="card-img-top" alt="...">'+
-        '<div class="card-body">'+
-        '<h5 class="card-title">'+title+'</h5>'+
-        '<p class="card-text">'+description+'</p>'+
-        '<a href="#" class="btn btn-primary">View course</a>'+
-        ' </div></div>';
-
-      return carousel1Item;
-    };
-    const generate5CoursesCarouselItem = (criteria, category, isActive) => {
-      let carousel5Items = '';
-      let i = 1;
-
-      if (isActive == true)
-        carousel5Items = '<div class="carousel-item active">';
-      else {
-        carousel5Items = '<div class="carousel-item">';
-        i = 6;
-      }
-      carousel5Items += '<div class="cards-wrapper">';
-
-      carousel5Items += generate1CoursesCarouselItem(criteria, category, i++);
-      carousel5Items += generate1CoursesCarouselItem(criteria, category, i++);
-      carousel5Items += generate1CoursesCarouselItem(criteria, category, i++);
-      carousel5Items += generate1CoursesCarouselItem(criteria, category, i++);
-      carousel5Items += generate1CoursesCarouselItem(criteria, category, i++);
-
-      carousel5Items += '</div></div>';
-
-      return carousel5Items;
-    };
-    const generate10CoursesCarousel = (carouselName, criteria, category) => {
-      let carousel10Items = '';
-      carousel10Items +=
-        '<div class="cate">' +
-        '<div id="' +
-        carouselName +
-        '"class="carousel slide"' +
-        'data-ride="carousel">' +
-        '<div class="carousel-inner">';
-      carousel10Items += generate5CoursesCarouselItem(criteria, category, true);
-      carousel10Items += generate5CoursesCarouselItem(criteria, category, false);
-      carousel10Items += '</div>';
-      carousel10Items +=
-        '<button class="carousel-control-prev" type="button" data-target="#'+
-        carouselName+'" data-slide="prev">'+
-        '<span class="carousel-control-prev-icon" aria-hidden="true"></span>'+
-        '<span class="sr-only">Previous</span>'+
-        '</button>'+
-        '<button class="carousel-control-next" type="button" data-target="#'+
-        carouselName+
-        '" data-slide="next">'+
-        '<span class="carousel-control-next-icon" aria-hidden="true"></span>'+
-        '<span class="sr-only">Next</span>'+
-        '</button>'+
-        '</div></div>';
-
-      return carousel10Items;
-    };
-</script>
-
   <div class="mx-5">
-  <script>
-    document.write(generateTopCoursesCarousel('spotlightCourses'));
-  </script>
-  </div>
-  <div class="mx-5">
-    <h2 class="mt-5">Web develop</h2>
-    <script>
-      document.write(generate10CoursesCarousel('top10ViewWeb', 'View', 'Web'));
-      document.write(generate10CoursesCarousel('top10NewestWeb', 'New', 'Web'));
-    </script>
-  </div>
-
-  <div class="mx-5">
-    <h2 class="mt-5">Mobile develop</h2>
-    <script>
-      document.write(generate10CoursesCarousel('top10ViewMobile', 'View', 'Mobile'));
-      document.write(generate10CoursesCarousel('top10NewestMobile', 'View', 'Web'));
-    </script>
+    <div id="spotlightCourses" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#spotlightCourses" data-slide-to="0" class="active"></li>
+        <li data-target="#spotlightCourses" data-slide-to="1" class=""></li>
+        <li data-target="#spotlightCourses" data-slide-to="2" class=""></li> 
+      </ol>
+      <div class="carousel-inner">
+        {{#each spotlightlist}}
+          {{#if isActive}}
+          <div class="carousel-item carousel-item-spotlight active">
+          {{else}}
+          <div class="carousel-item carousel-item-spotlight">
+          {{/if}}
+            <div class="overlay-image" style="background-image: url(./public/imgs/{{_id}}.png)">
+            </div>
+            <div class="container">
+              <h1>{{course_name}}</h1>
+              <p>{{brief_description}}</p>
+              <div class="stars mb-3">
+                <a class="card-text text-dark text-decoration-none">
+                  <b class="font-weight-bold" style="color: white">{{rate}}</b>
+                  <small> 
+                    <i class="fa fa-star" style="color: gold" id="rate" aria-hidden="true"></i>
+                  </small>
+                </a>
+              </div>
+              <a href="/detail/{{_id}}" class="btn btn-lg btn-primary">Sign up</a>
+            </div>
+          </div>
+        {{/each}}
+      </div>  
+      <a href="#spotlightCourses" class="carousel-control-prev" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      </a>
+      <a href="#spotlightCourses" class="carousel-control-next" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      </a>
+    </div>
   </div>
   
+{{#each biglist}}
+  <br>
+  <hr  width="85%" size="3px" align="center" color="lightgreen" />
+  <br>
+  <div class="mx-5">
+  <div class="d-flex justify-content-center"><h1>{{title}}</h1></div>
+  {{#if viewempty}} 
+  <div class="d-flex justify-content-center align-items-center h-100"><h2 class="text-center">No course to display</h2></div>
+  {{else}} 
+  <div class="d-flex justify-content-center"><h2>Most viewed courses</h2></div>
+    <div class="cate">
+      <div id="top10View{{id}}" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          {{#each viewlist}}
+          <div class="carousel-item {{#if isActive}}active{{/if}}">
+          {{#each subviewlist}}
+            <div class="cards-wrapper">
+              {{#each item}}
+              <div class="card" style="width: 18rem;">
+                <img src="./public/imgs/{{_id}}.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{course_name}}</h5>
+                  <div class="">
+                    <div class="stars">
+                      <a class="card-text text-dark text-decoration-none">
+                        <b class="font-weight-bold">{{rate}}</b>
+                        <small> 
+                          <i class="fa fa-star" style="color: gold" id="rate" aria-hidden="true"></i>
+                        </small>
+                      </a>
+                    </div>
+                    <b class="font-weight-bold">₫ <del>{{format_number price}}</del> {{format_number sale}}</b>
+                  </div>
+                </div>
+                <div class="card-footer"><a href="/detail/{{_id}}" class="btn btn-primary">View course</a> </div>
+              </div>
+              {{/each}}
+            </div>
+          {{/each}}
+          </div>
+          {{/each}}
+        </div>
+        <button class="carousel-control-prev" type="button" data-target="#top10View{{id}}" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-target="#top10View{{id}}" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only">Next</span>
+        </button>
+      </div>
+    </div>
+  {{/if}}
+
+  {{#if newempty}} 
+    
+  {{else}} 
+  <div class="d-flex justify-content-center"><h2>Newest course</h2></div>
+    <div class="cate">
+      <div id="top10New{{id}}" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          {{#each newlist}}
+          <div class="carousel-item {{#if isActive}}active{{/if}}">
+          {{#each subnewlist}}
+            <div class="cards-wrapper">
+              {{#each item}}
+              <div class="card" style="width: 18rem;">
+                <img src="./public/imgs/{{_id}}.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{course_name}}</h5>
+                  <div class="">
+                    <div class="stars">
+                      <a class="card-text text-dark text-decoration-none">
+                        <b class="font-weight-bold">{{rate}}</b>
+                        <small> 
+                          <i class="fa fa-star" style="color: gold" id="rate" aria-hidden="true"></i>
+                        </small>
+                      </a>
+                    </div>
+                    <b class="font-weight-bold">₫ <del>{{format_number price}}</del> {{format_number sale}}</b>
+                  </div>
+                </div>
+                <div class="card-footer"><a href="/detail/{{_id}}" class="btn btn-primary">View course</a> </div>
+              </div>
+              {{/each}}
+            </div>
+          {{/each}}
+          </div>
+          {{/each}}
+        </div>
+        <button class="carousel-control-prev" type="button" data-target="#top10New{{id}}" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-target="#top10New{{id}}" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only">Next</span>
+        </button>
+      </div>
+    </div>
+    </div>
+  {{/if}}
+{{/each}}
   
-</div>
+

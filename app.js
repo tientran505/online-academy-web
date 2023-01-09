@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { engine } from 'express-handlebars';
 import User from './utils/models/user.model.js';
 import Course from './utils/models/course.model.js';
+import homeRouter from './routes/home.route.js';
 import accountRouter from './routes/account.route.js';
 import hbs_sections from 'express-handlebars-sections';
 import detailRouter from './routes/detail-academy.route.js';
@@ -106,12 +107,6 @@ app.use(async (req, res, next) => {
   next();
 });
 
-app.get('/', async (req, res) => {
-  console.log(req.session.auth);
-  console.log(req.session.authUser);
-  res.render('home');
-});
-
 app.get('/user', async (req, res) => {
   const p = await User.findOne({ username: 'tientranssss' });
 
@@ -153,6 +148,8 @@ app.get('/product', async (req, res) => {
 
   res.status(200).json(p);
 });
+
+app.use('/', homeRouter);
 
 app.use('/account', accountRouter);
 app.use('/detail', detailRouter);
