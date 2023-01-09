@@ -263,7 +263,7 @@ router.get('/profile', async (req, res) => {
 
     let authorlist = [];
     for(let i = 0; i < courseList.length; i++){
-      if(courseList[i]['authors'] === id){
+      if(courseList[i]['author'] === id){
         authorlist.push(courseList[i]); 
       }
     }

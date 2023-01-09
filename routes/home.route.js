@@ -118,8 +118,13 @@ router.get('/', async (req, res) => {
         //console.log(biglist[i]);
     }
 
+    let mostredisteredlist = [];
+
+    
+
     res.render('home', {
         spotlightlist: spotlightlist,
+        mostredisteredlist: mostredisteredlist,
         biglist: biglist,
     });
   });

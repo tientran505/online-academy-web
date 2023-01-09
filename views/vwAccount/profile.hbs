@@ -26,6 +26,7 @@
             justify-content: center;
         }
         .card {
+            height: 350px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -91,9 +92,9 @@
     </div><!--/row-->
     {{/each}}
 
-    <br><br>
+    <br>
     <hr  width="85%" size="3px" align="center" color="lightgreen" />
-    <br><br>
+    <br>
     {{#if isStudent}}
     <div class="row">
         <div class="box">
@@ -111,9 +112,8 @@
                                         <img src="../public/imgs/{{_id}}.png" class="card-img-top" alt="...">
                                         <div class="card-body">
                                             <h5 class="card-title">{{course_name}}</h5>
-                                            <p class="card-text">{{brief_description}}</p>
-                                            <a href="/detail/{{_id}}" class="btn btn-primary">View course</a> 
                                         </div>
+                                        <div class="card-footer"><a href="/detail/{{_id}}" class="btn btn-primary">View course</a> </div>
                                     </div>
                                     {{/each}}
                                 </div> 
@@ -126,9 +126,8 @@
                                         <img src="../public/imgs/{{_id}}.png" class="card-img-top" alt="...">
                                         <div class="card-body">
                                             <h5 class="card-title">{{course_name}}</h5>
-                                            <p class="card-text">{{brief_description}}</p>
-                                            <a href="/detail/{{_id}}" class="btn btn-primary">View course</a> 
                                         </div>
+                                        <div class="card-footer"><a href="/detail/{{_id}}" class="btn btn-primary">View course</a> </div>
                                     </div>
                                     {{/each}}
                                 </div>
@@ -151,9 +150,8 @@
                             <img src="../public/imgs/{{_id}}.png" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">{{course_name}}</h5>
-                                <p class="card-text">{{brief_description}}</p>
-                                <a href="/detail/{{_id}}" class="btn btn-primary">View course</a> 
                             </div>
+                            <div class="card-footer"><a href="/detail/{{_id}}" class="btn btn-primary">View course</a> </div>
                         </div> 
                         {{/each}}
                     </div>
@@ -161,9 +159,8 @@
             {{/if}}
         </div>  
     </div>
-    <br><br>
+    <br>
     <hr  width="85%" size="3px" align="center" color="lightgreen" />
-    <br><br>
     <div class="row">
         <div class="box">
             <div class="col-sm-12 d-flex justify-content-center"><h1>Registered courses</h1></div>
@@ -180,9 +177,8 @@
                                         <img src="../public/imgs/{{_id}}.png" class="card-img-top" alt="...">
                                         <div class="card-body">
                                             <h5 class="card-title">{{course_name}}</h5>
-                                            <p class="card-text">{{brief_description}}</p>
-                                            <a href="/detail/{{_id}}" class="btn btn-primary">View course</a> 
                                         </div>
+                                        <div class="card-footer"><a href="/detail/{{_id}}" class="btn btn-primary">View course</a> </div>
                                     </div> 
                                     {{/each}}
                                 </div> 
@@ -195,9 +191,8 @@
                                         <img src="../public/imgs/{{_id}}.png" class="card-img-top" alt="...">
                                         <div class="card-body">
                                             <h5 class="card-title">{{course_name}}</h5>
-                                            <p class="card-text">{{brief_description}}</p>
-                                            <a href="/detail/{{_id}}" class="btn btn-primary">View course</a> 
                                         </div>
+                                        <div class="card-footer"><a href="/detail/{{_id}}" class="btn btn-primary">View course</a> </div>
                                     </div>
                                     {{/each}}
                                 </div>
@@ -219,10 +214,9 @@
                         <div class="card" style="width: 18rem;">
                             <img src="../public/imgs/{{_id}}.png" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">{{course_name}}</h5>
-                                <p class="card-text">{{brief_description}}</p>
-                                <a href="/detail/{{_id}}" class="btn btn-primary">View course</a> 
+                              <h5 class="card-title">{{course_name}}</h5>
                             </div>
+                            <div class="card-footer"><a href="/detail/{{_id}}" class="btn btn-primary">View course</a> </div>
                         </div> 
                         {{/each}}
                     </div>
@@ -232,7 +226,7 @@
     </div>
     {{else}}
     <div class="row">
-        <div class="box">
+        <div class="box" style="height: 480px;">
             <div class="col-sm-12 d-flex justify-content-center"><h1>Your course</h1></div>
             {{#if createdlistempty}}
                 <div class="d-flex justify-content-center align-items-center h-100"><h2 class="text-center">You haven't created any course</h2></div>
@@ -247,9 +241,8 @@
                                         <img src="../public/imgs/{{_id}}.png" class="card-img-top" alt="...">
                                         <div class="card-body">
                                             <h5 class="card-title">{{course_name}}</h5>
-                                            <p class="card-text">{{brief_description}}</p>
-                                            <a href="/detail/{{_id}}" class="btn btn-primary">View course</a>
                                         </div>
+                                        <div class="card-footer"><a href="/detail/{{_id}}" class="btn btn-primary">View course</a> </div>
                                     </div>
                                     {{/each}}
                                 </div>
@@ -262,9 +255,8 @@
                                         <img src="../public/imgs/{{_id}}.png" class="card-img-top" alt="...">
                                         <div class="card-body">
                                             <h5 class="card-title">{{course_name}}</h5>
-                                            <p class="card-text">{{brief_description}}</p>
-                                            <a href="/detail/{{_id}}" class="btn btn-primary">View course</a>
                                         </div>
+                                        <div class="card-footer"><a href="/detail/{{_id}}" class="btn btn-primary">View course</a> </div>
                                     </div>
                                     {{/each}}
                                 </div>
@@ -287,15 +279,17 @@
                             <img src="../public/imgs/{{_id}}.png" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">{{course_name}}</h5>
-                                <p class="card-text">{{brief_description}}</p>
-                                <a href="/detail/{{_id}}" class="btn btn-primary">View course</a>
                             </div>
-                        </div>
+                            <div class="card-footer"><a href="/detail/{{_id}}" class="btn btn-primary">View course</a> </div>
+                        </div> 
                         {{/each}}
                     </div>
                 {{/if}}
             {{/if}}
-        </div>
+            <div class="col-sm-12 d-flex align-items-center mt-4">
+              <a class="btn btn-lg btn-success" style="width: 80px; margin-left: auto; margin-right: auto;" type="button" href="/course/viewCourses/" >View</a>
+            </div>
+        </div>  
     </div>
     {{/if}}
     <hr  width="85%" size="3px" align="center" color="lightgreen" />
