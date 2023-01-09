@@ -30,9 +30,9 @@ const courseSchema = mongoose.Schema({
   },
 
   category: {
-    type: Object,
+    type: dType.ObjectId,
     require: true,
-    ref: 'Category',
+    ref: 'Sub-category',
   },
 
   price: {
@@ -53,6 +53,15 @@ const courseSchema = mongoose.Schema({
   is_completed: {
     type: dType.Boolean,
     require: true,
+  },
+
+  view_counts: {
+    type: dType.Number,
+    require: true,
+  },
+
+  cateName: {
+    type: String,
   },
 });
 

@@ -22,13 +22,13 @@ import categoryModel from './utils/models/category.model.js';
 import { log } from 'console';
 import userModel from './utils/models/user.model.js';
 import adminCourseRoute from './routes/admin.course.route.js';
+import courseModel from './utils/models/course.model.js';
 
 dotenv.config();
 const port = process.env.PORT || 5000;
 connectDB();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-console.log(__dirname);
 const app = express();
 
 app.use(

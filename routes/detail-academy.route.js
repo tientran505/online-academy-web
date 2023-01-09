@@ -2,14 +2,18 @@ import express from 'express';
 import courseModel from '../utils/models/course.model.js';
 import User from '../utils/models/user.model.js';
 import mongoose from 'mongoose';
+import courseService from '../services/course.service.js';
 
 const router = express.Router();
 
 router.get('/:id', async (req, res) => {
   const id = mongoose.Types.ObjectId(req.params.id);
 
+  const u = await courseService.updateView(id);
+  console.log(u);
+
   const table = await courseModel.find({ _id: id });
-  
+
   const category_list = await courseModel.find({
     category: table[0].category,
     _id: { $ne: id },
