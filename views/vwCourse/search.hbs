@@ -120,13 +120,13 @@
         <nav class="d-flex flex-row-reverse bd-highlight">
             <ul class="pagination">
                <li class="page-item {{#if this.prePage}}{{else}}disabled{{/if}} ">
-                    <a class="page-link" href="?page={{this.prePage}}">Previous</a>
+                    <a class="page-link" href="{{path}}page={{this.prePage}}">Previous</a>
                 </li>
         {{#each pageNumber}}
-      <li class="page-item {{#if isCurrent}}active{{/if}}"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
+      <li class="page-item {{#if isCurrent}}active{{/if}}"><a class="page-link" href="?{{path}}page={{value}}">{{value}}</a></li>
         {{/each}}
                 </li>
-                <li class="page-item  {{#if this.nextPage}}{{else}}disabled{{/if}} "><a class="page-link" href="?page={{this.nextPage}}">Next</a></li>
+                <li class="page-item  {{#if this.nextPage}}{{else}}disabled{{/if}} "><a class="page-link" href="{{path}}page={{this.nextPage}}">Next</a></li>
             </ul>
         </nav>
     </div>
