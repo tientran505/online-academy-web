@@ -27,40 +27,21 @@ router.get('/', async (req, res) => {
     let categoriestable = await Category.find();
     let subcategoriestable = [];
 
-    // searchtable = await Course.find().sort({_id:-1}) 
-    // searchlist = JSON.parse(JSON.stringify(searchtable));
+    let fulldata = [];
+    let subdata = [];
+    let temp = [];
 
-    // const a = await Category.aggregate([
-    //     {
-    //       $lookup: {
-    //         from: 'sub_categories',
-    //         let: { categoryId: '$_id' },
-    //         pipeline: [
-    //           {
-    //             $match: {
-    //               $expr: { $eq: ['$category', '$$categoryId'] },
-    //             },
-    //           },
-    //           {
-    //             $lookup: {
-    //               from: 'courses',
-    //               let: { subcategoryId: '$_id' },
-    //               pipeline: [
-    //                 {
-    //                   $match: {
-    //                     $expr: { $eq: ['$category', '$$subcategoryId'] },
-    //                   },
-    //                 },
-    //               ],
-    //               as: 'subitems',
-    //             },
-    //           },
-    //         ],
-    //         as: 'items',
-    //       },
-    //     },
-    //   ]);
-    // console.log(a[0]);
+    for(let i = 0; i < categoriestable.length; i++){   
+        subcategoriestable = await SubCategory.find({category: categoriestable[i]['_id']});
+        subdata = [];
+        for (let j = 0; j < subcategoriestable.length; j++){
+            temp = await Course.find({category: subcategoriestable[j]['_id']});
+            for(let k = 0; k < temp.length; k++){
+                subdata.push(JSON.parse(JSON.stringify(temp[k])));
+            }
+        }
+        fulldata.push(subdata);
+    }
 
     let biglist = [];
     let viewlist = [];
@@ -69,26 +50,21 @@ router.get('/', async (req, res) => {
     let count = 0;
     let page = 0;
     //loop tất cả lĩnh vực
-    for(let i = 0; i < categoriestable.length; i++){      
+    for(let i = 0; i < fulldata.length; i++){      
         //console.log(categorieslist[i]);
 
         //xem nhiều nhất của 1 lĩnh vực
-        subcategoriestable = await SubCategory.find({category: categoriestable[i]['_id']});
-        searchtable = [];
-        searchlist = [];
-        for (let j = 0; j < subcategoriestable.length; j++){
-            searchtable = await Course.find({category: subcategoriestable[j]['_id']});
-            for(let k = 0; k < searchtable.length; k++){
-                searchlist.push(JSON.parse(JSON.stringify(searchtable[k])));
-            }
-        }
+        fulldata[i].sort(function(a, b){
+            return b.view_counts - a.view_counts;
+        });
 
         let subviewlist = [];
         count = 0;
         page = 0;
         let item = [];
-        for(let j = 0; j < searchlist.length && j < 10; j++){ 
-            item.push(searchlist[j]);
+        for(let j = 0; j < fulldata[i].length && j < 10; j++){ 
+            console.log(fulldata[i][j].view_counts);
+            item.push(fulldata[i][j]);
             count++;
             if(count == 5) {
                 subviewlist.push({item: item});
@@ -106,23 +82,16 @@ router.get('/', async (req, res) => {
             
 
         //mới nhất của 1 lĩnh vực
-        subcategoriestable = await SubCategory.find({category: categoriestable[i]['_id']});
-        searchtable = [];
-        searchlist = [];
-        for (let j = 0; j < subcategoriestable.length; j++){
-            searchtable = await Course.find({category: subcategoriestable[j]['_id']});
-            for(let k = 0; k < searchtable.length; k++){
-                searchlist.push(JSON.parse(JSON.stringify(searchtable[k])));
-            }
-        }
-
+        fulldata[i].sort(function(a, b){
+            return b._id - a._id;
+        });
 
         let subnewlist = [];
         item = [];
         count = 0;
         page = 0;
-        for(let j = 0; j < searchlist.length && j < 10; j++){ 
-            item.push(searchlist[j]);
+        for(let j = 0; j < fulldata[i].length && j < 10; j++){ 
+            item.push(fulldata[i][j]);
             count++;
             if(count == 5) {
                 subnewlist.push({item: item});
