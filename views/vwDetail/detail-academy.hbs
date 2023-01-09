@@ -152,18 +152,17 @@ referrerpolicy="no-referrer">
 
 {{/section}}
 
-{{#each this.course}}
 <div class="container-fluid p-0 m-0">
   <div class="card-header border-0" style="background-color: lightcyan;">
     <div class="card d-flex flex-row p-3 border-0" style="background-color: lightcyan;">
       <div class="col-sm-6 p-0">
-        <h2 class="border-0 text-center font-weight-bold mb-4 mt-3">{{course_name}}</h2>
+        <h2 class="border-0 text-center font-weight-bold mb-4 mt-3">{{course.course_name}}</h2>
         <div class="d-flex flex-column ml-5 pl-5">
           <div class="evaluation mb-3">
             <div class="stars">
-              <a class="card-text text-dark text-decoration-none" ><b class="font-weight-bold text-danger">{{rate}}</b>
+              <a class="card-text text-dark text-decoration-none" ><b class="font-weight-bold text-danger">{{course.rate}}</b>
                 <small> <i class="fa fa-star" style="color: gold" id="rate" aria-hidden="true"></i>
-                  <a>({{count_rate}} 50000 )</a>
+                  <a>({{course.count_rate}} 50000 )</a>
                 </small>
               </a>
             </div>
@@ -171,7 +170,7 @@ referrerpolicy="no-referrer">
           <div class="content mb-3">
             <div class="pl-3">
               <i class="bi bi-card-checklist pr-3"></i>
-              <span>{{brief_description}}</span>
+              <span>{{course.brief_description}}</span>
             </div>
           </div>
           <div class="number-of-student mb-3">
@@ -183,7 +182,7 @@ referrerpolicy="no-referrer">
           <div class="fee mb-3">
             <div class="pl-3">
               <i class="bi bi-cash-coin pr-3"></i>
-              <span>{{#if price}}{{format_number price}}đ{{else}}0đ{{/if}}</span>
+              <span>{{#if course.price}}{{format_number course.price}}đ{{else}}0đ{{/if}}</span>
             </div>
           </div>
           <div class="last-update mb-3">
@@ -192,11 +191,32 @@ referrerpolicy="no-referrer">
               <span>10/12/2022</span>
             </div>
           </div>
+          <div class="enrollAndHeart mb-3 d-flex flex-row">
+            <div class="col-sm-8">
+            {{#if isRegistered}}
+              <form method="post" class="w-100 h-100">
+                  <button formaction="/detail/addregisteredlist" name="txtCourse" value="{{course._id}}" type="sumit" role="button" class="btn btn-outline-primary w-100 h-100" data-mdb-toggle="tooltip" title="Add to your registered list" style="right: 10px; top: 10px; z-index: 99; cursor: pointer; font-size: 16px;">
+                    <i class="fa fa-usd"></i>
+                    <span class="text-center">Add your course list</span>
+                  </button>
+              </form>
+            {{else}}
+              <button class="btn btn-secondary text-center w-100 h-100">
+                Registered
+              </button>
+            {{/if}}
+            </div>
+            <div class="col-sm-4">
+              <form method="post">
+                  <button formaction="/detail/addwatchlist" name="txtCourse" value="{{course._id}}" type="sumit" role="button" class="border-0" data-mdb-toggle="tooltip" title="Add to your favorite list" style="right: 10px; top: 10px; z-index: 99; cursor: pointer; font-size: 16px; background-color: lightcyan;"><i class="{{#if course.heart}}fa fa-heart fa-2x{{else}}fa fa-heart-o fa-2x{{/if}}" style="color: crimson; background-color: lightcyan;"></i></button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-sm-6 pl-4 pr-0 border-success" style="height: 300px;">
         <div class="img h-100 d-flex align-items-center justify-content-center">
-          <img src="/public/imgs/{{_id}}.png" class="border p-2 mh-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+          <img src="/public/imgs/{{course._id}}.png" class="border p-2 mh-100" style="border-radius: 5px; background-color: white;" alt="Not found">
         </div>
       </div>
     </div>
@@ -206,7 +226,7 @@ referrerpolicy="no-referrer">
       <div class="card border-0 py-4 d-flex justify-content-around flex-row">
         <div class="col-sm-6 pl-4 pr-0 border-success" style="height: 300px;">
           <div class="img h-100 d-flex align-items-center justify-content-center">
-            <img src="/public/imgs/{{_id}}.png" class="border p-2 mh-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+            <img src="/public/imgs/{{course._id}}.png" class="border p-2 mh-100" style="border-radius: 5px; background-color: white;" alt="Not found">
           </div>
         </div>
         <div class="col-sm-6 pl-4 pr-0">
@@ -216,7 +236,7 @@ referrerpolicy="no-referrer">
               <div>
                 <div class="icon d-flex justify-content-start align-items-stretch">
                   <i class="bi bi-hourglass-split mr-3"></i>
-                  <span class="text-center">{{detail_description}}</span>
+                  <span class="text-center">{{course.detail_description}}</span>
                 </div>
               </div>
             </div>
@@ -224,7 +244,7 @@ referrerpolicy="no-referrer">
               <div>
                 <div class="icon d-flex justify-content-start align-items-stretch">
                   <i class="bi bi-graph-up-arrow mr-3"></i>
-                  <span class="text-center">{{detail_description}}</span>
+                  <span class="text-center">{{course.detail_description}}</span>
                 </div>
               </div>
             </div>
@@ -232,7 +252,7 @@ referrerpolicy="no-referrer">
               <div>
                 <div class="icon d-flex justify-content-start align-items-stretch">
                   <i class="bi bi-patch-check mr-3"></i>
-                  <span class="text-center">{{detail_description}}</span>
+                  <span class="text-center">{{course.detail_description}}</span>
                 </div>
               </div>
             </div>
@@ -415,7 +435,7 @@ referrerpolicy="no-referrer">
       <div class="instructor mx-5">
         <div class="instructor-name">
           <a href="#" class="font-weight-bolder">
-            <span>{{authors}}</span>
+            <span>{{course.authorName}}</span>
           </a>
         </div>
         <div class="instructor-info d-flex flex-row mt-3" style="height: 130px;">
@@ -425,7 +445,7 @@ referrerpolicy="no-referrer">
           <div class="rating d-flex flex-column justify-content-center">
             <div class="star mb-2">
               <i class="fa fa-star" aria-hidden="true"></i>
-              <span>{{rate}} Instructor Rating</span>
+              <span>{{course.rate}} Instructor Rating</span>
             </div>
             <div class="reviews mb-2">
               <i class="bi bi-person-fill"></i>
@@ -456,6 +476,9 @@ referrerpolicy="no-referrer">
 
     <hr width="85%" align="center">
 
+    {{#if emptySlide}}
+
+    {{else}}
     <div class="card-highlight">
       <div class="p-0 ml-4">
         <h2 class="text-left font-weight-bold">Các khoá học nổi bật</h2>
@@ -466,20 +489,19 @@ referrerpolicy="no-referrer">
           {{!-- <li data-target="#myCarousel" style="background-color: black; height: 10px; width: 11px; border-radius: 50%;" class="active"></li>
           <li data-target="#myCarousel" style="background-color: black; height: 10px; width: 11px; border-radius: 50%;"></li>
           <li data-target="#myCarousel" style="background-color: black; height: 10px; width: 11px; border-radius: 50%;"></li> --}}
-          {{#each ../slide}}
+          {{#each slide}}
             <li data-target="#myCarousel" style="background-color: black; height: 10px; width: 11px; border-radius: 50%;"></li>
           {{/each}}
         </ol>
         <!-- Wrapper for carousel items -->
         <div class="carousel-inner">
-          {{#each ../slide}}
+          {{#each slide}}
           {{#each slides}}
           <div class="item carousel-item {{#if activeSlide}}active{{/if}}">
             <div class="row d-flex justify-content-around">
               {{#each cates}}
               <div class="col-sm-3">
                 <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
-                  <a href="#" class="wish-icon position-absolute" data-mdb-toggle="tooltip" title="Add to your favorite list" style="right: 10px; top: 10px; z-index: 99; cursor: pointer; font-size: 16px;"><i class="fa fa-heart-o"></i></a>
                   <div class="img-box border-success" style="height: 300px;">
                     <div class="img w-100 h-100 d-flex align-items-center">
                       <img src="/public/imgs/{{_id}}.png" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="{{course_name}}">
@@ -514,8 +536,8 @@ referrerpolicy="no-referrer">
         </a>
       </div>
     </div>
-
     <hr width="85%" align="center">
+    {{/if}}
 
     <div id="card-rating">
       <h1 class="font-weight-bold m-0 mb-1">
@@ -854,6 +876,3 @@ referrerpolicy="no-referrer">
     </div>
   </div>
 </div>
-
-{{/each}}
-
