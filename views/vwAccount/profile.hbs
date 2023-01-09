@@ -1,167 +1,96 @@
 {{#section 'css'}}
-  <style>
-    .form-group{ width: 50%; padding-left:2.5%; padding-right:2.5%; } .list-item
-    button { border: 0px; height: 28px; border-radius: 4px; font-size: 14px;
-    cursor: pointer; padding: 0px 12px; color: rgb(11, 116, 229); } .list-item
-    button.active { border: 1px solid rgb(11, 116, 229); background-color:
-    rgb(255, 255, 255); } .box { width: 100%; height: 450px; } .card-wrapper {
-    display: flex; flex-direction: row; justify-content: center; } .card {
-    margin-left: auto; margin-right: auto; } .card img { max-width: 100%;
-    height: 180px; } button.carousel-control-prev, button.carousel-control-next
-    { background-color: #504e4e; width: 6vh; height: 6vh; border-radius: 50%;
-    top: 50%; transform: translateY(-50%); }
-  </style>
+    <style>
+        .form-group{
+            width: 50%; padding-left:2.5%; padding-right:2.5%;
+        }
+        .list-item button {
+            border: 0px;
+            height: 28px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 0px 12px;
+            color: rgb(11, 116, 229);
+        }
+        .list-item button.active {
+            border: 1px solid rgb(11, 116, 229);
+            background-color: rgb(255, 255, 255);
+        }
+        .box {
+            width: 100%;
+            height: 450px;  
+        }
+        .card-wrapper {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        .card {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .card img {
+            max-width: 100%;
+            height: 180px;
+        }
+        button.carousel-control-prev,
+        button.carousel-control-next {
+            background-color: #504e4e;
+            width: 6vh;
+            height: 6vh;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
 {{/section}}
 
-<div class='container bootstrap snippet'>
-  {{#each list}}
-    <div class='row'>
-      <div class='col-sm-12'><h1>{{username}}</h1></div>
+<div class="container bootstrap snippet">
+    {{#each list}}
+    <div class="row">
+  		<div class="col-sm-12"><h1>{{username}}</h1></div>
     </div>
-    <div class='row'>
-      <div class='col-sm-3'>
-        <div class='text-center'>
-          <img
-            src='http://ssl.gstatic.com/accounts/ui/avatar_2x.png'
-            class='avatar rounded-circle'
-            alt='avatar'
-          />
-          <input type='file' class='text-center center-block file-upload' />
+    <div class="row">
+  		<div class="col-sm-3">
+            <div class="text-center">
+                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar rounded-circle" alt="avatar">
+                <input type="file" class="text-center center-block file-upload">
+            </div>
+            <br>
         </div>
-        <br />
-      </div>
-      <div class='col-sm-9'>
-        <form class='form' method='post' id='registrationForm'>
-          <div class='row'>
-            <div class='form-group'>
-              <label for='username'><h4>User name</h4></label>
-              <input
-                type='text'
-                class='form-control'
-                name='username'
-                id='username'
-                placeholder='User name'
-                title='Enter your username.'
-                value='{{username}}'
-                readonly
-              />
-            </div>
-            <div class='form-group'>
-              <label for='name'><h4>Name</h4></label>
-              <input
-                type='text'
-                class='form-control'
-                name='name'
-                id='name'
-                placeholder='Name'
-                title='Enter your name.'
-                value='{{name}}'
-                readonly
-              />
-            </div>
-          </div>
-
-          <div class='row'>
-            <div class='form-group'>
-              <label for='email'><h4>Email</h4></label>
-              <input
-                type='email'
-                class='form-control'
-                name='email'
-                id='email'
-                placeholder='you@email.com'
-                title='Enter your email.'
-                value='{{email}}'
-                readonly
-              />
-            </div>
-            <div class='form-group'>
-              <label for='password'><h4>Password</h4></label>
-              <input
-                type='password'
-                class='form-control'
-                name='password'
-                id='password'
-                placeholder='password'
-                title='Enter your password.'
-                value='{{password}}'
-                readonly
-              />
-            </div>
-          </div>
-
-          <div class='form-group' style='padding-left: 0px'>
-            <br />
-            <button
-              name='value'
-              class='btn btn-lg btn-success'
-              style='width: 100px;'
-              type='submit'
-              formaction='/account/changeprofile'
-              value='{{username}}'
-            ><i class='glyphicon glyphicon-ok-sign'></i> Edit</button>
-          </div>
-        </form>
-      </div><!--/col-9-->
-    </div><!--/row-->
-  {{/each}}
-
-  <br /><br />
-  <hr width='85%' size='3px' align='center' color='lightgreen' />
-  <br /><br />
-
-  <div class='row'>
-    <div class='box'>
-      <div class='col-sm-12 d-flex justify-content-center'><h1>Watch list</h1></div>
-      {{#if watchlistempty}}
-        <div class='d-flex justify-content-center align-items-center h-100'><h2
-            class='text-center'
-          >No watchlist course</h2></div>
-      {{else}}
-        {{#if watchlistempty2}}
-          <div id='watchlist' class='carousel slide' data-ride='carousel'>
-            <div class='carousel-inner'>
-              <div class='carousel-item active'>
-                <div class='cards-wrapper d-flex flex-row'>
-                  {{#each watchlistactive}}
-                    <div class='card' style='width: 18rem;'>
-                      <img
-                        src='../public/imgs/{{_id}}.png'
-                        class='card-img-top'
-                        alt='...'
-                      />
-                      <div class='card-body'>
-                        <h5 class='card-title'>{{course_name}}</h5>
-                        <p class='card-text'>{{brief_description}}</p>
-                        <a href='/detail/{{_id}}' class='btn btn-primary'>
-                          <i class='fa fa-external-link' aria-hidden='true'></i>
-                          Visit
-                        </a>
-                      </div>
+    	<div class="col-sm-9">          
+            <form class="form" method="post" id="registrationForm">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="username"><h4>User name</h4></label>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="User name" title="Enter your username." value="{{username}}" readonly>
                     </div>
-                  {{/each}}
+                    <div class="form-group">
+                        <label for="name"><h4>Name</h4></label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Name" title="Enter your name." value="{{name}}" readonly>
+                    </div>
                 </div>
-              </div>
-              {{#each watchlist}}
-                <div class='carousel-item'>
-                  <div class='cards-wrapper d-flex flex-row'>
-                    {{#each subWatchlist}}
-                      <div class='card' style='width: 18rem;'>
-                        <img
-                          src='../public/imgs/{{_id}}.png'
-                          class='card-img-top'
-                          alt='...'
-                        />
-                        <div class='card-body'>
-                          <h5 class='card-title'>{{course_name}}</h5>
-                          <p class='card-text'>{{brief_description}}</p>
-                          <a href='/detail/{{_id}}' class='btn btn-primary'>
-                            <i
-                              class='fa fa-external-link'
-                              aria-hidden='true'
-                            ></i>
-                            Visit
-                          </a>
+                
+                <div class="row">
+                     <div class="form-group">
+                        <label for="email"><h4>Email</h4></label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="Enter your email." value="{{email}}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="password"><h4>Password</h4></label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="password" title="Enter your password." value="{{password}}" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group" style="padding-left: 0px">
+                    <br>
+                    <button name="value" class="btn btn-lg btn-success" style="width: 100px;" type="submit" formaction="/account/changeprofile" value="{{username}}"><i class="glyphicon glyphicon-ok-sign"></i> Edit</button>
+                </div>
+            </form>
+        </div><!--/col-9-->
+    </div><!--/row-->
+    {{/each}}
+
     <br><br>
     <hr  width="85%" size="3px" align="center" color="lightgreen" />
     <br><br>
@@ -275,174 +204,32 @@
                             </div>
                             {{/each}}               
                         </div>
-                      </div>
-                    {{/each}}
-                  </div>
-                </div>
-              {{/each}}
-            </div>
-            <button
-              class='carousel-control-prev'
-              type='button'
-              data-target='#watchlist'
-              data-slide='prev'
-            >
-              <span
-                class='carousel-control-prev-icon'
-                aria-hidden='true'
-              ></span>
-              <span class='sr-only'>Previous</span>
-            </button>
-            <button
-              class='carousel-control-next'
-              type='button'
-              data-target='#watchlist'
-              data-slide='next'
-            >
-              <span
-                class='carousel-control-next-icon'
-                aria-hidden='true'
-              ></span>
-              <span class='sr-only'>Next</span>
-            </button>
-          </div>
-        {{else}}
-          <div class='cards-wrapper d-flex flex-row'>
-            {{#each watchlistactive}}
-              <div class='card' style='width: 18rem;'>
-                <img
-                  src='../public/imgs/{{_id}}.png'
-                  class='card-img-top'
-                  alt='...'
-                />
-                <div class='card-body'>
-                  <h5 class='card-title'>{{course_name}}</h5>
-                  <p class='card-text'>{{brief_description}}</p>
-                  <a href='/detail/{{_id}}' class='btn btn-primary'>
-                    <i class='fa fa-external-link' aria-hidden='true'></i>
-                    Visit
-                  </a>
-                </div>
-              </div>
-            {{/each}}
-          </div>
-        {{/if}}
-      {{/if}}
-    </div>
-
-  </div>
-  <br /><br />
-  <hr width='85%' size='3px' align='center' color='lightgreen' />
-  <br /><br />
-  <div class='row'>
-    <div class='box'>
-      <div class='col-sm-12 d-flex justify-content-center'><h1>Registered
-          courses</h1></div>
-      {{#if registeredempty}}
-        <div class='d-flex justify-content-center align-items-center h-100'><h2
-            class='text-center'
-          >No registered course</h2></div>
-      {{else}}
-        {{#if registeredempty2}}
-          <div id='registered' class='carousel slide' data-ride='carousel'>
-            <div class='carousel-inner'>
-              <div class='carousel-item active'>
-                <div class='cards-wrapper d-flex flex-row'>
-                  {{#each registeredListactive}}
-                    <div class='card' style='width: 18rem;'>
-                      <img
-                        src='../public/imgs/{{_id}}.png'
-                        class='card-img-top'
-                        alt='...'
-                      />
-                      <div class='card-body'>
-                        <h5 class='card-title'>{{course_name}}</h5>
-                        <p class='card-text'>{{brief_description}}</p>
-                        <a href='/detail/{{_id}}' class='btn btn-primary'>
-                          <i class='fa fa-external-link' aria-hidden='true'></i>
-                          Visit
-                        </a>
-                      </div>
+                        <button class="carousel-control-prev" type="button" data-target="#registered" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-target="#registered" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </button>
                     </div>
-                  {{/each}}
-                </div>
-              </div>
-              {{#each registeredList}}
-                <div class='carousel-item'>
-                  <div class='cards-wrapper d-flex flex-row'>
-                    {{#each subRegisteredList}}
-                      <div class='card' style='width: 18rem;'>
-                        <img
-                          src='../public/imgs/{{_id}}.png'
-                          class='card-img-top'
-                          alt='...'
-                        />
-                        <div class='card-body'>
-                          <h5 class='card-title'>{{course_name}}</h5>
-                          <p class='card-text'>{{brief_description}}</p>
-                          <a href='/detail/{{_id}}' class='btn btn-primary'>
-                            <i
-                              class='fa fa-external-link'
-                              aria-hidden='true'
-                            ></i>
-                            Visit
-                          </a>
-                        </div>
-                      </div>
-                    {{/each}}
-                  </div>
-                </div>
-              {{/each}}
-            </div>
-            <button
-              class='carousel-control-prev'
-              type='button'
-              data-target='#registered'
-              data-slide='prev'
-            >
-              <span
-                class='carousel-control-prev-icon'
-                aria-hidden='true'
-              ></span>
-              <span class='sr-only'>Previous</span>
-            </button>
-            <button
-              class='carousel-control-next'
-              type='button'
-              data-target='#registered'
-              data-slide='next'
-            >
-              <span
-                class='carousel-control-next-icon'
-                aria-hidden='true'
-              ></span>
-              <span class='sr-only'>Next</span>
-            </button>
-          </div>
-        {{else}}
-          <div class='cards-wrapper d-flex flex-row'>
-            {{#each registeredListactive}}
-              <div class='card' style='width: 18rem;'>
-                <img
-                  src='../public/imgs/{{_id}}.png'
-                  class='card-img-top'
-                  alt='...'
-                />
-                <div class='card-body'>
-                  <h5 class='card-title'>{{course_name}}</h5>
-                  <p class='card-text'>{{brief_description}}</p>
-                  <a href='/detail/{{_id}}' class='btn btn-primary'>
-                    <i class='fa fa-external-link' aria-hidden='true'></i>
-                    Visit
-                  </a>
-                </div>
-              </div>
-            {{/each}}
-          </div>
-        {{/if}}
-      {{/if}}
+                {{else}}
+                    <div class="cards-wrapper d-flex flex-row"> 
+                        {{#each registeredListactive}}
+                        <div class="card" style="width: 18rem;">
+                            <img src="../public/imgs/{{_id}}.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{course_name}}</h5>
+                                <p class="card-text">{{brief_description}}</p>
+                                <a href="/detail/{{_id}}" class="btn btn-primary">View course</a> 
+                            </div>
+                        </div> 
+                        {{/each}}
+                    </div>
+                {{/if}}
+            {{/if}}
+        </div>
     </div>
-  </div>
     {{else}}
     <div class="row">
         <div class="box">
@@ -512,4 +299,4 @@
     </div>
     {{/if}}
 </div>
-<br /><br /><br /><br /><br /><br />
+<br><br><br><br><br><br>
