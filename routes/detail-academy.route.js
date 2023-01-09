@@ -92,7 +92,7 @@ router.get('/:id', async (req, res) => {
   }
 
   let course_review = JSON.parse(
-    JSON.stringify(await reviewService.findCondition(offset, limitItems))
+    JSON.stringify(await reviewService.findCondition(id, offset, limitItems))
   );
 
   let prePage;

@@ -17,7 +17,11 @@ export default {
     return reviewModel.find({ course: id }).count();
   },
 
-  findCondition(offset, limit) {
-    return reviewModel.find().sort({ _id: -1 }).skip(offset).limit(limit);
+  findCondition(id, offset, limit) {
+    return reviewModel
+      .find({ course: id })
+      .sort({ _id: -1 })
+      .skip(offset)
+      .limit(limit);
   },
 };
