@@ -1,0 +1,65 @@
+{{#section 'js'}}
+    <script>
+        var count_field = 1;
+        function add_more_field() {
+            count_field +=1;
+            console.log(count_field);
+            html = ' <div class="form-group">\
+                    <label >Lecture</label>\
+            <input  type="text" class="form-control" class="txtCourseTitle" id="txtCourseTitle'+count_field+'" name="title[]" ></div>\
+            <div class="col-sm-8">\
+                <label >Add your video URL</label>\
+                <input type="url"  class="form-control" class="txtUrl" id="url'+count_field+'" name="url[]"><br><br>\
+            </div>'
+            var form =document.getElementById(`addLectureFrm`);
+            form.innerHTML += html
+        }
+        $('#addLectureFrm').on('reset', (e) => {
+            $(document).ready(function(){
+                $(this).scrollTop(0);
+            });
+        });
+        function resetLecture(){
+            console.log(0);
+            var form =document.getElementById(`addLectureFrm`);
+            form.innerHTML = '';
+            count_field = 0;
+            add_more_field();
+        };
+    </script>
+{{/section}}
+<div class="card w-100 p-3 mx-auto">
+    <h4 class="card-header d-flex justify-content-left">
+        Lecture
+    </h4>
+    <div class="card-body">
+        <form method="POST" id="addLectureFrm" >
+            <div class="form-group">
+                <label >Lecture</label>
+                <input  type="text" class="form-control" class="txtCourseTitle" id="txtCourseTitle" name="title[]" autofocus></div>
+            <div class="col-sm-8">
+                <label >Add your video URL</label>
+                <input type="url" class="form-control" class="txtUrl" id="txturl1" name="url[]"><br><br>
+            </div>
+        </form>
+        <button  class="btn btn-primary bg-primary text-white w-25 m-2" onclick="add_more_field()" >
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Add More Section
+        </button>
+    </div>
+
+    <div class="card-footer text-muted d-flex justify-content-between">
+        <button type="reset" class="btn btn-primary bg-secondary w-25 text-white-white m-2" onclick="resetLecture()">
+            <i class="fa fa-repeat" aria-hidden="true"></i>
+            Reset
+        </button>
+        <a href="/course/viewSectionLecture" class="btn btn-primary bg-danger w-25 text-white m-2">
+            <i class="fa fa-ban" aria-hidden="true"></i>
+            Cancel
+        </a>
+        <button type="submit" form="addLectureFrm" class="btn btn-primary bg-success w-25 text-white m-2"  >
+            <i class="fa fa-check" aria-hidden="true"></i>
+            Done
+        </button>
+    </div>
+</div>

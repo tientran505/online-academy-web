@@ -1,0 +1,154 @@
+<div class='container-fluid p-0 m-0'>
+  <div class='row'>
+    <div class='col-sm-3'>
+      <div class='card'>
+        <h3 class='card-header'>
+          Admin Dashboard
+        </h3>
+        <div class='list-group list-group-flush'>
+          <a
+            href='/admin/user'
+            class='list-group-item list-group-item-action active'
+          >
+            <i class='fa fa-users mr-1' aria-hidden='true'></i>
+            User
+          </a>
+          <a
+            href='/admin/category'
+            class='list-group-item list-group-item-action'
+          >
+            <i class='fa fa-list-alt mr-1' aria-hidden='true'></i>
+            Category
+          </a>
+          <a href='#' class='list-group-item list-group-item-action'>
+            <i class='fa fa-graduation-cap mr-1' aria-hidden='true'></i>
+            Course
+          </a>
+          <a href='#' class='list-group-item list-group-item-action'>
+            <i class='fa fa-user-plus mr-1' aria-hidden='true'></i>
+            Lecturer Account Approve
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class='col-sm-9'>
+      <div class='card w-75'>
+        <h3 class='m-0 card-header'>
+          User Information
+        </h3>
+
+        <div class='card-body'>
+          <div class='d-flex mb-4'>
+            <img
+              src='/public/imgs/admin_avatar.png'
+              width='200'
+              height='200'
+              class='rounded-circle mr-1 shadow mr-4'
+            />
+            <div class='ml-2 align-self-center'>
+              <h1>{{user.name}}</h1>
+              <div class='display-4'>
+                <i class='fa fa-graduation-cap' aria-hidden='true'></i>
+                {{user.role}}
+              </div>
+
+            </div>
+          </div>
+
+          <form method='post'>
+            <div class='form-group'>
+              <label for='titleTxt'><strong>User ID</strong></label>
+              <input
+                type='text'
+                class='form-control'
+                id='idTxt'
+                name='userID'
+                id='userID'
+                value='{{user._id}}'
+                readonly
+              />
+            </div>
+
+            <div class='form-group'>
+              <label for='txtCatID'><strong>Username</strong></label>
+              <input
+                value='{{user.username}}'
+                type='text'
+                class='form-control'
+                readonly
+              />
+            </div>
+
+            <div class='form-group'>
+              <label for='txtCatID'><strong>Email Contact</strong></label>
+              <input
+                value='{{user.email}}'
+                type='text'
+                class='form-control'
+                readonly
+              />
+            </div>
+
+            <div class='form-group'>
+              <label for='titleTxt'><strong>Date of Birth</strong></label>
+              <input
+                type='text'
+                class='form-control'
+                value='{{user.birthday}}'
+                readonly
+              />
+            </div>
+
+            <div class='form-group'>
+              <label for='statusSelect'><strong>Status</strong></label>
+              <select
+                class='form-control'
+                id='statusSelect'
+                name='statusSelect'
+              >
+                {{#if isBlocked}}
+                  <option value='accessible'>Accessible</option>
+                  <option value='blocked' selected>Blocked</option>
+                {{else}}
+                  <option value='accessible' selected>Accessible</option>
+                  <option value='blocked'>Blocked</option>
+                {{/if}}
+
+              </select>
+            </div>
+
+            <a
+              role='button'
+              type='button'
+              class='btn btn-secondary'
+              href='/admin/user'
+            >
+              <i class='fa fa-arrow-left' aria-hidden='true'></i>
+              Back
+            </a>
+
+            <button
+              type='submit'
+              class='btn btn-primary'
+              formaction='/admin/user/patch'
+            >
+              <i class='fa fa-floppy-o' aria-hidden='true'></i>
+              Save
+            </button>
+
+            <button
+              type='submit'
+              class='btn btn-danger'
+              formaction='/admin/user/del'
+            >
+              <i class='fa fa-trash-o' aria-hidden='true'></i>
+              Delete
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

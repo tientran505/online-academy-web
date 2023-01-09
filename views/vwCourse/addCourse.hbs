@@ -1,10 +1,9 @@
-@ -0,0 +1,115 @@
 {{#section 'css'}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/css/fileinput.min.css" />
 {{/section}}
 
 {{#section 'js'}}
-    <script src="https://cdn.tiny.cloud/1/ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/hygzc72vtb6fcja8plsjnx8quebr9pxltpz0qqnlrpmcvm9n/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/buffer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/filetype.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/piexif.min.js"></script>
@@ -20,7 +19,7 @@
             maxFileCount: 5,
             showUpload: false,
             showCaption: false,
-            allowedFileExtensions: ['jpg', 'png', 'gif'],
+            allowedFileExtensions: ['jpg', 'png', 'gif','mp4','mkv'],
         });
 
         tinymce.init({
@@ -29,7 +28,7 @@
             // plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
             // toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
             menubar: false,
-            plugins: 'paste image link autolink lists table media',
+            plugins: ' image link autolink lists table media',
             toolbar: [
                 'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
             ],
@@ -40,21 +39,61 @@
             // plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
             // toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
             menubar: false,
-            plugins: 'paste image link autolink lists table media',
+            plugins: 'image link autolink lists table media',
             toolbar: [
                 'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
             ],
         });
-        $('#frmRegister').on('reset', (e) => {
+        $('#uploadform').on('reset', (e) => {
+            $(document).ready(function(){
+                $(this).scrollTop(0);
+            });
+        });
 
+        $('#uploadform').on('submit', (e) => {
+            e.preventDefault();
+            const course_name = $('#txtCourseName').val();
+            const price = $('#Price').val();
+            const sale = $('#sale').val();
+            let isValidForm = true;
+            $('#sale').addClass('is-valid').removeClass('is-invalid');
+            if (course_name.length === 0) {
+                $('#sale').removeClass('is-valid').addClass('is-invalid');
+                $('#sale').text('Username is required');
+                isValidForm = false;
+            }
+            $('#Price').addClass('is-valid').removeClass('is-invalid');
+            if (course_name.length === 0) {
+                $('#Price').removeClass('is-valid').addClass('is-invalid');
+                $('#Price').text('Username is required');
+                isValidForm = false;
+            }
+            $('#txtCourseName').addClass('is-valid').removeClass('is-invalid');
+            if (course_name.length === 0) {
+                $('#txtCourseName').removeClass('is-valid').addClass('is-invalid');
+                $('#txtCourseName').text('Username is required');
+                isValidForm = false;
+            }
+
+
+            if(!isValidForm){
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                $(document).ready(function(){
+                    $(window).scrollTop(0);
+                });
+            }
+            else{
+                $('#uploadform').off('submit').submit();
+            }
         });
     </script>
 <script>
-
+    // var language = ["Python", "Java", "JavaScript","C","C++","C#","React", "React Native","HTML","PHP","CSS"];
 </script>
 {{/section}}
 <!---->
-<form method="POST" enctype="multipart/form-data" >
+<form method="POST" enctype="multipart/form-data" id="uploadform" >
     <div class="card w-75 p-3 mx-auto">
         <h4 class="card-header d-flex justify-content-left">
             New Course
@@ -63,44 +102,51 @@
         <div class="card-body">
             <div class="form-group">
                 <label for="txtCourseName">Your Course Name</label>
-                <input  type="text" class="form-control" id="txtCourseName" name="course_name" autofocus>
+                <input  type="text" class="form-control" id="txtCourseName" name="course_name">
             </div>
             <div class="form-group">
                 <label for="img">Image</label>
                 <input type="file" multiple name="img" id="img">
             </div>
-            <div class="form-group">
-                <label for="txtCategory">Course Category</label>
-                <input  type="text" class="form-control" id="Category" name="program_language" placeholder="Python, Java, C/C++,...">
-            </div>
+
             <div class="form-group ">
                 <input type="radio" id="complete" name="is_completed" value="true">
                 <label for="complete">Course is completed</label><br>
             </div>
             <div class="form-group">
-                <label for="txtPrice">Your Course Price</label>
-                <input name="price" type="text" class="form-control" id="Price">
+                <label for="txtPrice">Course Price VNĐ</label>
+                <input name="price" type="number" class="form-control" id="Price">
             </div>
             <div class="form-group">
-                <label for="txtDiscount">Your Course Discount (if any)</label>
-                <input name="discount" type="text" class="form-control" id="Discount">
+                <label for="txtSale">Course Discount VNĐ (if any)</label>
+                <input name="sale" type="number" class="form-control" id="sale">
             </div>
 
             <div class="form-group">
                 <label for="txtTinyDescription">Course Brief Description</label>
-                <textarea name="brief_description"  id="txtTinyDescription"  >Short description about your course..</textarea>
+                <textarea name="brief_description"  id="txtTinyDescription" placeholder="Short description about your course.." ></textarea>
             </div>
             <div class="form-group">
-                <label for="txtFullDescription">Course Full Description</label>
-                <textarea name="detail_description" id="txtFullDescription"  >All description about your course..</textarea>
+                <label for="txtdetail_description">Course Full Description</label>
+                <textarea name="detail_description" id="txtdetail_description" placeholder="All description about your course.."  ></textarea>
             </div>
 
         </div>
         </b>
-        <div class="card-footer text-muted d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary bg-success text-white">
+        <div class="card-footer text-muted d-flex justify-content-between">
+            <button type="reset" class="btn btn-primary bg-secondary  text-white-white m-2 w-50">
+                <i class="fa fa-repeat" aria-hidden="true"></i>
+                Reset
+            </button>
+            <a href="/" class="btn btn-primary bg-danger  text-white w-50 m-2">
+
+                <i class="fa fa-ban" aria-hidden="true"></i>
+                Cancel
+
+            </a>
+            <button type="submit" class="btn btn-primary bg-success w-50 text-white m-2">
                 <i class="fa fa-check" aria-hidden="true"></i>
-                Save
+                Continue
             </button>
         </div>
     </div>
