@@ -9,12 +9,12 @@ export default {
     const p = await Course.find();
     const list = JSON.parse(JSON.stringify(p));
     for (const c of list) {
-      if (c.authors) {
-        const u = await User.findOne({ _id: c.authors });
+      if (c.author) {
+        const u = await User.findOne({ _id: c.author });
         const l = JSON.parse(JSON.stringify(u));
 
-        if (l.name !== null) c.authors = l.name;
-        else c.authors = '';
+        if (l.name !== null) c.author = l.name;
+        else c.author = '';
       }
     }
     return list;
@@ -23,11 +23,11 @@ export default {
     const p = await Course.find({ category: cate });
     const list = JSON.parse(JSON.stringify(p));
     for (const c of list) {
-      if (c.authors) {
-        const u = await User.findOne({ _id: c.authors });
+      if (c.author) {
+        const u = await User.findOne({ _id: c.author });
         const l = JSON.parse(JSON.stringify(u));
-        if (l.name !== null) c.authors = l.name;
-        else c.authors = '';
+        if (l.name !== null) c.author = l.name;
+        else c.author = '';
       }
     }
     return list;
@@ -37,11 +37,11 @@ export default {
     const p = await Course.find().skip(offset).limit(limit);
     const list = JSON.parse(JSON.stringify(p));
     for (const c of list) {
-      if (c.authors) {
-        const u = await User.findOne({ _id: c.authors });
+      if (c.author) {
+        const u = await User.findOne({ _id: c.author });
         const l = JSON.parse(JSON.stringify(u));
-        if (l.name !== null) c.authors = l.name;
-        else c.authors = '';
+        if (l.name !== null) c.author = l.name;
+        else c.author = '';
       }
     }
     return list;
@@ -51,11 +51,11 @@ export default {
     const p = await Course.find({ category: cate }).skip(offset).limit(limit);
     const list = JSON.parse(JSON.stringify(p));
     for (const c of list) {
-      if (c.authors) {
-        const u = await User.findOne({ _id: c.authors });
+      if (c.author) {
+        const u = await User.findOne({ _id: c.author });
         const l = JSON.parse(JSON.stringify(u));
-        if (l.name !== null) c.authors = l.name;
-        else c.authors = '';
+        if (l.name !== null) c.author = l.name;
+        else c.author = '';
       }
     }
     return list;

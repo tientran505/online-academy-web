@@ -23,11 +23,8 @@ import categoryModel from './utils/models/category.model.js';
 import { log } from 'console';
 import userModel from './utils/models/user.model.js';
 import adminCourseRoute from './routes/admin.course.route.js';
-<<<<<<< HEAD
-import courseModel from './utils/models/course.model.js';
-=======
 import activate_error_handlers from './mdw/error.mdw.js';
->>>>>>> 909c6ffcbb26408fcdc69595b1829473d3dd41c7
+
 
 dotenv.config();
 const port = process.env.PORT || 5000;

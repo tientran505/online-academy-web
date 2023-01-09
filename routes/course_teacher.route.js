@@ -28,10 +28,10 @@ router.post('/addCourse', (req, res) => {
       cb(null, path);
     },
     filename: function (req, file, cb) {
-      img =  file.originalname + path.extname(file.originalname);
+      img =  file.originalname;
       cb(
         null,
-         file.originalname + path.extname(file.originalname)
+         file.originalname
       );
     },
   });
@@ -107,10 +107,10 @@ router.post('/editCourse/:id', authWithRequiredPermission(1), async (req, res) =
         cb(null, path);
       },
       filename: function (req, file, cb) {
-        img =  file.originalname + path.extname(file.originalname);
+        img =  file.originalname;
         cb(
             null,
-            file.originalname + path.extname(file.originalname)
+            file.originalname
         );
       },
     });
