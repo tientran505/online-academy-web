@@ -16,7 +16,7 @@
             language: 'vi',
             theme: 'fa4',
             dropZoneEnabled: false,
-            maxFileCount: 5,
+            maxFileCount: 1,
             showUpload: false,
             showCaption: false,
             allowedFileExtensions: ['jpg', 'png', 'gif','mp4','mkv'],
@@ -75,6 +75,7 @@
                 isValidForm = false;
             }
 
+
             if(!isValidForm){
                 window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -111,6 +112,13 @@
             <div class="form-group ">
                 <input type="radio" id="complete" name="is_completed" value="true">
                 <label for="complete">Course is completed</label><br>
+            </div>
+            <div class="form-group ">
+                <p> Category </p>
+                {{#each category}}
+                    <input type="radio" class="category" name="category" value="{{_id}}">
+                    <label for="complete">{{title}}</label><br>
+                {{/each}}
             </div>
             <div class="form-group">
                 <label for="txtPrice">Course Price VNĐ</label>

@@ -8,33 +8,43 @@ const router = express.Router();
 import Lecture from '../utils/models/lecture.model.js';
 import Section from '../utils/models/section.model.js';
 import authWithRequiredPermission from '../mdw/auth.mdw.js';
-
+import SubCategory from '../utils/models/sub-category.model.js';
 router.get('/addCourse', authWithRequiredPermission(1), async (req, res) => {
-  res.render('vwCourse/addCourse');
+  const category = await SubCategory.find();
+  const list = JSON.parse(JSON.stringify(category));
+  // console.log(list);
+  res.render('vwCourse/addCourse', {
+    category : list,
+  });
 });
 
 router.post('/addCourse', (req, res) => {
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      const { id } = req.body;
-      const path = `./public/imgs/${id}`;
+
+      const path = `./public/imgs/`;
       fs.mkdirSync(path, { recursive: true });
       cb(null, path);
     },
     filename: function (req, file, cb) {
+
       cb(
         null,
         file.fieldname + file.originalname + path.extname(file.originalname)
       );
     },
   });
+
+  //
+  // const img=  String(file.fieldname) + String(file.originalname) + String(path.extname(file.originalname));
   const upload = multer({ storage: storage });
-  upload.array('img', 5)(req, res, async function (err) {
+  upload.single('img', 1)(req, res, async function (err) {
     if (err) {
       console.error(err);
     } else {
+
       const {
-        
+
         course_name,
         is_completed,
         price,
@@ -48,6 +58,7 @@ router.post('/addCourse', (req, res) => {
         is_completed: is_completed ? true : false,
         price,
         sale,
+
         brief_description,
         detail_description,
       });

@@ -100,7 +100,7 @@ app.use(async (req, res, next) => {
   for (const c of categories) {
     c.isNotEmpty = c.items.length > 0;
   }
-
+  // console.log(categories[0].items);
   res.locals.lcCategories = categories;
 
   next();
