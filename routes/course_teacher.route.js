@@ -28,13 +28,13 @@ router.post('/addCourse', (req, res) => {
       );
     },
   });
-
   const upload = multer({ storage: storage });
   upload.array('img', 5)(req, res, async function (err) {
     if (err) {
       console.error(err);
     } else {
       const {
+        
         course_name,
         is_completed,
         price,
@@ -44,6 +44,7 @@ router.post('/addCourse', (req, res) => {
       } = req.body;
       const course = await Course.create({
         course_name,
+        author: req.session.authUser._id,
         is_completed: is_completed ? true : false,
         price,
         sale,
@@ -256,15 +257,14 @@ router.get('/addSection/:id', authWithRequiredPermission(1), async (req, res) =>
   });
 });
 router.get('/viewCourses', authWithRequiredPermission(1), async (req, res) => {
-  //lcUserID....
 
-  // const course = await Course.find({author: id});
-  const course = await Course.find();
+  const course = await Course.find({author: req.session.authUser._id});
   const list = JSON.parse(JSON.stringify(course));
   // console.log(list);
   // const p = await CourseService.loadSectionLecture(course_id);
   res.render('vwCourse/viewCourses', {
     course: list,
+    empty: list.length ===0,
   });
 });
 router.post('/addSection/:id', async (req, res) => {
