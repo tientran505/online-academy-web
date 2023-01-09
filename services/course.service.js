@@ -2,6 +2,7 @@ import Course from '../utils/models/course.model.js';
 import User from '../utils/models/user.model.js';
 import Section from '../utils/models/section.model.js';
 import Lecture from '../utils/models/lecture.model.js';
+
 export default {
     async findAll() {
         const p = await Course.find();
@@ -66,5 +67,9 @@ export default {
         const p = await Section.find({course_id: courseId}).populate('lectures');
         const list =  JSON.parse(JSON.stringify(p));
        return list;
-    }
+    },
+
+    patch(id, disable) {
+        return Course.findByIdAndUpdate(id, { disable });
+    },
 };
