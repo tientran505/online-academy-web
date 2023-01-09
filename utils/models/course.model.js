@@ -54,6 +54,11 @@ const courseSchema = mongoose.Schema({
     type: dType.Boolean,
     require: true,
   },
+
+  disable: {
+    type: dType.Boolean,
+    require: true,
+  }
 });
 
 export default mongoose.model('Course', courseSchema);

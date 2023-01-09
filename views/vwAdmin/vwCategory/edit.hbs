@@ -36,72 +36,37 @@
           <form method='post'>
             <div class='form-group'>
               <label for='txtCatID'><strong>Category ID</strong></label>
-              <input
-                value='{{this.category._id}}'
-                name='catID'
-                type='text'
-                class='form-control'
-                id='txtCatID'
-                readonly
-              />
+              <input value='{{this.category._id}}' name='catID' type='text' class='form-control' id='txtCatID' readonly />
             </div>
 
             <div class='form-group'>
               <label for='titleTxt'><strong>Category Title</strong></label>
-              <input
-                type='text'
-                class='form-control'
-                id='titleTxt'
-                name='catTitle'
-                value='{{this.category.title}}'
-                autofocus
-              />
+              <input type='text' class='form-control' id='titleTxt' name='catTitle' value='{{this.category.title}}' autofocus />
             </div>
 
-            <a
-              role='button'
-              type='button'
-              class='btn btn-secondary'
-              href='/admin/category'
-            >
+            <a role='button' type='button' class='btn btn-secondary' href='/admin/category'>
               <i class='fa fa-arrow-left' aria-hidden='true'></i>
               Back
             </a>
 
-            <button
-              type='submit'
-              class='btn btn-primary'
-              formaction='/admin/category/patch'
-            >
+            <button type='submit' class='btn btn-primary' formaction='/admin/category/patch'>
               <i class='fa fa-floppy-o' aria-hidden='true'></i>
               Save
             </button>
 
-            <button
-              type='submit'
-              class='btn btn-danger'
-              formaction='/admin/category/del?catID={{this.category._id}}'
-            >
+            <button type='submit' class='btn btn-danger' formaction='/admin/category/del?catID={{this.category._id}}'>
               <i class='fa fa-trash-o' aria-hidden='true'></i>
               Delete
             </button>
 
             {{#if this.errMessage}}
-              <div
-                class='alert alert-danger alert-dismissible fade show'
-                role='alert'
-              >
-                <strong>Error!</strong>
-                {{this.errMessage}}
-                <button
-                  type='button'
-                  class='close'
-                  data-dismiss='alert'
-                  aria-label='Close'
-                >
-                  <span aria-hidden='true'>&times;</span>
-                </button>
-              </div>
+            <div class='alert alert-danger alert-dismissible fade show' role='alert'>
+              <strong>Error!</strong>
+              {{this.errMessage}}
+              <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                <span aria-hidden='true'>&times;</span>
+              </button>
+            </div>
             {{/if}}
 
           </form>
