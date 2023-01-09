@@ -90,15 +90,13 @@ router.post('/register', async (req, res) => {
   res.render('vwAccount/register');
 });
 
-router.post('/changeprofile', async (req, res) => {
-  const username = req.body.value;
+router.get('/changeprofile', async (req, res) => {
+  const {username} = req.session.authUser;
   const table = await User.find({ username: username });
   const list = JSON.parse(JSON.stringify(table));
 
   res.render('vwAccount/changeprofile', {
     list: list,
-    haveErr: false,
-    errMessage: '',
   });
 });
 
@@ -106,83 +104,73 @@ router.post('/savechangeprofile', async (req, res) => {
   const { username, name, email, password, newpassword, confirmpassword } =
     req.body;
 
-  const table = await User.find({ username: username });
+  const table = await User.findOne({ username: username });
   const list = JSON.parse(JSON.stringify(table));
   console.log(username, name, email, password, newpassword, confirmpassword);
-  if (!list || !password || !bcypt.compare(password, list[0].password)) {
-    console.log('Invalid old password');
-    return res.render('vwAccount/changeprofile', {
-      list: list,
-      haveErr: true,
-      errMessage: 'Invalid old password.',
+  if (!list || !password || 
+    (list != null && password != null && !(await bcypt.compare(password, list.password)))) {
+  // if (!list || !password || !bcypt.compare(password, list.password)) {
+    console.log(password, list.password, !bcypt.compare(password, list.password));
+    return res.render('vwAccount/changeprofileerror', {
+      username: username,
+      errTitle: 'Invalid password',
+      errMessage: 'You need to enter your old password to change profile',
     });
   } else {
+    console.log(password, list.password, (list != null && password != null && !(await bcypt.compare(password, list.password))));
     //doi pass
-    if (newpassword != null) {
-      if (newpassword != confirmpassword) {
-        console.log(2);
-        return res.render('vwAccount/changeprofile', {
-          list: list,
-          haveErr: true,
-          errMessage: 'Invalid new password.',
-        });
+      if(newpassword != null) {
+          if (newpassword != confirmpassword) {
+              return res.render('vwAccount/changeprofileerror', {
+                username: username,
+                errTitle: 'Invalid new password',
+                errMessage: 'You cannot leave new password blank if you want to change password',
+              });
+          }
+        //check name, email
+          if(name == null){
+              return res.render('vwAccount/changeprofileerror', {
+                username: username,
+                errTitle: 'Invalid name',
+                errMessage: 'You cannot leave name field blank',
+              });
+          }
+          if(email == null){
+              return res.render('vwAccount/changeprofileerror', {
+                username: username,
+                errTitle: 'Invalid email',
+                errMessage: 'You cannot leave email field blank',
+              });
+          }
+          //update
+          const salt = await bcypt.genSalt(10);
+          const hashedPassword = await bcypt.hash(newpassword, salt);
+          const u = await userService.findByIdAndUpdate(list._id, name, hashedPassword, email);
+      } else {
+        //khong doi pass
+        //check name, email
+        if(name == null){
+          console.log(3);
+            return res.render('vwAccount/changeprofileerror', {
+              username: username,
+              errTitle: 'Invalid name',
+              errMessage: 'You cannot leave name field blank',
+            });
+        }
+        if(email == null){
+          console.log(3);
+            return res.render('vwAccount/changeprofileerror', {
+              username: username,
+              errTitle: 'Invalid email',
+              errMessage: 'You cannot leave email field blank',
+            });
+        }
+        //update
+        const u = await userService.findByIdAndUpdate(list._id, name, list.password, email);
       }
-      //check name, email
-      if (name == null) {
-        console.log(2);
-        return res.render('vwAccount/changeprofile', {
-          list: list,
-          haveErr: true,
-          errMessage: 'Invalid name.',
-        });
-      }
-      if (email == null) {
-        console.log(2);
-        return res.render('vwAccount/changeprofile', {
-          list: list,
-          haveErr: true,
-          errMessage: 'Invalid email.',
-        });
-      }
-      //update
-      const salt = await bcypt.genSalt(10);
-      const hashedPassword = await bcypt.hash(newpassword, salt);
-      const u = await userService.findByIdAndUpdate(
-        list[0]._id,
-        name,
-        hashedPassword,
-        email
-      );
-    } else {
-      //khong doi pass
-      //check name, email
-      if (name == null) {
-        console.log(3);
-        return res.render('vwAccount/changeprofile', {
-          list: list,
-          haveErr: true,
-          errMessage: 'Invalid name.',
-        });
-      }
-      if (email == null) {
-        console.log(3);
-        return res.render('vwAccount/changeprofile', {
-          list: list,
-          haveErr: true,
-          errMessage: 'Invalid email.',
-        });
-      }
-      //update
-      const salt = await bcypt.genSalt(10);
-      const hashedPassword = await bcypt.hash(password, salt);
-      const u = await userService.findByIdAndUpdate(
-        list[0]._id,
-        name,
-        hashedPassword,
-        email
-      );
+      
     }
-  }
+  
   return res.redirect('/account/profile');
 });
 
@@ -274,7 +262,7 @@ router.get('/profile', async (req, res) => {
         authorlist.push(courseList[i]);
       }
     }
-
+    console.log(authorlist);
     let createdlist = [];
     let createdlistactive = [];
     let subcreatedlist = [];
