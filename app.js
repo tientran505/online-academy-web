@@ -28,7 +28,7 @@ const port = process.env.PORT || 5000;
 connectDB();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-
+console.log(__dirname);
 const app = express();
 
 app.use(
@@ -82,27 +82,6 @@ app.use(async (req, res, next) => {
 });
 
 app.use(async (req, res, next) => {
-  // let sub = await subCategoryModel.aggregate([
-  //   {
-  //     $group: {
-  //       _id: '$category',
-  //       items: {
-  //         $addToSet: {
-  //           name: '$title',
-  //         },
-  //       },
-  //     },
-  //   },
-  //   {
-  //     $lookup: {
-  //       from: 'categories',
-  //       localField: '_id',
-  //       foreignField: '_id',
-  //       as: '_id',
-  //     },
-  //   },
-  // ]);
-
   const categories = JSON.parse(
     JSON.stringify(
       await categoryModel.aggregate([
