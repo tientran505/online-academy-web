@@ -57,11 +57,10 @@ router.post('/addCourse', (req, res) => {
 router.get('/viewSectionLecture/:id', async (req, res) => {
   const course_id = req.params.id || '';
   const p = await CourseService.loadSectionLecture(course_id);
-  for (const c of p) {
-    // console.log(c.lectures);
-  }
+ const a = await Course.findOne({_id:course_id});
   res.render('vwCourse/viewSectionLecture', {
     course_id: course_id,
+    course_name: a.course_name,
     section: p,
     empty: p.length === 0,
   });
@@ -91,7 +90,7 @@ router.get('/addSection/:id', async (req, res) => {
 router.post('/addSection/:id', async (req, res) => {
   const course_id = req.params.id || '';
   const p = req.body;
-  console.log(p);
+  console.log(req.body);
   console.log(p.SectionName.length);
   for (let i = 0; i < p.SectionName.length; i++) {
     //console.log(p[Object.keys(p)[i]]);
@@ -101,7 +100,7 @@ router.post('/addSection/:id', async (req, res) => {
         course_id,
       });
       console.log(section);
-      res.redirect('/course/viewSectionLecture/' + course._id);
+      res.redirect('/course/viewSectionLecture/' + course_id);
       // res.render('vwCourse/viewListContent',{
       //     course_id: course._id,
       //     course_name: course.course_name,
@@ -184,6 +183,7 @@ router.post('/editCourseSection/:id', async (req, res) => {
       course_name: p.course_name,
     }
   );
+  if(p.title != null){
   for (let i = 0; i < p.title.length; i++) {
     const section = await Section.updateOne(
       {
@@ -193,7 +193,7 @@ router.post('/editCourseSection/:id', async (req, res) => {
         title: p.title[i],
       }
     );
-  }
+  }}
   res.redirect('/course/viewSectionLecture/' + course_id);
 });
 router.get('/editLecture/:id', async (req, res) => {
@@ -206,6 +206,7 @@ router.get('/editLecture/:id', async (req, res) => {
   // const section = Section.find({_id:section_id});
   res.render('vwCourse/editLecture', {
     section_name: p.title,
+    course_id: p.course_id,
     lecture_title: list.title,
     lecture_id: list._id,
     lecture_url: list.url,
@@ -246,13 +247,14 @@ router.post('/editLecture/:id', async (req, res) => {
 router.get('/addSection/:id', async (req, res) => {
   const course_id = req.params.id || '';
   const p = await CourseService.loadSectionLecture(course_id);
+  
   res.render('vwCourse/addSection', {
     course_id: course_id,
     section: p,
     empty: p.length === 0,
   });
 });
-router.get('/listcourse', async (req, res) => {
+router.get('/viewCourses', async (req, res) => {
   //lcUserID....
 
   // const course = await Course.find({author: id});
@@ -267,8 +269,8 @@ router.get('/listcourse', async (req, res) => {
 router.post('/addSection/:id', async (req, res) => {
   const course_id = req.params.id || '';
   const p = req.body;
-  // console.log(p);
-  // console.log(p.SectionName.length);
+  console.log(p);
+  if(p.SectionName != null){
   for (let i = 0; i < p.SectionName.length; i++) {
     if (p.SectionName[i] !== '') {
       const section = await Section.create({
@@ -277,7 +279,7 @@ router.post('/addSection/:id', async (req, res) => {
       });
       // console.log(section);
     }
-  }
+  }}
   res.redirect('/course/viewSectionLecture/' + course_id);
 });
 
@@ -286,6 +288,7 @@ router.get('/addLecture/:id', async (req, res) => {
   const section = Section.find({ _id: section_id });
   res.render('vwCourse/addLecture', {
     section: section,
+    course_id: section.course_id,
   });
 });
 
@@ -317,5 +320,34 @@ router.post('/addLecture/:id', async (req, res) => {
     res.redirect('/course/viewSectionLecture/' + list.course_id);
   }
 });
+router.post('/lecture/del', async function (req, res) {
+ const p = req.body;
+ // console.log(p);
+ const l = await Lecture.deleteOne({ _id: p.id });
+  const s = await Section.findOne({ lectures: p.id });
+  const list = JSON.parse(JSON.stringify(s));
+  // console.log(list);
+  res.redirect('/course/viewSectionLecture/' + list.course_id);
+});
+router.post('/del/:id', async function (req, res) {
+  const course_id = req.params.id || '';
+  console.log(course_id);
+  const course = await Course.deleteOne({ _id: course_id});
+  console.log(course);
+  res.redirect('/course/viewCourses/');
+});
+router.post('/section/del/:id', async function (req, res) {
+  const section_id = req.params.id || '';
+  const s = await Section.findOne({_id:section_id});
+  if(s != null){
+  const course_id = s.course_id;
+  console.log(course_id);
+  const section = await Section.deleteOne({ _id: section_id});
+  console.log(section);
+  res.redirect('/course/editCourseSection/' + course_id);}
+  else{
+    res.redirect('/course/viewCourses/');
+  }
 
+});
 export default router;
