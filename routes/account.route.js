@@ -30,8 +30,20 @@ router.post('/login', async (req, res) => {
   }
 
   req.session.auth = true;
-  req.session.authUser = user;
+  const users =  JSON.parse(JSON.stringify(user));
 
+  if(user.role === 'student'){
+    users.permission = 0;
+  }
+  else if(user.role === 'teacher'){
+    users.permission = 1;
+  }
+  else if(user.role === 'admin'){
+    users.permission = 2;
+  }
+  req.session.authUser = users;
+  console.log(req.session.authUser);
+  
   const url = '/';
   return res.redirect(url);
 });

@@ -7,8 +7,9 @@ import path from 'path';
 const router = express.Router();
 import Lecture from '../utils/models/lecture.model.js';
 import Section from '../utils/models/section.model.js';
+import authWithRequiredPermission from '../mdw/auth.mdw.js';
 
-router.get('/addCourse', async (req, res) => {
+router.get('/addCourse', authWithRequiredPermission(1), async (req, res) => {
   res.render('vwCourse/addCourse');
 });
 
@@ -54,7 +55,7 @@ router.post('/addCourse', (req, res) => {
     }
   });
 });
-router.get('/viewSectionLecture/:id', async (req, res) => {
+router.get('/viewSectionLecture/:id', authWithRequiredPermission(1), async (req, res) => {
   const course_id = req.params.id || '';
   const p = await CourseService.loadSectionLecture(course_id);
  const a = await Course.findOne({_id:course_id});
@@ -66,7 +67,7 @@ router.get('/viewSectionLecture/:id', async (req, res) => {
   });
 });
 
-router.get('/editSection/:id', async (req, res) => {
+router.get('/editSection/:id', authWithRequiredPermission(1), async (req, res) => {
   const course_id = req.params.id || '';
   const p = await CourseService.loadSectionLecture(course_id);
 
@@ -77,7 +78,7 @@ router.get('/editSection/:id', async (req, res) => {
   });
 });
 
-router.get('/addSection/:id', async (req, res) => {
+router.get('/addSection/:id', authWithRequiredPermission(1), async (req, res) => {
   const course_id = req.params.id || '';
   const p = await CourseService.loadSectionLecture(course_id);
   res.render('vwCourse/addSection', {
@@ -110,7 +111,7 @@ router.post('/addSection/:id', async (req, res) => {
   }
 });
 
-router.get('/viewSectionLecture/:id', async (req, res) => {
+router.get('/viewSectionLecture/:id', authWithRequiredPermission(1), async (req, res) => {
   const course_id = req.params.id || '';
   const c = await Course.findOne({ _id: course_id });
   const p = await CourseService.loadSectionLecture(course_id);
@@ -160,7 +161,7 @@ router.get('/viewSectionLecture/:id', async (req, res) => {
 //         }
 //     })
 // });
-router.get('/editCourseSection/:id', async (req, res) => {
+router.get('/editCourseSection/:id', authWithRequiredPermission(1), async (req, res) => {
   const course_id = req.params.id || '';
   const c = await Course.findOne({ _id: course_id });
   const p = await CourseService.loadSectionLecture(course_id);
@@ -196,7 +197,7 @@ router.post('/editCourseSection/:id', async (req, res) => {
   }}
   res.redirect('/course/viewSectionLecture/' + course_id);
 });
-router.get('/editLecture/:id', async (req, res) => {
+router.get('/editLecture/:id', authWithRequiredPermission(1), async (req, res) => {
   const lecture_id = req.params.id || '';
   const p = await Section.findOne({ lectures: lecture_id });
   // console.log(p.title);
@@ -244,7 +245,7 @@ router.post('/editLecture/:id', async (req, res) => {
   //     lecture_url:list.url,
   // });
 });
-router.get('/addSection/:id', async (req, res) => {
+router.get('/addSection/:id', authWithRequiredPermission(1), async (req, res) => {
   const course_id = req.params.id || '';
   const p = await CourseService.loadSectionLecture(course_id);
   
@@ -254,7 +255,7 @@ router.get('/addSection/:id', async (req, res) => {
     empty: p.length === 0,
   });
 });
-router.get('/viewCourses', async (req, res) => {
+router.get('/viewCourses', authWithRequiredPermission(1), async (req, res) => {
   //lcUserID....
 
   // const course = await Course.find({author: id});
@@ -283,7 +284,7 @@ router.post('/addSection/:id', async (req, res) => {
   res.redirect('/course/viewSectionLecture/' + course_id);
 });
 
-router.get('/addLecture/:id', async (req, res) => {
+router.get('/addLecture/:id', authWithRequiredPermission(1), async (req, res) => {
   const section_id = req.params.id || '';
   const section = Section.find({ _id: section_id });
   res.render('vwCourse/addLecture', {
