@@ -170,7 +170,7 @@ referrerpolicy="no-referrer">
           <div class="content mb-3">
             <div class="pl-3">
               <i class="bi bi-card-checklist pr-3"></i>
-              <span>{{course.brief_description}}</span>
+              <span>{{{course.brief_description}}}</span>
             </div>
           </div>
           <div class="number-of-student mb-3">
@@ -216,7 +216,7 @@ referrerpolicy="no-referrer">
       </div>
       <div class="col-sm-6 pl-4 pr-0 border-success" style="height: 300px;">
         <div class="img h-100 d-flex align-items-center justify-content-center">
-          <img src="/public/imgs/{{course._id}}.png" class="border p-2 mh-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+          <img src="/public/imgs/{{course.img}}" class="border p-2 mh-100" style="border-radius: 5px; background-color: white;" alt="Not found">
         </div>
       </div>
     </div>
@@ -226,7 +226,7 @@ referrerpolicy="no-referrer">
       <div class="card border-0 py-4 d-flex justify-content-around flex-row">
         <div class="col-sm-6 pl-4 pr-0 border-success" style="height: 300px;">
           <div class="img h-100 d-flex align-items-center justify-content-center">
-            <img src="/public/imgs/{{course._id}}.png" class="border p-2 mh-100" style="border-radius: 5px; background-color: white;" alt="Not found">
+            <img src="/public/imgs/{{course.img}}" class="border p-2 mh-100" style="border-radius: 5px; background-color: white;" alt="Not found">
           </div>
         </div>
         <div class="col-sm-6 pl-4 pr-0">
@@ -236,27 +236,11 @@ referrerpolicy="no-referrer">
               <div>
                 <div class="icon d-flex justify-content-start align-items-stretch">
                   <i class="bi bi-hourglass-split mr-3"></i>
-                  <span class="text-center">{{course.detail_description}}</span>
+                  <span class="text-center">{{{course.detail_description}}}</span>
                 </div>
               </div>
             </div>
-            <div class="jumbotron px-3 py-2 mb-4">
-              <div>
-                <div class="icon d-flex justify-content-start align-items-stretch">
-                  <i class="bi bi-graph-up-arrow mr-3"></i>
-                  <span class="text-center">{{course.detail_description}}</span>
-                </div>
-              </div>
-            </div>
-            <div class="jumbotron px-3 py-2 mb-4">
-              <div>
-                <div class="icon d-flex justify-content-start align-items-stretch">
-                  <i class="bi bi-patch-check mr-3"></i>
-                  <span class="text-center">{{course.detail_description}}</span>
-                </div>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
     </div>
@@ -435,12 +419,12 @@ referrerpolicy="no-referrer">
       <div class="instructor mx-5">
         <div class="instructor-name">
           <a href="#" class="font-weight-bolder">
-            <span>{{course.authorName}}</span>
+            <span>{{course.author}}</span>
           </a>
         </div>
         <div class="instructor-info d-flex flex-row mt-3" style="height: 130px;">
           <div class="d-flex overflow-hidden mr-4" style="border-radius: 50%; width: 130px;">
-            <img class="mh-100 mw-100" src="/public/imgs/MGorDUi.png" alt="Not found">
+            <img class="mh-100 mw-100" src="/public/imgs/{{course.img}}" alt="Not found">
           </div>
           <div class="rating d-flex flex-column justify-content-center">
             <div class="star mb-2">
@@ -504,7 +488,7 @@ referrerpolicy="no-referrer">
                 <div class="thumb-wrapper position-relative text-center bg-light" style="padding: 25px 15px; border-radius: 6px;">
                   <div class="img-box border-success" style="height: 300px;">
                     <div class="img w-100 h-100 d-flex align-items-center">
-                      <img src="/public/imgs/{{_id}}.png" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="{{course_name}}">
+                      <img src="/public/imgs/{{img}}" class="border mh-100 mw-100" style="border-radius: 5px; background-color: white;" alt="{{course_name}}">
                     </div>
                   </div>
                   <div class="thumb-content">

@@ -2,7 +2,7 @@ import express from 'express';
 import courseModel from '../utils/models/course.model.js';
 import userModel from '../utils/models/user.model.js';
 import mongoose from 'mongoose';
-
+import User from '../utils/models/user.model.js';
 import courseService from '../services/course.service.js';
 
 import userService from '../services/user.service.js';
@@ -70,7 +70,10 @@ router.get('/:id', async (req, res) => {
     listSlide.push({ cates: listCate, activeSlide: i === 0 });
     slideList.push({ slides: listSlide });
   }
-
+  const us = await User.findOne({ _id: list[0].author });
+  const l = JSON.parse(JSON.stringify(us));
+  if (l.name !== null) list[0].author = l.name;
+  else c.author = '';
   res.render('vwDetail/detail-academy', {
     course: list[0],
     slide: slideList,
