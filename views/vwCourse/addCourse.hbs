@@ -49,6 +49,44 @@
                 $(this).scrollTop(0);
             });
         });
+
+        $('#uploadform').on('submit', (e) => {
+            e.preventDefault();
+            const course_name = $('#txtCourseName').val();
+            const price = $('#Price').val();
+            const sale = $('#sale').val();
+            let isValidForm = true;
+            $('#sale').addClass('is-valid').removeClass('is-invalid');
+            if (course_name.length === 0) {
+                $('#sale').removeClass('is-valid').addClass('is-invalid');
+                $('#sale').text('Username is required');
+                isValidForm = false;
+            }
+            $('#Price').addClass('is-valid').removeClass('is-invalid');
+            if (course_name.length === 0) {
+                $('#Price').removeClass('is-valid').addClass('is-invalid');
+                $('#Price').text('Username is required');
+                isValidForm = false;
+            }
+            $('#txtCourseName').addClass('is-valid').removeClass('is-invalid');
+            if (course_name.length === 0) {
+                $('#txtCourseName').removeClass('is-valid').addClass('is-invalid');
+                $('#txtCourseName').text('Username is required');
+                isValidForm = false;
+            }
+
+
+            if(!isValidForm){
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                $(document).ready(function(){
+                    $(window).scrollTop(0);
+                });
+            }
+            else{
+                $('#uploadform').off('submit').submit();
+            }
+        });
     </script>
 <script>
     // var language = ["Python", "Java", "JavaScript","C","C++","C#","React", "React Native","HTML","PHP","CSS"];
@@ -64,7 +102,7 @@
         <div class="card-body">
             <div class="form-group">
                 <label for="txtCourseName">Your Course Name</label>
-                <input  type="text" class="form-control" id="txtCourseName" name="course_name" autofocus>
+                <input  type="text" class="form-control" id="txtCourseName" name="course_name">
             </div>
             <div class="form-group">
                 <label for="img">Image</label>
@@ -86,11 +124,11 @@
 
             <div class="form-group">
                 <label for="txtTinyDescription">Course Brief Description</label>
-                <textarea name="brief_description"  id="txtTinyDescription"  >Short description about your course..</textarea>
+                <textarea name="brief_description"  id="txtTinyDescription" placeholder="Short description about your course.." ></textarea>
             </div>
             <div class="form-group">
                 <label for="txtdetail_description">Course Full Description</label>
-                <textarea name="detail_description" id="txtdetail_description"  >All description about your course..</textarea>
+                <textarea name="detail_description" id="txtdetail_description" placeholder="All description about your course.."  ></textarea>
             </div>
 
         </div>

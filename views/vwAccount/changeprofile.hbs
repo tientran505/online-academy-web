@@ -6,6 +6,11 @@
     </style>
 {{/section}}
 
+{{#section 'css'}}
+    <script>
+    </script>
+{{/section}}
+
 <div class="container bootstrap snippet">
     <div class="row">
     <div class="col-sm-3">
@@ -17,43 +22,85 @@
     </div>
     <div class="col-sm-9">
         {{#each list}}
-        <form class="form" method="post" id="registrationForm">
+        <form class="form" method="post" id="frmRegister">
             <div class="row">
                 <div class="form-group">
                     <label for="username"><h4>User name</h4></label>
                     <input type="text" class="form-control" name="username" id="username" placeholder="User name" title="Enter your username." value="{{username}}" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="name"><h4>Name</h4></label>
-                    <input type="text" class="form-control" name="name" id="name" placeholder="Name" title="Enter your name." value="{{name}}" >
+                    <label for='txtName'><h4>Full name</h4></label>
+                    <input
+                    type='text'
+                    class='form-control'
+                    placeholder='Enter your full name'
+                    id='txtName'
+                    name='name'
+                    value="{{name}}"
+                    />
                 </div>
             </div>
             
             <div class="row">
-                    <div class="form-group">
-                    <label for="email"><h4>Email</h4></label>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="Enter your email." value="{{email}}" >
+                <div class="form-group">
+                    <label for='txtEmail'><h4>Email address</h4></label>
+                    <input
+                    type='email'
+                    class='form-control'
+                    id='txtEmail'
+                    placeholder='Enter your email'
+                    name='email'
+                    value="{{email}}"
+                    />
                 </div>
                 <div class="form-group">
-                    <label for="password"><h4>Password</h4></label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="password" title="Enter your password." value="" >
+                    <label for='txtOldPassword'><h4>Password</h4></label>
+                    <input
+                    type='password'
+                    class='form-control'
+                    placeholder='Enter to change your information'
+                    id='txtOldPassword'
+                    name='password'
+                    />
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group">
-                    <label for="password"><h4>New password</h4></label>
-                    <input type="password" class="form-control" name="newpassword" id="newpassword" placeholder="password" title="Enter your new password." value="" >
+                    <label for='txtPassword'><h4>New password</h4></label>
+                    <input
+                    type='password'
+                    class='form-control'
+                    placeholder='Only enter if you want to change your password'
+                    id='txtPassword'
+                    name='newpassword'
+                    />
                 </div>
                 <div class="form-group">
-                    <label for="password"><h4>Confirm new password</h4></label>
-                    <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" placeholder="password" title="Confirm your password." value="" >
+                    <label for='txtconfirmpassword'><h4>Confirm new password</h4></label>
+                    <input
+                    type='password'
+                    class='form-control'
+                    id='txtPassword1'
+                    placeholder='Re-enter your new password'
+                    name='confirmpassword'
+                    />
                 </div>
             </div>
-
+            {{#if haveErr}}
+            <div class="form-group" style="padding-left: 0px; color: red">
+                alo
+                {{errMessage}}
+            </div>
+            {{/if}}
             <div class="form-group" style="padding-left: 0px">
-                <br>
-                <button name="value" class="btn btn-lg btn-success" style="width: 100px;" type="submit" formaction="/account/savechangeprofile" value="{{username}}"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                <button 
+                name="value" 
+                class="btn btn-lg btn-success" 
+                style="width: 100px;" 
+                type="submit" 
+                formaction="/account/savechangeprofile" 
+                value="{{username}}"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
                 <a class="btn btn-lg btn-success" style="width: 100px;" type="button" href="/account/profile" >Cancel</a>
             </div>
         </form>

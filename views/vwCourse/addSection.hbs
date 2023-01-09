@@ -7,13 +7,14 @@
 
             html = ' <div class="form-group">\
                     <label >New Section</label>\
-            <input  type="text" class="form-control"  id="txtCourseTitle'+count_field+'" name="SectionName[]"></div>'
+            <input  type="text" class="form-control"  id="txtCourseTitle[]" name="SectionName[]"></div>'
             var form =document.getElementById(`addSectionFrm`);
-
             form.innerHTML += html
-        }
+            $('#addSectionFrm').on('submit', (e) => {
+                e.preventDefault();
 
-
+            });
+            }
        function resetSection(){
             console.log(0);
             var form =document.getElementById(`addSectionFrm`);
@@ -21,6 +22,7 @@
            count_field = 0;
              add_more_field();
         };
+
     </script>
 {{/section}}
 
@@ -71,8 +73,7 @@
                 Reset
             </button>
 
-            <a href="/" class="btn btn-primary bg-danger w-25 text-white m-2">
-
+            <a href="/course/viewSectionLecture" class="btn btn-primary bg-danger w-25 text-white m-2">
                 <i class="fa fa-ban" aria-hidden="true"></i>
                 Cancel
 

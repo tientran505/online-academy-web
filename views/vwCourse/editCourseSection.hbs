@@ -1,0 +1,45 @@
+
+{{#section 'js'}}
+
+{{/section}}
+<form method="POST" id="editCourseSectionFrm" >
+<div class="card w-75 p-3 mx-auto" id="header">
+    <h4 class="card-header ">
+            <div class="form-group">
+                <input type="text" style="font-weight: bold; font-size: 40px" class="form-control" id="course_name" name="course_name" value ="{{course_name}}">
+            </div>
+    </h4>
+    <b>
+        <div class=" w-100">
+                    {{#if this.empty}}
+                        <p class="text-muted align-middle text-center">
+                            No Section to display.
+                        </p>
+                    {{else}}
+                        {{#each section}}
+                            <div class="form-group">
+                                <input value="{{_id}}" name="id[]" type="hidden" class="form-control" id="_id">
+                                <input type="text" style=" font-size: 20px" class="form-control" id="title" name="title[]" value ="{{title}}">
+                            </div>
+                        {{/each}}
+                    {{/if}}
+                </ul>
+            </nav>
+        </div>
+    </b>
+    <div class="card-footer text-muted d-flex justify-content-between">
+        <button type="reset" class="btn btn-primary bg-secondary  text-white-white m-2 w-50">
+            <i class="fa fa-repeat" aria-hidden="true"></i>
+            Reset
+        </button>
+        <a href="/course/viewSectionLecture" class="btn btn-primary bg-danger  text-white w-50 m-2">
+            <i class="fa fa-ban" aria-hidden="true"></i>
+            Cancel
+        </a>
+        <button type="submit" class="btn btn-primary bg-success w-50 text-white m-2">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            Continue
+        </button>
+    </div>
+</div>
+</form>

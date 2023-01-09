@@ -85,6 +85,8 @@ router.post('/changeprofile', async (req, res) => {
 
   res.render('vwAccount/changeprofile', {
     list: list,
+    haveErr: false,
+    errMessage: '',
   });
 });
 
@@ -93,31 +95,39 @@ router.post('/savechangeprofile', async (req, res) => {
 
   const table = await User.find({username: username});
   const list = JSON.parse(JSON.stringify(table));
-
+  console.log(username, name, email, password, newpassword, confirmpassword);
   if (!list || !password || !bcypt.compare(password, list[0].password)) {
+    console.log('Invalid old password');
       return res.render('vwAccount/changeprofile', {
         list: list,
+        haveErr: true,
         errMessage: 'Invalid old password.',
       });
   } else {
     //doi pass
       if(newpassword != null) {
           if (newpassword != confirmpassword) {
+            console.log(2);
               return res.render('vwAccount/changeprofile', {
                 list: list,
+                haveErr: true,
                 errMessage: 'Invalid new password.',
               });
           }
         //check name, email
           if(name == null){
+            console.log(2);
               return res.render('vwAccount/changeprofile', {
                 list: list,
+                haveErr: true,
                 errMessage: 'Invalid name.',
               });
           }
           if(email == null){
+            console.log(2);
               return res.render('vwAccount/changeprofile', {
                 list: list,
+                haveErr: true,
                 errMessage: 'Invalid email.',
               });
           }
@@ -129,14 +139,18 @@ router.post('/savechangeprofile', async (req, res) => {
         //khong doi pass
         //check name, email
         if(name == null){
+          console.log(3);
             return res.render('vwAccount/changeprofile', {
               list: list,
+              haveErr: true,
               errMessage: 'Invalid name.',
             });
         }
         if(email == null){
+          console.log(3);
             return res.render('vwAccount/changeprofile', {
               list: list,
+              haveErr: true,
               errMessage: 'Invalid email.',
             });
         }
@@ -218,6 +232,7 @@ router.get('/profile', async (req, res) => {
 
     res.render('vwAccount/profile', {
       list: list,
+      isStudent: list[0]['role'] === 'student',
 
       watchlistactive: watchlistactive,
       watchlistempty: watchlistactive.length === 0,
@@ -232,10 +247,45 @@ router.get('/profile', async (req, res) => {
       registeredempty2: registeredList[0].subRegisteredList.length != 0,
     });
   } else {
+    let id = list[0]['_id'];
 
+    let authorlist = [];
+    for(let i = 0; i < courseList.length; i++){
+      if(courseList[i]['authors'] === id){
+        authorlist.push(courseList[i]); 
+      }
+    }
+
+    let createdlist = [];
+    let createdlistactive = [];
+    let subcreatedlist = [];
+    let count = 0;
+    
+    for(let i = 0; i < authorlist.length && i < 3; i++){ 
+      createdlistactive.push(authorlist[i]); 
+    }
+    for(let i = 3; i < authorlist.length; i++){ 
+      subcreatedlist.push(authorlist[i]); 
+      count++;
+      if(count == 3) {
+        count = 0;
+        createdlist.push({subcreatedlist: subcreatedlist});
+        subcreatedlist = [];
+        page++;
+      }
+    }
+    createdlist.push({subcreatedlist: subcreatedlist});
+    res.render('vwAccount/profile', {
+      list: list,
+      isStudent: list[0]['role'] === 'student',
+  
+      createdlistactive: createdlistactive,
+      createdlistempty: createdlistactive.length === 0,
+  
+      createdlist: createdlist,
+      createdlistempty2: createdlist[0].subcreatedlist.length != 0,
+    });
   }
-  
-  
 });
 
 export default router;

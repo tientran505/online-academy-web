@@ -34,10 +34,12 @@
     <h4 class="card-header d-flex justify-content-left">
             <div class="row w-100 ">
                 <div class="col-md-8 d-flex flex-row  ">
-                    <a class="nav-link text-dark align-middle" >Course Content </a>
+                    <a class="nav-link text-dark align-middle" >
+                        {{course_name}}
+                    </a>
                 </div>
                 <div class="col-md-4 d-flex flex-row-reverse  ">
-                    <a href="/course/editSection/{{course_id}}">
+                    <a href="/course/editCourseSection/{{course_id}}">
                         <button  class="btn btn-primary bg-light text-success m-2"  >
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                             Edit
@@ -66,7 +68,7 @@
                             {{#each section}}
                             <li class="nav-item has-submenu" class="list-group list-group-flush">
 
-                                <a class="nav-link">
+                                <a class="nav-link text-dark align-middle ">
                                     <div class="card-header">
                                         {{title}}
                                     </div>
@@ -80,7 +82,7 @@
                                                             <a class="nav-link text-dark align-middle" >{{title}} </a>
                                                         </div>
                                                        <div class="col-md-2 d-flex flex-row-reverse  ">
-                                                            <a href="#">
+                                                            <a href="/course/editLecture/{{_id}}">
                                                                 <button  class="btn btn-primary bg-light text-success m-2"  >
 
                                                                     <i class="fa fa-pencil" aria-hidden="true"></i>
