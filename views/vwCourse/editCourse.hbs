@@ -1,7 +1,6 @@
 {{#section 'css'}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/css/fileinput.min.css" />
 {{/section}}
-
 {{#section 'js'}}
     <script src="https://cdn.tiny.cloud/1/hygzc72vtb6fcja8plsjnx8quebr9pxltpz0qqnlrpmcvm9n/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/buffer.min.js"></script>
@@ -44,13 +43,13 @@
                 'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
             ],
         });
-        $('#uploadform').on('reset', (e) => {
+        $('#editform').on('reset', (e) => {
             $(document).ready(function(){
                 $(this).scrollTop(0);
             });
         });
 
-        $('#uploadform').on('submit', (e) => {
+        $('#editform').on('submit', (e) => {
             e.preventDefault();
             const course_name = $('#txtCourseName').val();
             const price = $('#Price').val();
@@ -84,7 +83,7 @@
                 });
             }
             else{
-                $('#uploadform').off('submit').submit();
+                $('#editform').off('submit').submit();
             }
         });
     </script>
@@ -93,24 +92,22 @@
 </script>
 {{/section}}
 <!---->
-<form method="POST" enctype="multipart/form-data" id="uploadform" >
+<form method="POST" enctype="multipart/form-data" id="editform" >
     <div class="card w-75 p-3 mx-auto">
-        <h4 class="card-header d-flex justify-content-left">
-            New Course
-        </h4>
         <b>
-        <div class="card-body">
+            <input  type="hidden" class="form-control" class="txtCourseTitle"  name="id" autofocus value="{{course_id}}">
+            <div class="card-body">
             <div class="form-group">
                 <label for="txtCourseName">Your Course Name</label>
-                <input  type="text" class="form-control" id="txtCourseName" name="course_name">
+                <input  type="text" class="form-control" id="txtCourseName" name="course_name" value="{{course_name}}">
             </div>
             <div class="form-group">
                 <label for="img">Image</label>
-                <input type="file" multiple name="img" id="img">
+                <input type="file" multiple name="img" id="img" value="{{img}}">
             </div>
-
             <div class="form-group ">
-                <input type="checkbox" id="complete" name="is_completed" value="true">
+                <input type="checkbox" id="complete" name="is_completed" value="true"
+                    {{#if is_completed}}checked{{/if}}>
                 <label for="complete">Course is completed</label><br>
             </div>
             <div class="form-group ">
@@ -122,20 +119,20 @@
             </div>
             <div class="form-group">
                 <label for="txtPrice">Course Price VNĐ</label>
-                <input name="price" type="number" class="form-control" id="Price">
+                <input name="price" type="number" class="form-control" id="Price" value="{{price}}">
             </div>
             <div class="form-group">
                 <label for="txtSale">Course Discount VNĐ (if any)</label>
-                <input name="sale" type="number" class="form-control" id="sale">
+                <input name="sale" type="number" class="form-control" id="sale" value="{{sale}}">
             </div>
 
             <div class="form-group">
                 <label for="txtTinyDescription">Course Brief Description</label>
-                <textarea name="brief_description"  id="txtTinyDescription" placeholder="Short description about your course.." ></textarea>
+                <textarea name="brief_description"  id="txtTinyDescription" placeholder="Short description about your course.." >{{brief_description}}</textarea>
             </div>
             <div class="form-group">
                 <label for="txtdetail_description">Course Full Description</label>
-                <textarea name="detail_description" id="txtdetail_description" placeholder="All description about your course.."  ></textarea>
+                <textarea name="detail_description" id="txtdetail_description" placeholder="All description about your course.."  >{{detail_description}}</textarea>
             </div>
 
         </div>
@@ -146,12 +143,10 @@
                 Reset
             </button>
             <a href="/" class="btn btn-primary bg-danger  text-white w-50 m-2">
-
                 <i class="fa fa-ban" aria-hidden="true"></i>
                 Cancel
-
             </a>
-            <button type="submit" class="btn btn-primary bg-success w-50 text-white m-2">
+            <button type="submit" form="editform" class="btn btn-primary bg-success w-50 text-white m-2" formaction="/course/editCourse/{{course_id}}">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 Continue
             </button>

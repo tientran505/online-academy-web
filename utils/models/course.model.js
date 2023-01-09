@@ -54,7 +54,6 @@ const courseSchema = mongoose.Schema({
     type: dType.Boolean,
     require: true,
   },
-
   view_counts: {
     type: dType.Number,
     require: true,
@@ -62,6 +61,10 @@ const courseSchema = mongoose.Schema({
 
   cateName: {
     type: String,
+  },
+  disable: {
+    type: dType.Boolean,
+    require: true,
   },
 });
 

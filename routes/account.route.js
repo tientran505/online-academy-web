@@ -30,8 +30,20 @@ router.post('/login', async (req, res) => {
   }
 
   req.session.auth = true;
-  req.session.authUser = user;
+  const users = JSON.parse(JSON.stringify(user));
+  res.locals.lcTeacher = false;
+  if (user.role === 'student') {
+    users.permission = 0;
+  } else if (user.role === 'teacher') {
+    users.permission = 1;
+    res.locals.lcTeacher = true;
+  } else if (user.role === 'admin') {
+    users.permission = 2;
+  }
 
+  req.session.authUser = users;
+  console.log(req.session.authUser);
+  console.log(res.locals.lcTeacher);
   const url = '/';
   return res.redirect(url);
 });
@@ -171,7 +183,6 @@ router.post('/savechangeprofile', async (req, res) => {
       );
     }
   }
-  console.log('finish');
   return res.redirect('/account/profile');
 });
 
@@ -182,8 +193,6 @@ router.get('/profile', async (req, res) => {
 
   const courseTable = await Course.find();
   const courseList = JSON.parse(JSON.stringify(courseTable));
-
-  console.log(list[0]['role'] === 'student');
 
   if (list[0]['role'] === 'student') {
     let watchlist = [];

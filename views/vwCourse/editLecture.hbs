@@ -6,7 +6,7 @@
         Course: {{section_name}}
     </h4>
     <div class="card-body">
-        <form method="POST" id="addLectureFrm" >
+        <form method="POST" id="editLectureFrm" >
             <div class="form-group">
                 <label >Lecture</label>
                 <input  type="hidden" class="form-control" class="txtCourseTitle"  name="id" autofocus value="{{lecture_id}}">
@@ -16,22 +16,26 @@
                 <input type="url" class="form-control" class="txtUrl" id="txturl1" name="url" value="{{lecture_url}}"><br><br>
             </div>
         </form>
-        <button  class="btn btn-primary bg-primary text-white w-25 m-2" onclick="add_more_field()" >
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            Add More Section
-        </button>
+<!--        <button  class="btn btn-primary bg-primary text-white w-25 m-2" onclick="add_more_field()" >-->
+<!--            <i class="fa fa-plus" aria-hidden="true"></i>-->
+<!--            Add More Section-->
+<!--        </button>-->
     </div>
 
     <div class="card-footer text-muted d-flex justify-content-between">
-        <button type="reset" class="btn btn-primary bg-secondary w-25 text-white-white m-2" onclick="resetLecture()">
-            <i class="fa fa-repeat" aria-hidden="true"></i>
-            Reset
-        </button>
-        <a href="/course/viewSectionLecture" class="btn btn-primary bg-danger w-25 text-white m-2">
+<!--        <button type="reset" class="btn btn-primary bg-secondary w-25 text-white-white m-2" onclick="resetLecture()">-->
+<!--            <i class="fa fa-repeat" aria-hidden="true"></i>-->
+<!--            Reset-->
+<!--        </button>-->
+        <a href="/course/viewSectionLecture/{{course_id}}" class="btn btn-primary bg-warning  w-25 text-white m-2">
             <i class="fa fa-ban" aria-hidden="true"></i>
             Cancel
         </a>
-        <button type="submit" form="addLectureFrm" class="btn btn-primary bg-success w-25 text-white m-2"  >
+        <button type="submit" form="editLectureFrm" class="btn btn-primary bg-danger w-25 text-white m-2" formaction="/course/lecture/del" >
+            <i class="fa fa-minus-square" aria-hidden="true"></i>
+            Delete
+        </button>
+        <button type="submit" form="editLectureFrm" class="btn btn-primary bg-success w-25 text-white m-2"  >
             <i class="fa fa-check" aria-hidden="true"></i>
             Done
         </button>

@@ -58,28 +58,28 @@
                                 </div>
                             </form>
                                 </li>
-                        <button  class="btn btn-primary bg-primary text-white w-25 m-2" onclick="add_more_field()" >
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                            Add More Section
-                        </button>
+<!--                        <button  class="btn btn-primary bg-primary text-white w-25 m-2" onclick="add_more_field()" >-->
+<!--                            <i class="fa fa-plus" aria-hidden="true"></i>-->
+<!--                            Add More Section-->
+<!--                        </button>-->
 
                     </ul>
                 </nav>
             </div>
         </b>
         <div class="card-footer text-muted d-flex justify-content-between">
-            <button type="reset" class="btn btn-primary bg-secondary w-25 text-white-white m-2" onclick="resetSection()">
-                <i class="fa fa-repeat" aria-hidden="true"></i>
-                Reset
-            </button>
+<!--            <button type="reset" class="btn btn-primary bg-secondary w-25 text-white-white m-2" onclick="resetSection()">-->
+<!--                <i class="fa fa-repeat" aria-hidden="true"></i>-->
+<!--                Reset-->
+<!--            </button>-->
 
-            <a href="/course/viewSectionLecture" class="btn btn-primary bg-danger w-25 text-white m-2">
+            <a href="/course/viewSectionLecture/{{course_id}}" class="btn btn-primary bg-danger w-25 text-white m-2">
                 <i class="fa fa-ban" aria-hidden="true"></i>
                 Cancel
 
             </a>
 
-            <button type="submit" form="addSectionFrm" class="btn btn-primary bg-success w-25 text-white m-2"  >
+            <button type="submit" form="addSectionFrm" class="btn btn-primary bg-success w-25 text-white m-2" formaction="/course/addSection/{{course_id}}"  >
                 <i class="fa fa-check" aria-hidden="true"></i>
                 Done
             </button>

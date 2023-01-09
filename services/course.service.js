@@ -1,6 +1,8 @@
 import Course from '../utils/models/course.model.js';
 import User from '../utils/models/user.model.js';
 import Section from '../utils/models/section.model.js';
+import Lecture from '../utils/models/lecture.model.js';
+import courseModel from '../utils/models/course.model.js';
 
 export default {
   async findAll() {
@@ -30,6 +32,7 @@ export default {
     }
     return list;
   },
+
   async findCondition(offset, limit) {
     const p = await Course.find().skip(offset).limit(limit);
     const list = JSON.parse(JSON.stringify(p));
@@ -43,6 +46,7 @@ export default {
     }
     return list;
   },
+
   async findConditionCategory(cate, offset, limit) {
     const p = await Course.find({ category: cate }).skip(offset).limit(limit);
     const list = JSON.parse(JSON.stringify(p));
@@ -67,5 +71,13 @@ export default {
       +JSON.parse(JSON.stringify(await Course.findById(id))).view_counts + 1;
 
     return Course.findByIdAndUpdate(id, { view_counts: countView });
+  },
+
+  findCourseById(id) {
+    return courseModel.findById(id);
+  },
+
+  patch(id, disable) {
+    return Course.findByIdAndUpdate(id, { disable });
   },
 };

@@ -8,14 +8,58 @@ import subcategoryModel from '../utils/models/sub-category.model.js';
 import subCategoryModel from '../utils/models/sub-category.model.js';
 
 const router = express.Router();
-router.get('/list/:course', async (req, res) => {
-  const course = req.params.course || '';
-  let total;
-  if (course === 'All') {
-    total = await Course.find().count();
-  } else {
-    total = await Course.find({ category: course }).count();
+
+router.get('/list/:category_id', async (req, res) => {
+  const category_id = req.params.category_id || '';
+  // console.log(category_id);
+  const total = await Course.find({ category: category_id }).count();
+  // console.log(total);
+  // const a = await Course.find().count();
+  // console.log(a);
+  const limit = 6;
+  const curPage = req.query.page || 1;
+  const offset = (curPage - 1) * limit;
+  // const total =  await Course.find().count();
+  const nPage = Math.ceil(total / limit);
+  const pageNumber = [];
+  for (let i = 1; i <= nPage; i++) {
+    pageNumber.push({
+      value: i,
+      isCurrent: i === +curPage,
+    });
   }
+  const list = await CourseService.findConditionCategory(
+    category_id,
+    offset,
+    limit
+  );
+
+  let prePage;
+  let nextPage;
+  if (1 === +curPage) {
+    prePage = 0;
+  } else {
+    prePage = +curPage - 1;
+  }
+  if (+nPage === +curPage) {
+    nextPage = 0;
+  } else if (+nPage === 0) {
+    nextPage = 0;
+  } else {
+    nextPage = +curPage + 1;
+  }
+
+  res.render('vwCourse/byCat', {
+    course: list,
+    pageNumber: pageNumber,
+    empty: list.length === 0,
+    prePage: prePage,
+    nextPage: nextPage,
+  });
+});
+router.get('/list', async (req, res) => {
+  const total = await Course.find().count();
+
   const limit = 6;
   const curPage = req.query.page || 1;
   const offset = (curPage - 1) * limit;
@@ -28,11 +72,9 @@ router.get('/list/:course', async (req, res) => {
     });
   }
   let list;
-  if (course === 'All') {
-    list = await CourseService.findCondition(offset, limit);
-  } else {
-    list = await CourseService.findConditionCategory(course, offset, limit);
-  }
+
+  list = await CourseService.findCondition(offset, limit);
+
   let prePage;
   let nextPage;
   if (1 === +curPage) {
