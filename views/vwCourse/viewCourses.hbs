@@ -3,9 +3,22 @@
 <div class="card w-75 p-3 mx-auto" id="header">
 
     <h4>
-    <div class="card-header"> Course List     </div></h4>
+    <div class="card-header"> Course List
+        <a href="/course/addCourse/">
+            <button  class="btn btn-primary bg-light text-success m-2">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Add
+            </button>
+        </a>
+    </div>
+    </h4>
     <div class="card-body">
         <div class="list-group">
+            {{#if empty}}
+                <p class="text-muted align-middle text-center">
+                    No Course to display.
+                </p>
+            {{else}}
         {{#each course}}
             <a href="/course/viewSectionLecture/{{_id}}" class="list-group-item list-group-item-action">
                 <div class="d-flex justify-content-between">
@@ -15,7 +28,15 @@
             </a>
 
         {{/each}}
+            {{/if}}
         </div>
     </div>
+    <div class="card-footer w-100 text-muted d-flex justify-content-end">
 
+        <a href="/">
+            <button  class="btn btn-primary bg-success text-white m-2">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Back
+            </button></a>
+    </div>
 </div>

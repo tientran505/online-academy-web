@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { engine } from 'express-handlebars';
 import User from './utils/models/user.model.js';
 import Course from './utils/models/course.model.js';
+import homeRouter from './routes/home.route.js';
 import accountRouter from './routes/account.route.js';
 import hbs_sections from 'express-handlebars-sections';
 import detailRouter from './routes/detail-academy.route.js';
@@ -22,6 +23,7 @@ import categoryModel from './utils/models/category.model.js';
 import { log } from 'console';
 import userModel from './utils/models/user.model.js';
 import adminCourseRoute from './routes/admin.course.route.js';
+import activate_error_handlers from './mdw/error.mdw.js';
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -57,7 +59,6 @@ app.engine(
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
-
 app.set('trust proxy', 1); // trust first proxy
 app.use(
   session({
@@ -100,16 +101,10 @@ app.use(async (req, res, next) => {
   for (const c of categories) {
     c.isNotEmpty = c.items.length > 0;
   }
-
+  // console.log(categories[0].items);
   res.locals.lcCategories = categories;
 
   next();
-});
-
-app.get('/', async (req, res) => {
-  console.log(req.session.auth);
-  console.log(req.session.authUser);
-  res.render('home');
 });
 
 app.get('/user', async (req, res) => {
@@ -154,15 +149,16 @@ app.get('/product', async (req, res) => {
   res.status(200).json(p);
 });
 
+app.use('/', homeRouter);
+
 app.use('/account', accountRouter);
 app.use('/detail', detailRouter);
 app.use('/course', courseRouter);
 app.use('/course', courseTeacherRouter);
-
 app.use('/admin/user', adminRoute);
 app.use('/admin/category', categoryRoute);
 app.use('/admin/course', adminCourseRoute);
-
+activate_error_handlers(app);
 app.listen(3000);
 
 app.listen(port, () => {
