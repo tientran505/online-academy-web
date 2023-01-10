@@ -136,16 +136,10 @@ router.get('/:id', async (req, res) => {
   };
   
   const section = await courseService.loadSectionLecture(id);
-  var leng = 0;
   for (let i = 0; i < section.length; i++) {
-    if (section[i - 1] !== undefined) {
-      leng += (section[i - 1].lectures.length - 1);
-    }
-    for (let j = 0; j < section[i].lectures.length; j++) {
-      section[i].lectures[j]['index'] = i + j + 1 + leng;
-    }
-    console.log(section[i].lectures)
+    section[i]['index'] = i + 1;
   }
+  console.log(section)
 
   res.render('vwDetail/detail-academy', {
     course: list[0],
