@@ -12,6 +12,12 @@ export default {
     });
   },
 
+ updateStatusByEmail(email, status) {
+    return userModel.findOneAndUpdate({email}, {
+      status,
+    });
+  },
+
   del(id) {
     return userModel.findByIdAndDelete(id);
   },

@@ -4,6 +4,8 @@ import Course from '../utils/models/course.model.js';
 import userService from '../services/user.service.js';
 import bcypt from 'bcryptjs';
 import moment from 'moment';
+import mailService from '../services/mail.service.js';
+import otpEmailsModel from '../utils/models/otp-emails.model.js';
 
 const router = express.Router();
 
@@ -29,6 +31,18 @@ router.post('/login', async (req, res) => {
     });
   }
 
+  if (user.status === 'blocked') {
+    return res.render('vwAccount/login', {
+      errMessage: 'Your account was blocked. Please contact to adminstrator for more information'
+    })
+  }
+
+    if (user.status === 'inactive' || user.staus === 'unactive') {
+    return res.render('vwAccount/login', {
+      errMessage: 'Your account is not activated. Can\'t sign in'
+    })
+  }
+
   req.session.auth = true;
   const users = JSON.parse(JSON.stringify(user));
   res.locals.lcTeacher = false;
@@ -42,8 +56,6 @@ router.post('/login', async (req, res) => {
   }
 
   req.session.authUser = users;
-  console.log(req.session.authUser);
-  console.log(res.locals.lcTeacher);
   const url = '/';
   return res.redirect(url);
 });
@@ -69,29 +81,66 @@ router.get('/valid-user', async (req, res) => {
   });
 });
 
-router.post('/register', async (req, res) => {
-  console.log(req.body);
+router.get('/valid-otp', async (req, res) => {
+  const {email, otp} = req.query;
 
-  const { username, name, email, dob, password } = req.body;
+  console.log('email la ' +  email);
+  console.log('otp la' + otp);
+  const otpUser = JSON.parse(JSON.stringify(await otpEmailsModel.findOne({email})));
+ 
+
+  console.log(otp);
+  console.log(otpUser);
+  console.log(otp===otpUser.code);
+
+  return res.json({
+    isValid: otp === otpUser.code,
+  });
+});
+
+router.post('/register', async (req, res) => {
+  const { username, name, email, dob, password, otpVal } = req.body;
+
+  if (typeof(otpVal) !== 'undefined') {
+    await userService.updateStatusByEmail(email, "accessible");
+
+    return res.redirect('/account/login');
+  }
+
+  const otp = mailService.generateOTP();
+  await mailService.sendOTP(email, otp);
 
   const salt = await bcypt.genSalt(10);
   const hashedPassword = await bcypt.hash(password, salt);
   const birthday = moment(dob, 'DD/MM/YYYY').format('MM/DD/YYYY');
 
-  const user = await User.create({
+  await otpEmailsModel.deleteMany({email: email});
+
+  const user = JSON.parse(JSON.stringify(await User.create({ 
     username,
     password: hashedPassword,
     name,
     email,
     birthday,
     role: 'student',
-  });
+    status: 'inactive',
+  })));
 
-  res.render('vwAccount/register');
+ const otpUser = await otpEmailsModel.create({
+    code: otp,
+    email: email,
+  })
+
+  console.log('asdasdasd' + otpUser);
+
+
+  res.render('vwAccount/otp', {
+    user,
+  });
 });
 
 router.get('/changeprofile', async (req, res) => {
-  const {username} = req.session.authUser;
+  const { username } = req.session.authUser;
   const table = await User.find({ username: username });
   const list = JSON.parse(JSON.stringify(table));
 
@@ -107,70 +156,93 @@ router.post('/savechangeprofile', async (req, res) => {
   const table = await User.findOne({ username: username });
   const list = JSON.parse(JSON.stringify(table));
   console.log(username, name, email, password, newpassword, confirmpassword);
-  if (!list || !password || 
-    (list != null && password != null && !(await bcypt.compare(password, list.password)))) {
-  // if (!list || !password || !bcypt.compare(password, list.password)) {
-    console.log(password, list.password, !bcypt.compare(password, list.password));
+  if (
+    !list ||
+    !password ||
+    (list != null &&
+      password != null &&
+      !(await bcypt.compare(password, list.password)))
+  ) {
+    // if (!list || !password || !bcypt.compare(password, list.password)) {
+    console.log(
+      password,
+      list.password,
+      !bcypt.compare(password, list.password)
+    );
     return res.render('vwAccount/changeprofileerror', {
       username: username,
       errTitle: 'Invalid password',
       errMessage: 'You need to enter your old password to change profile',
     });
   } else {
-    console.log(password, list.password, (list != null && password != null && !(await bcypt.compare(password, list.password))));
+    console.log(
+      password,
+      list.password,
+      list != null &&
+        password != null &&
+        !(await bcypt.compare(password, list.password))
+    );
     //doi pass
-      if(newpassword != null) {
-          if (newpassword != confirmpassword) {
-              return res.render('vwAccount/changeprofileerror', {
-                username: username,
-                errTitle: 'Invalid new password',
-                errMessage: 'You cannot leave new password blank if you want to change password',
-              });
-          }
-        //check name, email
-          if(name == null){
-              return res.render('vwAccount/changeprofileerror', {
-                username: username,
-                errTitle: 'Invalid name',
-                errMessage: 'You cannot leave name field blank',
-              });
-          }
-          if(email == null){
-              return res.render('vwAccount/changeprofileerror', {
-                username: username,
-                errTitle: 'Invalid email',
-                errMessage: 'You cannot leave email field blank',
-              });
-          }
-          //update
-          const salt = await bcypt.genSalt(10);
-          const hashedPassword = await bcypt.hash(newpassword, salt);
-          const u = await userService.findByIdAndUpdate(list._id, name, hashedPassword, email);
-      } else {
-        //khong doi pass
-        //check name, email
-        if(name == null){
-          console.log(3);
-            return res.render('vwAccount/changeprofileerror', {
-              username: username,
-              errTitle: 'Invalid name',
-              errMessage: 'You cannot leave name field blank',
-            });
-        }
-        if(email == null){
-          console.log(3);
-            return res.render('vwAccount/changeprofileerror', {
-              username: username,
-              errTitle: 'Invalid email',
-              errMessage: 'You cannot leave email field blank',
-            });
-        }
-        //update
-        const u = await userService.findByIdAndUpdate(list._id, name, list.password, email);
+    if (newpassword != null) {
+      if (newpassword != confirmpassword) {
+        return res.render('vwAccount/changeprofileerror', {
+          username: username,
+          errTitle: 'Invalid new password',
+          errMessage:
+            'You cannot leave new password blank if you want to change password',
+        });
       }
-      
+      //check name, email
+      if (name == null) {
+        return res.render('vwAccount/changeprofileerror', {
+          username: username,
+          errTitle: 'Invalid name',
+          errMessage: 'You cannot leave name field blank',
+        });
+      }
+      if (email == null) {
+        return res.render('vwAccount/changeprofileerror', {
+          username: username,
+          errTitle: 'Invalid email',
+          errMessage: 'You cannot leave email field blank',
+        });
+      }
+      //update
+      const salt = await bcypt.genSalt(10);
+      const hashedPassword = await bcypt.hash(newpassword, salt);
+      const u = await userService.findByIdAndUpdate(
+        list._id,
+        name,
+        hashedPassword,
+        email
+      );
+    } else {
+      if (name == null) {
+        console.log(3);
+        return res.render('vwAccount/changeprofileerror', {
+          username: username,
+          errTitle: 'Invalid name',
+          errMessage: 'You cannot leave name field blank',
+        });
+      }
+      if (email == null) {
+        console.log(3);
+        return res.render('vwAccount/changeprofileerror', {
+          username: username,
+          errTitle: 'Invalid email',
+          errMessage: 'You cannot leave email field blank',
+        });
+      }
+      //update
+      const u = await userService.findByIdAndUpdate(
+        list._id,
+        name,
+        list.password,
+        email
+      );
     }
-  
+  }
+
   return res.redirect('/account/profile');
 });
 

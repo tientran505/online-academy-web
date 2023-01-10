@@ -1,0 +1,87 @@
+{{#section 'css'}}
+  <link
+    rel='stylesheet'
+    href='https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css'
+  />
+{{/section}}
+
+{{#section 'js'}}
+  <script
+    src='https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js'
+  ></script>
+
+  <script>
+    $('#frmRegister').on('submit', (e) => { 
+      e.preventDefault(); 
+  
+      const otp = $('#txtOtp').val();
+      let isValidForm = true;
+
+      const email = $('#txtEmail').val();
+      
+      $('#txtOtp').addClass('is-valid');
+      if (otp.length === 0) {
+        $('#txtOtp').removeClass('is-valid').addClass('is-invalid');
+        $('#otp').text('Please enter OTP');  
+        isValidForm = false;
+      }
+
+      if (isValidForm) { 
+        $.getJSON('/account/valid-otp?email=' + email  + '&otp=' + otp, (data) => {
+          if (!data.isValid) {
+            if (!data.userExist) {
+              $('#txtOtp').removeClass('is-valid').addClass('is-invalid');
+              $('#otp').text('Invalid OTP. Please try again!'); 
+            }
+          } 
+          else {
+           $('#frmRegister').off('submit').submit();
+          }
+        })
+      }  
+    }); 
+  </script>
+
+{{/section}}
+
+<div class='card mt-5' style='width: 50%; margin:auto'>
+  <h5 class='card-header text-center'>
+    OTP Verification
+  </h5>
+  <div class='card-body'>
+    <form method='post' id='frmRegister'>
+      <h5 class='p0'>Please check your email.</h5>
+      <div class='form-group'>
+        <label for='txtUsername'>Email</label>
+        <input
+          type='text'
+          class='form-control'
+          name='email'
+          aria-describedby='usernameFeedback'
+          readonly
+          id="txtEmail"
+          value='{{user.email}}'
+        />
+      </div>
+
+      <div class='form-group'>
+        <label for='txtPassword'>OTP</label>
+        <input
+          type='text'
+          class='form-control'
+          placeholder='Enter your received 6-digits OTP'
+          id='txtOtp'
+          aria-describedby='otp'
+          name='otpVal'
+        />
+        <div id='otp' class='invalid-feedback ml-1'>
+        </div>
+      </div>
+
+      <div class="d-flex">
+        <button type='submit' class='btn btn-primary mr-4'>Verify</button>
+        <a href="" class="align-self-center">Didn't received? Send again</a>
+      </div>
+    </form>
+  </div>
+</div>
