@@ -24,6 +24,7 @@ import { log } from 'console';
 import userModel from './utils/models/user.model.js';
 import adminCourseRoute from './routes/admin.course.route.js';
 import activate_error_handlers from './mdw/error.mdw.js';
+import adminRegisterRoute from './routes/admin.register.route.js'
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -58,18 +59,6 @@ app.engine(
             },
             noteq: function (l, r) {
               return l != r;
-            },
-            gt: function (l, r) {
-              return Number(l) > Number(r);
-            },
-            or: function (l, r) {
-              return l || r;
-            },
-            and: function (l, r) {
-              return l && r;
-            },
-            '%': function (l, r) {
-              return l % r === 0;
             },
           },
           result = operators[operator](op1, op2);
@@ -182,6 +171,8 @@ app.use('/course', courseTeacherRouter);
 app.use('/admin/user', adminRoute);
 app.use('/admin/category', categoryRoute);
 app.use('/admin/course', adminCourseRoute);
+app.use('/admin/register', adminRegisterRoute)
+
 activate_error_handlers(app);
 app.listen(3000);
 

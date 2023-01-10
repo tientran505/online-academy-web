@@ -1,23 +1,23 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const dType = mongoose.Schema.Types;
 
-const categorySchema = mongoose.Schema(
+const otpSchema = mongoose.Schema(
   {
-    code: {
+    email: {
       type: String,
       require: true,
     },
 
-    user: {
-      type: dType.ObjectId,
+    code: {
+      type: String,
       require: true,
-      ref: 'User',
-    },
+    }
+
   },
   {
     collection: 'otp_emails',
   }
 );
 
-export default mongoose.model('Category', categorySchema);
+export default mongoose.model('Otp', otpSchema);
