@@ -257,13 +257,14 @@ referrerpolicy="no-referrer">
       <div class="p-0 m-4">
         <h2 class="text-left font-weight-bold">Bài giảng</h2>
       </div>
+        {{#each section}}
       <div id="accordion" class="myaccordion mw-100" style="margin: 0 200px;">
         <div class="card border-0">
           <div class="card-header border-0" style="background-color: transparent;" id="headingOne">
             <h2 class="mb-0">
               <button class="d-flex align-items-center justify-content-between btn btn-link collapsed w-100 font-weight-bold p-0 text-decoration-none" data-toggle="collapse" data-target="#collapseOne"
                 onclick="getTimeOfVideo()" aria-expanded="false" aria-controls="collapseOne">
-                Undergraduate Studies
+               {{title}}
                 <span class="fa-stack fa-sm" style="font-size: 18px;">
                   <i class="fa fa-plus" aria-hidden="true"></i>
                 </span>
@@ -271,14 +272,16 @@ referrerpolicy="no-referrer">
             </h2>
           </div>
           <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
+              {{#each lectures}}  <div class="card-body">
               <ul class="p-3">
                 <div>
+
                   <button type="button" class="btn btn-outline-primary border-0 w-100" data-toggle="modal" data-target="#exampleModalCenter">
                     <div class="d-flex justify-content-between">
                       <div>
                         <i class="bi bi-play-circle"></i>
-                        <span>Chapter 1: Javascript</span>
+
+                        <span>{{title}}</span>
                       </div>
                       <div>
                         <span id="timeOfVid"></span>
@@ -299,7 +302,7 @@ referrerpolicy="no-referrer">
                         <div class="modal-body">
                           <div class="video embed-responsive embed-responsive-16by9">
                             <video controls id="video">
-                              <source src="/public/imgs/01_20127027_20127355_20127468.mp4" type="video/mp4">
+                              <source src="{{url}}" type="video/mp4">
                             </video>
                           </div>
                         </div>
@@ -309,115 +312,12 @@ referrerpolicy="no-referrer">
                 </div>
               </ul>
             </div>
+              {{/each}}
           </div>
         </div>
-        <div class="card border-0">
-            <div class="card-header border-0" style="background-color: transparent;" id="headingTwo">
-              <h2 class="mb-0">
-                <button class="d-flex align-items-center justify-content-between btn btn-link collapsed w-100 font-weight-bold p-0 text-decoration-none" data-toggle="collapse" data-target="#collapseTwo"
-                  onclick="getTimeOfVideo()" aria-expanded="false" aria-controls="collapseTwo">
-                  Undergraduate Studies
-                  <span class="fa-stack fa-sm" style="font-size: 18px;">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                  </span>
-                </button>
-              </h2>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-              <div class="card-body">
-                <ul class="p-3">
-                  <div>
-                    <button type="button" class="btn btn-outline-primary border-0 w-100" data-toggle="modal" data-target="#exampleModalCenter">
-                      <div class="d-flex justify-content-between">
-                        <div>
-                          <i class="bi bi-play-circle"></i>
-                          <span>Chapter 1: Javascript</span>
-                        </div>
-                        <div>
-                          <span id="timeOfVid"></span>
-                        </div>
-                      </div>
-                    </button>
-                    
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                      <div class="modal-dialog modal-lg modal-dialog-centered">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                            <button type="button" class="close" onclick="pauseVid()" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="video embed-responsive embed-responsive-16by9">
-                              <video controls id="video">
-                                <source src="/public/imgs/01_20127027_20127355_20127468.mp4" type="video/mp4">
-                              </video>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ul>
-              </div>
-            </div>
-        </div>
-        <div class="card border-0">
-            <div class="card-header border-0" style="background-color: transparent;" id="headingThree">
-              <h2 class="mb-0">
-                <button class="d-flex align-items-center justify-content-between btn btn-link collapsed w-100 font-weight-bold p-0 text-decoration-none" data-toggle="collapse" data-target="#collapseThree"
-                  onclick="getTimeOfVideo()" aria-expanded="false" aria-controls="collapseThree">
-                  Undergraduate Studies
-                  <span class="fa-stack fa-sm" style="font-size: 18px;">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                  </span>
-                </button>
-              </h2>
-            </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-              <div class="card-body">
-                <ul class="p-3">
-                  <div>
-                    <button type="button" class="btn btn-outline-primary border-0 w-100" data-toggle="modal" data-target="#exampleModalCenter">
-                      <div class="d-flex justify-content-between">
-                        <div>
-                          <i class="bi bi-play-circle"></i>
-                          <span>Chapter 1: Javascript</span>
-                        </div>
-                        <div>
-                          <span id="timeOfVid"></span>
-                        </div>
-                      </div>
-                    </button>
-                    
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                      <div class="modal-dialog modal-lg modal-dialog-centered">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                            <button type="button" class="close" onclick="pauseVid()" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="video embed-responsive embed-responsive-16by9">
-                              <video controls id="video">
-                                <source src="/public/imgs/01_20127027_20127355_20127468.mp4" type="video/mp4">
-                              </video>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ul>
-              </div>
-            </div>
-        </div>
+
       </div>
+        {{/each}}
     </div>
     <hr width="85%" align="center">
     <div class="card-teacher">

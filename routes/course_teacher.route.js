@@ -150,6 +150,7 @@ router.post('/editCourse/:id', authWithRequiredPermission(1), async (req, res) =
     });
   });
 router.get('/viewSectionLecture/:id', authWithRequiredPermission(1), async (req, res) => {
+
   const course_id = req.params.id || '';
   const p = await CourseService.loadSectionLecture(course_id);
  const a = await Course.findOne({_id:course_id});

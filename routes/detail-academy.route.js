@@ -134,6 +134,7 @@ router.get('/:id', async (req, res) => {
     num: s1,
     percentage: Math.floor((s1 * 100) / total),
   };
+  const section = await courseService.loadSectionLecture(id);
 
   res.render('vwDetail/detail-academy', {
     course: list[0],
@@ -148,6 +149,7 @@ router.get('/:id', async (req, res) => {
     oStar,
     total,
     avg,
+    section,
     pageNumber,
     prePage,
     nextPage,
