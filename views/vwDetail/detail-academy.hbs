@@ -257,22 +257,23 @@ referrerpolicy="no-referrer">
       <div class="p-0 m-4">
         <h2 class="text-left font-weight-bold">Bài giảng</h2>
       </div>
-        {{#each section}}
       <div id="accordion" class="myaccordion mw-100" style="margin: 0 200px;">
+      {{#each section}}
+        {{#each lectures}}  
         <div class="card border-0">
-          <div class="card-header border-0" style="background-color: transparent;" id="headingOne">
+          <div class="card-header border-0" style="background-color: transparent;" id="heading{{index}}">
             <h2 class="mb-0">
-              <button class="d-flex align-items-center justify-content-between btn btn-link collapsed w-100 font-weight-bold p-0 text-decoration-none" data-toggle="collapse" data-target="#collapseOne"
-                onclick="getTimeOfVideo()" aria-expanded="false" aria-controls="collapseOne">
-               {{title}}
+              <button class="d-flex align-items-center justify-content-between btn btn-link collapsed w-100 font-weight-bold p-0 text-decoration-none" data-toggle="collapse" data-target="#collapse{{index}}"
+                onclick="getTimeOfVideo()" aria-expanded="false" aria-controls="collapse{{index}}">
+               {{../title}}
                 <span class="fa-stack fa-sm" style="font-size: 18px;">
                   <i class="fa fa-plus" aria-hidden="true"></i>
                 </span>
               </button>
             </h2>
           </div>
-          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-              {{#each lectures}}  <div class="card-body">
+          <div id="collapse{{index}}" class="collapse" aria-labelledby="heading{{index}}" data-parent="#accordion">
+              <div class="card-body">
               <ul class="p-3">
                 <div>
 
@@ -312,12 +313,11 @@ referrerpolicy="no-referrer">
                 </div>
               </ul>
             </div>
-              {{/each}}
           </div>
         </div>
-
-      </div>
         {{/each}}
+      {{/each}}
+      </div>
     </div>
     <hr width="85%" align="center">
     <div class="card-teacher">
