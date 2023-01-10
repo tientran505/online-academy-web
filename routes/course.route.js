@@ -163,17 +163,25 @@ router.post('/search', async (req, res) => {
 });
 
 router.get('/search', async (req, res) => {
-  const { q, select } = req.query;
+  const { q, select,page } = req.query;
 
   const list = JSON.parse(
     JSON.stringify(
       await courseModel.find({ $text: { $search: q } }).populate('author')
     )
   );
+  let path;
+  if(select){
+    path = '/course/search?q='+q+'&select='+select+'&';
+  }
+  else{
+     path = '/course/search?q='+q+'&';
+  }
+  console.log(path);
   const total = list.length;
-
+  const curPage = page || 1;
+  console.log(curPage);
   const limit = 6;
-  const curPage = req.query.page || 1;
   const offset = (curPage - 1) * limit;
   const nPage = Math.ceil(total / limit);
   const pageNumber = [];
@@ -202,16 +210,16 @@ router.get('/search', async (req, res) => {
   } else {
     nextPage = +curPage + 1;
   }
-
-
   return res.render('vwCourse/search', {
     list2,
     numOfResult: list.length,
     text: q,
+    select: select,
     pageNumber: pageNumber,
     empty: list.length === 0,
     prePage: prePage,
     nextPage: nextPage,
+    path: path,
   });
 });
 
